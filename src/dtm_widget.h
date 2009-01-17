@@ -3,7 +3,7 @@
 
 #include <QGLWidget>
 
-class Camera;
+#include "camera.h"
 
 class DTMWidget: public QGLWidget {
   Q_OBJECT
@@ -17,11 +17,13 @@ class DTMWidget: public QGLWidget {
     void paintGL();
 
     void mouseMoveEvent(QMouseEvent *e);
+    void mouseReleaseEvent(QMouseEvent *e);
     void mousePressEvent(QMouseEvent *e);
     void wheelEvent(QWheelEvent *e);
     void keyPressEvent(QKeyEvent *e);
 
-    Camera* c;
+  private:
+    Camera c;
 };
 
 #endif
