@@ -2,7 +2,7 @@
 
 #include <QtGui>
 
-DTMWidget::DTMWidget(QWidget *parent):
+DTMWidget::DTMWidget(QWidget* parent):
   QGLWidget(parent),
   current(0),
   last(0) {
@@ -13,6 +13,9 @@ DTMWidget::DTMWidget(QWidget *parent):
   t.setSingleShot(true);
   connect(&t, SIGNAL(timeout()), this, SLOT(update()));
   t.start();
+
+  dtm.load("data/test.grd");
+  dtm.test();
 }
 
 void DTMWidget::initializeGL() {
@@ -34,75 +37,80 @@ void DTMWidget::paintGL() {
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 
-  c.look();
+  camera.look();
 
-  //drawPyramide();
-  //drawDTM();
+  dtm.draw();
 
-  glBegin(GL_TRIANGLE_FAN);
-  glColor3f(0, 0, 1);
-  glVertex3f(0, 1, 0);
-  glVertex3f(0.5, 0, -0.5);
-  glVertex3f(-0.5, 0, -0.5);
-  glEnd();
+  //glBegin(GL_TRIANGLES);
+  //glColor3f(1, 1, 1);
+  //glVertex3f(0, 0, 0.1);
+  //glVertex3f(0, 1, 0.1);
+  //glVertex3f(1, 0, 0.4);
+  //glEnd();
 
-  glBegin(GL_TRIANGLE_FAN);
-  glColor3f(0, 1, 0);
-  glVertex3f(0, 1, 0);
-  glVertex3f(-0.5, 0, -0.5);
-  glVertex3f(-0.5, 0, 0.5);
-  glEnd();
+  //glBegin(GL_TRIANGLE_FAN);
+  //glColor3f(0, 0, 1);
+  //glVertex3f(0, 1, 0);
+  //glVertex3f(0.5, 0, -0.5);
+  //glVertex3f(-0.5, 0, -0.5);
+  //glEnd();
 
-  glBegin(GL_TRIANGLE_FAN);
-  glColor3f(0, 1, 1);
-  glVertex3f(0, 1, 0);
-  glVertex3f(-0.5, 0, 0.5);
-  glVertex3f(0.5, 0, 0.5);
-  glEnd();
+  //glBegin(GL_TRIANGLE_FAN);
+  //glColor3f(0, 1, 0);
+  //glVertex3f(0, 1, 0);
+  //glVertex3f(-0.5, 0, -0.5);
+  //glVertex3f(-0.5, 0, 0.5);
+  //glEnd();
 
-  glBegin(GL_TRIANGLE_FAN);
-  glColor3f(1, 0, 0);
-  glVertex3f(0, 1, 0);
-  glVertex3f(0.5, 0, 0.5);
-  glVertex3f(0.5, 0, -0.5);
-  glEnd();
+  //glBegin(GL_TRIANGLE_FAN);
+  //glColor3f(0, 1, 1);
+  //glVertex3f(0, 1, 0);
+  //glVertex3f(-0.5, 0, 0.5);
+  //glVertex3f(0.5, 0, 0.5);
+  //glEnd();
 
+  //glBegin(GL_TRIANGLE_FAN);
+  //glColor3f(1, 0, 0);
+  //glVertex3f(0, 1, 0);
+  //glVertex3f(0.5, 0, 0.5);
+  //glVertex3f(0.5, 0, -0.5);
+  //glEnd();
 }
 
-void DTMWidget::mouseMoveEvent(QMouseEvent *e) {
+void DTMWidget::mouseMoveEvent(QMouseEvent* e) {
   if(e->buttons() == Qt::LeftButton) {
     QCursor::setPos(QPoint(mapToGlobal(QPoint(width()/2, height()/2))));
 
     int relx = e->globalX() - QCursor::pos().x();
     int rely = e->globalY() - QCursor::pos().y();
 
-    c.mouseMove(relx, rely);
+    camera.mouseMove(relx, rely);
   }
 }
 
-void DTMWidget::mousePressEvent(QMouseEvent *e) {
+void DTMWidget::mousePressEvent(QMouseEvent* e) {
   if(e->button() == Qt::LeftButton) {
     setCursor(QCursor(Qt::BlankCursor));
     QCursor::setPos(QPoint(mapToGlobal(QPoint(width()/2, height()/2))));
   }
 }
 
-void DTMWidget::mouseReleaseEvent(QMouseEvent *e) {
+void DTMWidget::mouseReleaseEvent(QMouseEvent* e) {
   if(e->button() == Qt::LeftButton)
     setCursor(QCursor(Qt::ArrowCursor));
 }
 
-void DTMWidget::wheelEvent(QWheelEvent *e) {
+void DTMWidget::wheelEvent(QWheelEvent* e) {
   if(e->orientation() == Qt::Vertical)
-    c.wheel(e->delta() > 0);
+    camera.wheel(e->delta() > 0);
 }
 
-void DTMWidget::keyPressEvent(QKeyEvent *e) {
-  c.keyPress(e->key(), true);
+void DTMWidget::keyPressEvent(QKeyEvent* e) {
+  camera.keyPress(e->key(), true);
 }
 
-void DTMWidget::keyReleaseEvent(QKeyEvent *e) {
-  c.keyPress(e->key(), false);
+void DTMWidget::keyReleaseEvent(QKeyEvent* e) {
+  camera.keyPress(e->key(), false);
 }
 
 void DTMWidget::update() {
@@ -113,7 +121,7 @@ void DTMWidget::update() {
   QTime ti;
   ti.start();
 
-  c.animate(elapsed);
+  camera.animate(elapsed);
   updateGL();
 
   int stop = current + ti.elapsed();

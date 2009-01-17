@@ -8,47 +8,47 @@ Point3d::Point3d(const float x, const float y, const float z):
   m_z(z) {
 }
 
-Point3d& Point3d::operator+= (const Point3d& p) {
+Point3d& Point3d::operator+=(const Point3d& p) {
   m_x += p.x();
   m_y += p.y();
   m_z += p.z();
   return *this;
 }
 
-Point3d Point3d::operator+ (const Point3d& p) const {
+Point3d Point3d::operator+(const Point3d& p) const {
   return Point3d(*this) += p;
 }
 
-Point3d& Point3d::operator-= (const Point3d& p) {
+Point3d& Point3d::operator-=(const Point3d& p) {
   m_x -= p.x();
   m_y -= p.y();
   m_z -= p.z();
   return *this;
 }
 
-Point3d Point3d::operator- (const Point3d& p) const {
+Point3d Point3d::operator-(const Point3d& p) const {
   return Point3d(*this) -= p;
 }
 
-Point3d& Point3d::operator*= (const float f) {
+Point3d& Point3d::operator*=(const float f) {
   m_x *= f;
   m_y *= f;
   m_z *= f;
   return *this;
 }
 
-Point3d Point3d::operator* (const float f) const {
+Point3d Point3d::operator*(const float f) const {
   return Point3d(*this) *= f;
 }
 
-Point3d& Point3d::operator/= (const float f) {
+Point3d& Point3d::operator/=(const float f) {
   m_x /= f;
   m_y /= f;
   m_z /= f;
   return *this;
 }
 
-Point3d Point3d::operator/ (const float f) const {
+Point3d Point3d::operator/(const float f) const {
     return Point3d(*this) /= f;
 }
 
