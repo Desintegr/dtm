@@ -1,18 +1,19 @@
 #include "camera.h"
 
 #include <cmath>
+
 #include <QtGui>
+#include <QtOpenGL>
 
 Camera::Camera():
   m_phi(0),
-  m_theta(0) {
+  m_theta(0),
+  m_wheelactive(false) {
 }
 
 void Camera::mouseMove(const int x, const int y) {
-  m_theta += x * MOUSESENS;
-  m_phi += y * MOUSESENS;
-
-  const Point3d up(0,0,1);
+  m_theta -= x * SENSITIVITY;
+  m_phi -= y * SENSITIVITY;
 
   if(m_phi > 89)
     m_phi = 89;
@@ -24,45 +25,47 @@ void Camera::mouseMove(const int x, const int y) {
   m_forward.setX(r_tmp * cos(m_theta * PI/180));
   m_forward.setY(r_tmp * sin(m_theta * PI/180));
 
+  const Point3d up(0,0,1);
   m_left = up.cross(m_forward);
   m_left.normalize();
 
-  update();
+  m_target = m_position + m_forward;
 }
 
-void Camera::keyPress(const int key) {
-  switch(key) {
-    case Qt::Key_Z:
-      m_position += m_forward * KEYSENS;
-      break;
-    case Qt::Key_S:
-      m_position -= m_forward * KEYSENS;
-      break;
-    case Qt::Key_Q:
-      m_position += m_left * KEYSENS;
-      break;
-    case Qt::Key_D:
-      m_position -= m_left * KEYSENS;
-      break;
+void Camera::keyPress(const int key, const bool state) {
+  m_keystates[key] = state;
+}
+
+void Camera::wheel(const bool dir) {
+  m_wheelactive = true;
+  m_wheeltime = WHEELTIME;
+  m_wheeldir = (dir ? 1 : -1);
+}
+
+void Camera::look() const {
+  gluLookAt(m_position.x(), m_position.y(), m_position.z(),
+            m_target.x(), m_target.y(), m_target.z(),
+            0, 0, 1);
+}
+
+void Camera::animate(const int step) {
+  if(m_keystates[Qt::Key_Z])
+    m_position += m_forward * (SPEED * step);
+  if(m_keystates[Qt::Key_S])
+    m_position -= m_forward * (SPEED * step);
+  if(m_keystates[Qt::Key_Q])
+    m_position += m_left * (SPEED * step);
+  if(m_keystates[Qt::Key_D])
+    m_position -= m_left * (SPEED * step);
+
+  if(m_wheelactive) {
+    if (step > m_wheeltime)
+      m_wheelactive = false;
+    else
+      m_wheeltime -= step;
+
+    m_position += Point3d(0,0,m_wheeldir * SPEED * step);
   }
 
-  update();
-}
-  
-void Camera::wheelUp() {
-  const Point3d up(0,0,1);
-  m_position += up * KEYSENS;
-
-  update();
-}
-
-void Camera::wheelDown() {
-  const Point3d up(0,0,1);
-  m_position -= up * KEYSENS;
-
-  update();
-}
-
-void Camera::update() {
   m_target = m_position + m_forward;
 }

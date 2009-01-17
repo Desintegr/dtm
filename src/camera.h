@@ -1,14 +1,17 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include <QHash>
+
 #include "point3d.h"
 
 class Camera {
 
   private:
-    static const double PI = 3.14159265358979323846264338327950288419717;
-    static const double MOUSESENS = 0.2;
-    static const double KEYSENS = 0.1;
+    static const float PI = 3.1415926535;
+    static const float SENSITIVITY = 0.2;
+    static const float SPEED = 0.002;
+    static const int WHEELTIME = 100;
 
   private:
     Point3d m_position;
@@ -16,26 +19,24 @@ class Camera {
     Point3d m_forward;
     Point3d m_left;
 
-    double m_phi;
-    double m_theta;
+    float m_phi;
+    float m_theta;
+
+    QHash<const int, bool> m_keystates;
+
+    bool m_wheelactive;
+    int m_wheeltime;
+    int m_wheeldir;
 
   public:
     Camera();
 
-    inline const Point3d& position() const {
-      return m_position;
-    }
-    inline const Point3d& target() const {
-      return m_target;
-    }
-
     void mouseMove(const int x, const int y);
-    void keyPress(const int key);
-    void wheelUp();
-    void wheelDown();
+    void keyPress(const int key, const bool state);
+    void wheel(const bool dir);
 
-  private:
-    void update();
+    void look() const;
+    void animate(int step);
 
 };
 

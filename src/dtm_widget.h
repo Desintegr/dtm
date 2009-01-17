@@ -2,11 +2,15 @@
 #define DTM_WIDGET_H
 
 #include <QGLWidget>
+#include <QTimer>
 
 #include "camera.h"
 
 class DTMWidget: public QGLWidget {
   Q_OBJECT
+
+  private:
+    static const int FPS = 60;
 
   public:
     DTMWidget(QWidget *parent=0);
@@ -21,9 +25,17 @@ class DTMWidget: public QGLWidget {
     void mousePressEvent(QMouseEvent *e);
     void wheelEvent(QWheelEvent *e);
     void keyPressEvent(QKeyEvent *e);
+    void keyReleaseEvent(QKeyEvent *e);
 
   private:
     Camera c;
+
+    QTimer t;
+    int current;
+    int last;
+
+  private slots:
+    void update();
 };
 
 #endif

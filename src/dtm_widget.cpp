@@ -3,17 +3,23 @@
 #include <QtGui>
 
 DTMWidget::DTMWidget(QWidget *parent):
-  QGLWidget(parent) {
+  QGLWidget(parent),
+  current(0),
+  last(0) {
   resize(800, 600);
+  setAutoBufferSwap(true);
+
+  t.setInterval(1000/FPS);
+  t.setSingleShot(true);
+  connect(&t, SIGNAL(timeout()), this, SLOT(update()));
+  t.start();
 }
 
 void DTMWidget::initializeGL() {
   glEnable(GL_DEPTH_TEST);
+
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-
-  GLint viewport[4];
-  glGetIntegerv(GL_VIEWPORT, viewport);
 }
 
 void DTMWidget::resizeGL(const int w, const int h) {
@@ -28,9 +34,7 @@ void DTMWidget::paintGL() {
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 
-  gluLookAt(c.position().x(), c.position().y(), c.position().z(),
-            c.target().x(), c.target().y(), c.target().z(),
-            0, 0, 1);
+  c.look();
 
   //drawPyramide();
   //drawDTM();
@@ -69,11 +73,10 @@ void DTMWidget::mouseMoveEvent(QMouseEvent *e) {
   if(e->buttons() == Qt::LeftButton) {
     QCursor::setPos(QPoint(mapToGlobal(QPoint(width()/2, height()/2))));
 
-    int relx = QCursor::pos().x() - e->globalX();
-    int rely = QCursor::pos().y() - e->globalY();
+    int relx = e->globalX() - QCursor::pos().x();
+    int rely = e->globalY() - QCursor::pos().y();
 
     c.mouseMove(relx, rely);
-    updateGL();
   }
 }
 
@@ -90,15 +93,34 @@ void DTMWidget::mouseReleaseEvent(QMouseEvent *e) {
 }
 
 void DTMWidget::wheelEvent(QWheelEvent *e) {
-  if(e->orientation() == Qt::Vertical && e->delta() > 0) 
-    c.wheelUp();
-  else if(e->orientation() == Qt::Vertical && e->delta() < 0) 
-    c.wheelDown();
-
-  updateGL();
+  if(e->orientation() == Qt::Vertical)
+    c.wheel(e->delta() > 0);
 }
 
 void DTMWidget::keyPressEvent(QKeyEvent *e) {
-  c.keyPress(e->key());
+  c.keyPress(e->key(), true);
+}
+
+void DTMWidget::keyReleaseEvent(QKeyEvent *e) {
+  c.keyPress(e->key(), false);
+}
+
+void DTMWidget::update() {
+  current += t.interval();
+  int elapsed = current - last;
+  last = current;
+
+  QTime ti;
+  ti.start();
+
+  c.animate(elapsed);
   updateGL();
+
+  int stop = current + ti.elapsed();
+  if ((stop - last) < 1000/FPS)
+    t.setInterval(1000/FPS - (stop - last));
+  else
+    t.setInterval(0);
+
+  t.start();
 }

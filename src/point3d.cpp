@@ -1,13 +1,12 @@
-#include <cmath>
-
 #include "point3d.h"
+
+#include <cmath>
 
 Point3d::Point3d(const float x, const float y, const float z):
   m_x(x),
   m_y(y),
   m_z(z) {
 }
-
 
 Point3d& Point3d::operator+= (const Point3d& p) {
   m_x += p.x();
@@ -39,7 +38,7 @@ Point3d& Point3d::operator*= (const float f) {
 }
 
 Point3d Point3d::operator* (const float f) const {
-    return Point3d(*this) *= f;
+  return Point3d(*this) *= f;
 }
 
 Point3d& Point3d::operator/= (const float f) {
@@ -60,6 +59,6 @@ Point3d Point3d::cross(const Point3d& p) const {
 }
 
 Point3d Point3d::normalize() const {
-  float r = 1. / sqrt(m_x * m_x + m_y * m_y + m_z * m_z);
+  const float r = 1. / sqrt(m_x * m_x + m_y * m_y + m_z * m_z);
   return Point3d(m_x * r, m_y * r, m_z * r);
 }
