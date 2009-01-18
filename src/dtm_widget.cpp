@@ -18,7 +18,6 @@ DTMWidget::DTMWidget(QWidget* parent):
 
   dtm.load("data/grd_618000_6755000_2.grd");
   //dtm.load("data/test.grd");
-  dtm.test();
 }
 
 void DTMWidget::initializeGL() {
@@ -45,41 +44,6 @@ void DTMWidget::paintGL() {
   camera.look();
 
   dtm.draw();
-
-  //glBegin(GL_TRIANGLES);
-  //glColor3f(1, 1, 1);
-  //glVertex3f(0, 0, 0.1);
-  //glVertex3f(0, 1, 0.1);
-  //glVertex3f(1, 0, 0.4);
-  //glEnd();
-
-  //glBegin(GL_TRIANGLE_FAN);
-  //glColor3f(0, 0, 1);
-  //glVertex3f(0, 1, 0);
-  //glVertex3f(0.5, 0, -0.5);
-  //glVertex3f(-0.5, 0, -0.5);
-  //glEnd();
-
-  //glBegin(GL_TRIANGLE_FAN);
-  //glColor3f(0, 1, 0);
-  //glVertex3f(0, 1, 0);
-  //glVertex3f(-0.5, 0, -0.5);
-  //glVertex3f(-0.5, 0, 0.5);
-  //glEnd();
-
-  //glBegin(GL_TRIANGLE_FAN);
-  //glColor3f(0, 1, 1);
-  //glVertex3f(0, 1, 0);
-  //glVertex3f(-0.5, 0, 0.5);
-  //glVertex3f(0.5, 0, 0.5);
-  //glEnd();
-
-  //glBegin(GL_TRIANGLE_FAN);
-  //glColor3f(1, 0, 0);
-  //glVertex3f(0, 1, 0);
-  //glVertex3f(0.5, 0, 0.5);
-  //glVertex3f(0.5, 0, -0.5);
-  //glEnd();
 }
 
 void DTMWidget::mouseMoveEvent(QMouseEvent* e) {

@@ -11,7 +11,7 @@ class DTM {
     uint m_xllcorner;
     uint m_yllcorner;
     uint m_cellsize;
-    int m_nodata;
+    float m_nodata;
 
     uint m_nvertices;
     float* m_vertices;
@@ -30,11 +30,8 @@ class DTM {
     ~DTM();
 
     void load(QString filename);
-
-    void draw() const;
-
-    void test();
     void initVBO();
+    void draw() const;
 
 };
 
