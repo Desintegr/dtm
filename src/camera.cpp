@@ -75,7 +75,7 @@ void Camera::animate(const uint step) {
 
   // position
 
-  double realspeed = (m_keystates[Qt::Key_Shift]?10*SPEED:SPEED);
+  const float realspeed = (m_keystates[Qt::Key_Shift]?10*SPEED:SPEED);
 
   if(m_keystates[Qt::Key_Z])
     m_position += m_forward * (realspeed * step);

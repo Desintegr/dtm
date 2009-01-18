@@ -40,7 +40,7 @@ void MainWindow::loadScene() {
                                                   tr("DTM files (*.grd)"));
 
   if(!fileName.isEmpty()) {
-    scene = new OpenGLScene(fileName);
+    scene = new OpenGLScene(fileName, this);
     setCentralWidget(scene);
 
     closeSceneAction->setEnabled(true);
@@ -50,6 +50,7 @@ void MainWindow::loadScene() {
 void MainWindow::closeScene() {
   if(scene) {
     scene->close();
+    delete scene;
     closeSceneAction->setDisabled(true);
   }
 }
