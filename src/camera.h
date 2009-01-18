@@ -10,8 +10,9 @@ class Camera {
   private:
     static const float PI = 3.1415926535;
     static const float SENSITIVITY = 0.2;
-    static const float SPEED = 0.002;
-    static const int WHEELTIME = 100;
+    static const float SPEED = 0.01;
+    static const uint BOOST = 10;
+    static const uint WHEELTIME = 250;
 
   private:
     Point3d m_position;
@@ -36,7 +37,7 @@ class Camera {
     void wheel(const bool dir);
 
     void look() const;
-    void animate(int step);
+    void animate(const uint step);
 
 };
 

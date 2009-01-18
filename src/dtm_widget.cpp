@@ -9,11 +9,14 @@ DTMWidget::DTMWidget(QWidget* parent):
   resize(800, 600);
   setAutoBufferSwap(true);
 
-  t.setInterval(1000/FPS);
-  t.setSingleShot(true);
-  connect(&t, SIGNAL(timeout()), this, SLOT(update()));
-  t.start();
+  refresh.setInterval(1000/FPS);
+  refresh.setSingleShot(true);
+  connect(&refresh, SIGNAL(timeout()), this, SLOT(update()));
+  refresh.start();
 
+  ticks.start();
+
+  //dtm.load("data/grd_618000_6755000_2.grd");
   dtm.load("data/test.grd");
   dtm.test();
 }
@@ -114,8 +117,8 @@ void DTMWidget::keyReleaseEvent(QKeyEvent* e) {
 }
 
 void DTMWidget::update() {
-  current += t.interval();
-  int elapsed = current - last;
+  current += ticks.restart();
+  const uint elapsed = current - last;
   last = current;
 
   QTime ti;
@@ -124,11 +127,11 @@ void DTMWidget::update() {
   camera.animate(elapsed);
   updateGL();
 
-  int stop = current + ti.elapsed();
+  const uint stop = current + ti.elapsed();
   if ((stop - last) < 1000/FPS)
-    t.setInterval(1000/FPS - (stop - last));
+    refresh.setInterval(1000/FPS - (stop - last));
   else
-    t.setInterval(0);
+    refresh.setInterval(0);
 
-  t.start();
+  refresh.start();
 }

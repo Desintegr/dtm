@@ -32,9 +32,10 @@ class DTMWidget: public QGLWidget {
     Camera camera;
     DTM dtm;
 
-    QTimer t;
-    int current;
-    int last;
+    QTimer refresh;
+    QTime ticks;
+    uint current;
+    uint last;
 
   private slots:
     void update();

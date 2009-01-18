@@ -48,15 +48,17 @@ void Camera::look() const {
             0, 0, 1);
 }
 
-void Camera::animate(const int step) {
+void Camera::animate(const uint step) {
+  double realspeed = (m_keystates[Qt::Key_Shift]?10*SPEED:SPEED);
+
   if(m_keystates[Qt::Key_Z])
-    m_position += m_forward * (SPEED * step);
+    m_position += m_forward * (realspeed * step);
   if(m_keystates[Qt::Key_S])
-    m_position -= m_forward * (SPEED * step);
+    m_position -= m_forward * (realspeed * step);
   if(m_keystates[Qt::Key_Q])
-    m_position += m_left * (SPEED * step);
+    m_position += m_left * (realspeed * step);
   if(m_keystates[Qt::Key_D])
-    m_position -= m_left * (SPEED * step);
+    m_position -= m_left * (realspeed * step);
 
   if(m_wheelactive) {
     if (step > m_wheeltime)
@@ -64,7 +66,7 @@ void Camera::animate(const int step) {
     else
       m_wheeltime -= step;
 
-    m_position += Point3d(0,0,m_wheeldir * SPEED * step);
+    m_position += Point3d(0,0,m_wheeldir * realspeed * step);
   }
 
   m_target = m_position + m_forward;

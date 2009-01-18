@@ -27,14 +27,14 @@ void DTM::load(QString filename) {
   in >> null; in >> m_cellsize;
   in >> null; in >> m_nodata;
 
+  int k;
+
   m_nvertices = m_nrows*m_ncols;
   m_vertices = new float[3*m_nvertices];
 
-  int k;
-  
   k = 0;
-  for(int i=0; i<m_nrows; i++)
-    for(int j=0; j<m_ncols; j++) {
+  for(uint i=0; i<m_nrows; i++)
+    for(uint j=0; j<m_ncols; j++) {
       m_vertices[k] = i;
       m_vertices[k+1] = j;
       in >> m_vertices[k+2];
@@ -45,8 +45,8 @@ void DTM::load(QString filename) {
   m_indexes = new GLuint[3*m_nindexes];
 
   k = 0;
-  for(int i=0; i<m_nrows-1; i++)
-    for(int j=0; j<m_ncols-1; j++) {
+  for(uint i=0; i<m_nrows-1; i++)
+    for(uint j=0; j<m_ncols-1; j++) {
       m_indexes[k] = i*m_ncols+j;
       m_indexes[k+1] = (i+1)*m_ncols+j;
       m_indexes[k+2] = i*m_ncols+j+1;
@@ -81,7 +81,7 @@ void DTM::test() {
 
 }
 
-void DTM::draw() {
+void DTM::draw() const {
   glColor3f(1,1,1);
   glEnableClientState(GL_VERTEX_ARRAY);
   glPolygonMode(GL_FRONT,GL_LINE);

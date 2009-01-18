@@ -8,17 +8,17 @@
 class DTM {
 
   private:
-    int m_ncols;
-    int m_nrows;
-    int m_xllcorner;
-    int m_yllcorner;
-    int m_cellsize;
+    uint m_ncols;
+    uint m_nrows;
+    uint m_xllcorner;
+    uint m_yllcorner;
+    uint m_cellsize;
     int m_nodata;
 
-    int m_nvertices;
+    uint m_nvertices;
     float* m_vertices;
 
-    int m_nindexes;
+    uint m_nindexes;
     GLuint* m_indexes;
 
   public:
@@ -27,7 +27,7 @@ class DTM {
 
     void load(QString filename);
 
-    void draw();
+    void draw() const;
 
     void test();
 
