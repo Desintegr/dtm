@@ -26,7 +26,7 @@ class Camera {
     QHash<const int, bool> m_keystates;
 
     bool m_wheelactive;
-    int m_wheeltime;
+    uint m_wheeltime;
     int m_wheeldir;
 
   public:

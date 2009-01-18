@@ -2,6 +2,7 @@
 #define DTM_WIDGET_H
 
 #include <QGLWidget>
+#include <QTime>
 #include <QTimer>
 
 #include "camera.h"

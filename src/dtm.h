@@ -1,8 +1,6 @@
 #ifndef DTM_H
 #define DTM_H
 
-#include <QtOpenGL>
-
 #include <QString>
 
 class DTM {
@@ -19,7 +17,13 @@ class DTM {
     float* m_vertices;
 
     uint m_nindexes;
-    GLuint* m_indexes;
+    uint* m_indexes;
+
+    enum Buffers {
+      VERTICES,
+      INDEXES
+    };
+    uint m_buffers[2];
 
   public:
     DTM();
@@ -30,6 +34,7 @@ class DTM {
     void draw() const;
 
     void test();
+    void initVBO();
 
 };
 

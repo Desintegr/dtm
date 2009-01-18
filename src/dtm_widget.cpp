@@ -16,21 +16,23 @@ DTMWidget::DTMWidget(QWidget* parent):
 
   ticks.start();
 
-  //dtm.load("data/grd_618000_6755000_2.grd");
-  dtm.load("data/test.grd");
+  dtm.load("data/grd_618000_6755000_2.grd");
+  //dtm.load("data/test.grd");
   dtm.test();
 }
 
 void DTMWidget::initializeGL() {
   glEnable(GL_DEPTH_TEST);
 
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
+  dtm.initVBO();
 }
 
 void DTMWidget::resizeGL(const int w, const int h) {
   glViewport(0, 0, w, h);
-  gluPerspective(45, float(w/h), 0.001, 1000);
+
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  gluPerspective(45, float(w/h), 0.001, 10000);
 }
 
 void DTMWidget::paintGL() {

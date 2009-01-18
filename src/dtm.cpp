@@ -1,5 +1,8 @@
 #include "dtm.h"
 
+#define GL_GLEXT_PROTOTYPES
+
+#include <QtOpenGL>
 #include <QtCore>
 
 DTM::DTM() {
@@ -61,7 +64,19 @@ void DTM::load(QString filename) {
   file.close();
 }
 
-#include <QtDebug>
+void DTM::initVBO() {
+  glGenBuffers(2, m_buffers);
+
+  glBindBuffer(GL_ARRAY_BUFFER, m_buffers[VERTICES]);
+  glBufferData(GL_ARRAY_BUFFER, 3*m_nvertices*sizeof(float), m_vertices, GL_STATIC_DRAW);
+  glVertexPointer(3, GL_FLOAT, 0, 0);
+  glEnableClientState(GL_VERTEX_ARRAY);
+
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffers[INDEXES]);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3*m_nindexes*sizeof(uint), m_indexes, GL_STATIC_DRAW);
+}
+
+//#include <QtDebug>
 void DTM::test() {
   //qDebug() << m_ncols;
   //qDebug() << m_nrows;
@@ -83,9 +98,14 @@ void DTM::test() {
 
 void DTM::draw() const {
   glColor3f(1,1,1);
-  glEnableClientState(GL_VERTEX_ARRAY);
-  glPolygonMode(GL_FRONT,GL_LINE);
-  glPolygonMode(GL_BACK,GL_LINE);
-  glVertexPointer(3, GL_FLOAT, 0, m_vertices);
-  glDrawElements(GL_TRIANGLES, 3*m_nindexes, GL_UNSIGNED_INT, m_indexes);
+
+  //glPolygonMode(GL_FRONT,GL_LINE);
+  //glPolygonMode(GL_BACK,GL_LINE);
+  
+  //glEnableClientState(GL_VERTEX_ARRAY);
+  //glVertexPointer(3, GL_FLOAT, 0, m_vertices);
+  //glDrawElements(GL_TRIANGLES, 3*m_nindexes, GL_UNSIGNED_INT, m_indexes);
+
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffers[INDEXES]);
+  glDrawElements(GL_TRIANGLES, 3*m_nindexes, GL_UNSIGNED_INT, 0);
 }
