@@ -1,12 +1,12 @@
 #include <QApplication>
 
-#include "dtm_widget.h"
+#include "main_window.h"
 
 int main(int argc, char *argv[]) {
   QApplication app(argc, argv);
 
-  DTMWidget dtm;
-  dtm.show();
+  MainWindow main;
+  main.show();
 
   return app.exec();
 }

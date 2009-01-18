@@ -11,10 +11,7 @@ Camera::Camera():
   m_wheelactive(false) {
 }
 
-void Camera::mouseMove(const int x, const int y) {
-  m_theta -= x * SENSITIVITY;
-  m_phi -= y * SENSITIVITY;
-
+void Camera::vectorFromAngles() {
   if(m_phi > 89)
     m_phi = 89;
   else if(m_phi < -89)
@@ -28,6 +25,13 @@ void Camera::mouseMove(const int x, const int y) {
   const Point3d up(0,0,1);
   m_left = up.cross(m_forward);
   m_left.normalize();
+}
+
+void Camera::mouseMove(const int x, const int y) {
+  m_theta -= x * SENSITIVITY;
+  m_phi -= y * SENSITIVITY;
+
+  vectorFromAngles();
 
   m_target = m_position + m_forward;
 }
@@ -49,6 +53,28 @@ void Camera::look() const {
 }
 
 void Camera::animate(const uint step) {
+
+  // orientation
+
+  if(m_keystates[Qt::Key_Up]) {
+    m_phi += (SPEED/2 * step);
+    vectorFromAngles();
+  }
+  if(m_keystates[Qt::Key_Down]) {
+    m_phi -= (SPEED/2 * step);
+    vectorFromAngles();
+  }
+  if(m_keystates[Qt::Key_Left]) {
+    m_theta += (SPEED/2 * step);
+    vectorFromAngles();
+  }
+  if(m_keystates[Qt::Key_Right]) {
+    m_theta -= (SPEED/2 * step);
+    vectorFromAngles();
+  }
+
+  // position
+
   double realspeed = (m_keystates[Qt::Key_Shift]?10*SPEED:SPEED);
 
   if(m_keystates[Qt::Key_Z])
@@ -59,6 +85,15 @@ void Camera::animate(const uint step) {
     m_position += m_left * (realspeed * step);
   if(m_keystates[Qt::Key_D])
     m_position -= m_left * (realspeed * step);
+
+  // hauteur
+
+  if(m_keystates[Qt::Key_PageUp])
+    m_position += Point3d(0,0,realspeed * step);
+  if(m_keystates[Qt::Key_PageDown])
+    m_position -= Point3d(0,0,realspeed * step);
+
+  // molette
 
   if(m_wheelactive) {
     if (step > m_wheeltime)

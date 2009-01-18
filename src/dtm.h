@@ -34,7 +34,6 @@ class DTM {
 
   public:
     DTM();
-    ~DTM();
 
     void load(QString filename);
     void initVBO();

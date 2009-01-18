@@ -29,6 +29,8 @@ class Camera {
     uint m_wheeltime;
     int m_wheeldir;
 
+    void vectorFromAngles();
+
   public:
     Camera();
 

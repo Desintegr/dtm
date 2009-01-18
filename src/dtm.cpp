@@ -12,12 +12,6 @@ DTM::DTM():
   maxz(FLT_MIN) {
 }
 
-DTM::~DTM() {
-  delete[] m_vertices;
-  delete[] m_colors;
-  delete[] m_indexes;
-}
-#include <QtDebug>
 void DTM::load(QString filename) {
   QFile file(filename);
 
@@ -57,6 +51,7 @@ void DTM::load(QString filename) {
           m_vertices[k+2] = m_vertices[((i-1)*m_ncols+j)*3+2];
       }
       else {
+        // calcul du min et max pour la couleur
         if(z>maxz)
           maxz = z;
         if(z<minz)
@@ -66,19 +61,21 @@ void DTM::load(QString filename) {
       }
     }
 
+  file.close();
+
   // couleurs
+
   m_ncolors = m_nvertices;
   m_colors = new float[3*m_ncolors];
 
   for(uint i=0; i<m_nvertices; i++) {
       const uint k = i*3;
-      float v = (m_vertices[k+2]-minz)/(maxz-minz);
+      const float v = (m_vertices[k+2]-minz)/(maxz-minz);
 
       m_colors[k] = v; // R
       m_colors[k+1] = v; // V
       m_colors[k+2] = v; // B
     }
-
 
   // index
 
@@ -97,8 +94,6 @@ void DTM::load(QString filename) {
       m_indexes[k+4] = (i+1)*m_ncols+j;
       m_indexes[k+5] = i*m_ncols+j+1;
     }
-
-  file.close();
 }
 
 void DTM::initVBO() {
@@ -108,19 +103,20 @@ void DTM::initVBO() {
   glBufferData(GL_ARRAY_BUFFER, 3*m_nvertices*sizeof(float), m_vertices, GL_STATIC_DRAW);
   glVertexPointer(3, GL_FLOAT, 0, 0);
   glEnableClientState(GL_VERTEX_ARRAY);
+  delete[] m_vertices;
 
   glBindBuffer(GL_ARRAY_BUFFER, m_buffers[COLORS]);
   glBufferData(GL_ARRAY_BUFFER, 3*m_ncolors*sizeof(float), m_colors, GL_STATIC_DRAW);
   glColorPointer(3, GL_FLOAT, 0, 0);
   glEnableClientState(GL_COLOR_ARRAY);
+  delete[] m_colors;
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffers[INDEXES]);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3*m_nindexes*sizeof(uint), m_indexes, GL_STATIC_DRAW);
+  delete[] m_indexes;
 }
 
 void DTM::draw() const {
-  glColor3f(1,1,1);
-
   //glPolygonMode(GL_FRONT,GL_LINE);
   //glPolygonMode(GL_BACK,GL_LINE);
 
