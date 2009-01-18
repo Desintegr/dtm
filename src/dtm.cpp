@@ -2,17 +2,22 @@
 
 #define GL_GLEXT_PROTOTYPES
 
+#include <cfloat>
+
 #include <QtOpenGL>
 #include <QtCore>
 
-DTM::DTM() {
+DTM::DTM():
+  minz(FLT_MAX),
+  maxz(FLT_MIN) {
 }
 
 DTM::~DTM() {
   delete[] m_vertices;
+  delete[] m_colors;
   delete[] m_indexes;
 }
-
+#include <QtDebug>
 void DTM::load(QString filename) {
   QFile file(filename);
 
@@ -30,6 +35,8 @@ void DTM::load(QString filename) {
   in >> null; in >> m_cellsize;
   in >> null; in >> m_nodata;
 
+  // sommets
+
   m_nvertices = m_nrows*m_ncols;
   m_vertices = new float[3*m_nvertices];
 
@@ -42,15 +49,38 @@ void DTM::load(QString filename) {
       float z;
       in >> z;
       if(z == m_nodata) { // nodata
-        if(i==0)
+        if(i==0) {
           m_vertices[k+2] = 0;
+        }
         else
           // on utilise simplement le point de la ligne précédente
           m_vertices[k+2] = m_vertices[((i-1)*m_ncols+j)*3+2];
       }
-      else
+      else {
+        if(z>maxz)
+          maxz = z;
+        if(z<minz)
+          minz = z;
+
         m_vertices[k+2] = z;
+      }
     }
+
+  // couleurs
+  m_ncolors = m_nvertices;
+  m_colors = new float[3*m_ncolors];
+
+  for(uint i=0; i<m_nvertices; i++) {
+      const uint k = i*3;
+      float v = (m_vertices[k+2]-minz)/(maxz-minz);
+
+      m_colors[k] = v; // R
+      m_colors[k+1] = v; // V
+      m_colors[k+2] = v; // B
+    }
+
+
+  // index
 
   m_nindexes = 2*(m_nrows-1)*(m_ncols-1);
   m_indexes = new uint[3*m_nindexes];
@@ -78,6 +108,11 @@ void DTM::initVBO() {
   glBufferData(GL_ARRAY_BUFFER, 3*m_nvertices*sizeof(float), m_vertices, GL_STATIC_DRAW);
   glVertexPointer(3, GL_FLOAT, 0, 0);
   glEnableClientState(GL_VERTEX_ARRAY);
+
+  glBindBuffer(GL_ARRAY_BUFFER, m_buffers[COLORS]);
+  glBufferData(GL_ARRAY_BUFFER, 3*m_ncolors*sizeof(float), m_colors, GL_STATIC_DRAW);
+  glColorPointer(3, GL_FLOAT, 0, 0);
+  glEnableClientState(GL_COLOR_ARRAY);
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffers[INDEXES]);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3*m_nindexes*sizeof(uint), m_indexes, GL_STATIC_DRAW);

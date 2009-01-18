@@ -10,7 +10,7 @@ class Camera {
   private:
     static const float PI = 3.1415926535;
     static const float SENSITIVITY = 0.2;
-    static const float SPEED = 0.01;
+    static const float SPEED = 0.05;
     static const uint BOOST = 10;
     static const uint WHEELTIME = 250;
 
