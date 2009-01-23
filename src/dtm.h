@@ -3,6 +3,8 @@
 
 #include <QString>
 
+class Point3d;
+
 class DTM {
 
   private:
@@ -17,7 +19,7 @@ class DTM {
     float maxz;
 
     uint m_nvertices;
-    float* m_vertices;
+    Point3d* m_vertices;
 
     uint m_ncolors;
     float* m_colors;

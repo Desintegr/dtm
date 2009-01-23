@@ -7,6 +7,8 @@
 #include <QtOpenGL>
 #include <QtCore>
 
+#include "point3d.h"
+
 DTM::DTM():
   minz(FLT_MAX),
   maxz(FLT_MIN) {
@@ -32,23 +34,23 @@ void DTM::load(QString filename) {
   // sommets
 
   m_nvertices = m_nrows*m_ncols;
-  m_vertices = new float[3*m_nvertices];
+  m_vertices = new Point3d[m_nvertices];
 
   for(uint i=0; i<m_nrows; i++)
     for(uint j=0; j<m_ncols; j++) {
-      const uint k = (i*m_ncols+j)*3;
+      const uint k = (i*m_ncols+j);
 
-      m_vertices[k] = i;
-      m_vertices[k+1] = j;
+      m_vertices[k].setX(i);
+      m_vertices[k].setY(j);
       float z;
       in >> z;
       if(z == m_nodata) { // nodata
         if(i==0) {
-          m_vertices[k+2] = 0;
+          m_vertices[k].setZ(0);
         }
         else
           // on utilise simplement le point de la ligne précédente
-          m_vertices[k+2] = m_vertices[((i-1)*m_ncols+j)*3+2];
+          m_vertices[k].setZ(m_vertices[((i-1)*m_ncols+j)].z());
       }
       else {
         // calcul du min et max pour la couleur
@@ -57,7 +59,7 @@ void DTM::load(QString filename) {
         if(z<minz)
           minz = z;
 
-        m_vertices[k+2] = z;
+        m_vertices[k].setZ(z);
       }
     }
 
@@ -70,7 +72,7 @@ void DTM::load(QString filename) {
 
   for(uint i=0; i<m_nvertices; i++) {
       const uint k = i*3;
-      const float v = (m_vertices[k+2]-minz)/(maxz-minz);
+      const float v = (m_vertices[i].z()-minz)/(maxz-minz);
 
       m_colors[k] = v; // R
       m_colors[k+1] = v; // V
@@ -84,7 +86,7 @@ void DTM::load(QString filename) {
 
   for(uint i=0; i<m_nrows-1; i++)
     for(uint j=0; j<m_ncols-1; j++) {
-      const uint k = (i*(m_ncols-1)+j)*6 ;
+      const uint k = (i*(m_ncols-1)+j)*6;
 
       m_indexes[k] = i*m_ncols+j;
       m_indexes[k+1] = (i+1)*m_ncols+j;
@@ -100,9 +102,10 @@ void DTM::initVBO() {
   glGenBuffers(2, m_buffers);
 
   glBindBuffer(GL_ARRAY_BUFFER, m_buffers[VERTICES]);
-  glBufferData(GL_ARRAY_BUFFER, 3*m_nvertices*sizeof(float), m_vertices, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, m_nvertices*sizeof(Point3d), m_vertices, GL_STATIC_DRAW);
   glVertexPointer(3, GL_FLOAT, 0, 0);
   glEnableClientState(GL_VERTEX_ARRAY);
+
   delete[] m_vertices;
 
   glBindBuffer(GL_ARRAY_BUFFER, m_buffers[COLORS]);
