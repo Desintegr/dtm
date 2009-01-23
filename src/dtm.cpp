@@ -131,7 +131,7 @@ void DTM::load(QString filename) {
 }
 
 void DTM::initVBO() {
-  glGenBuffers(2, m_buffers);
+  glGenBuffers(3, m_buffers);
 
   glBindBuffer(GL_ARRAY_BUFFER, m_buffers[VERTICES]);
   glBufferData(GL_ARRAY_BUFFER, m_nvertices*sizeof(Point3d), m_vertices, GL_STATIC_DRAW);
