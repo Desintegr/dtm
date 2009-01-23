@@ -14,7 +14,7 @@ class Camera {
     static const uint BOOST = 10;
     static const uint WHEELTIME = 250;
 
-  private:
+  public: // TODO
     Point3d m_position;
     Point3d m_target;
     Point3d m_forward;

@@ -7,7 +7,7 @@ class Point3d;
 
 class DTM {
 
-  private:
+  public: // TODO
     uint m_ncols;
     uint m_nrows;
     uint m_xllcorner;
@@ -27,9 +27,13 @@ class DTM {
     uint m_nindexes;
     uint* m_indexes;
 
+    uint m_nnormals;
+    Point3d* m_normals;
+
     enum Buffers {
       VERTICES,
-      COLORS,
+      //COLORS,
+      NORMALS,
       INDEXES
     };
     uint m_buffers[3];
@@ -39,7 +43,9 @@ class DTM {
 
     void load(QString filename);
     void initVBO();
-    void draw() const;
+    void draw();
+
+    void affiche_normales(int);
 
 };
 

@@ -5,6 +5,8 @@
 #include <QTime>
 #include <QTimer>
 
+#include <QPixmap> // TODO
+
 #include "camera.h"
 #include "dtm.h"
 
@@ -39,6 +41,8 @@ class OpenGLScene: public QGLWidget {
     QTime ticks;
     uint current;
     uint last;
+
+    QPixmap texture;
 
   private slots:
     void update();
