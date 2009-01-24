@@ -33,28 +33,24 @@ class DTM {
     float m_minz;
 
     uint m_nvertices;
+    uint m_nindices;
+
     Point3d* m_vertices;
-
-    uint m_nindexes;
-    uint* m_indexes;
-
-    uint m_nnormals;
+    uint* m_indices;
     Point3d* m_normals;
-
-    uint m_ntextures;
     float* m_textures;
 
     enum Buffers {
       VERTICES,
       NORMALS,
-      INDEXES,
+      INDICES,
       TEXTURES
     };
     uint m_buffers[4];
 
   private:
     void initVertices(QTextStream& in);
-    void initIndexes();
+    void initIndices();
     void initNormals();
     void initTextures();
     void initVBO();
