@@ -17,6 +17,8 @@ class Camera {
     void look() const;
     void animate(const uint step);
 
+    void clearKeyStates();
+
   private:
     static const float PI = 3.1415926535;
     static const float SENSITIVITY = 0.2;

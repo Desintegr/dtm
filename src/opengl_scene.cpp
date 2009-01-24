@@ -32,7 +32,7 @@ void OpenGLScene::initializeGL() {
 
   glEnable(GL_DEPTH_TEST);
 
-  bindTexture(QImage(m_fileName + ".png"), GL_TEXTURE_2D);
+  bindTexture(QPixmap(m_fileName + ".png"), GL_TEXTURE_2D);
   glEnable(GL_TEXTURE_2D);
 }
 
@@ -41,7 +41,7 @@ void OpenGLScene::resizeGL(const int w, const int h) {
 
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluPerspective(45, float(w/h), 0.001, 10000);
+  gluPerspective(45, float(w/h), 1, 3000);
 }
 
 void OpenGLScene::paintGL() {
@@ -54,8 +54,6 @@ void OpenGLScene::paintGL() {
   m_camera->look();
 
   m_dtm->draw();
-
-  swapBuffers();
 }
 
 void OpenGLScene::mouseMoveEvent(QMouseEvent* e) {
@@ -87,10 +85,7 @@ void OpenGLScene::wheelEvent(QWheelEvent* e) {
 }
 
 void OpenGLScene::keyPressEvent(QKeyEvent* e) {
-  if(e->key() == Qt::Key_Escape)
-    releaseKeyboard();
-  else
-    m_camera->keyPress(e->key(), true);
+  m_camera->keyPress(e->key(), true);
 }
 
 void OpenGLScene::keyReleaseEvent(QKeyEvent* e) {
@@ -102,6 +97,7 @@ void OpenGLScene::enterEvent(QEvent*) {
 }
 
 void OpenGLScene::leaveEvent(QEvent*) {
+  m_camera->clearKeyStates();
   releaseKeyboard();
 }
 

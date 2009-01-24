@@ -47,8 +47,6 @@ class OpenGLScene: public QGLWidget {
     uint m_current;
     uint m_last;
 
-    QImage *texture;
-
   private slots:
     void update();
 };

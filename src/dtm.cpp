@@ -122,7 +122,6 @@ void DTM::initNormals() {
 }
 
 void DTM::initTextures() {
-
   m_ntextures = 2*m_nrows*m_ncols;
   m_textures = new float[m_ntextures];
 
@@ -165,10 +164,6 @@ void DTM::free() {
 }
 
 void DTM::draw() const {
-  //glPolygonMode(GL_FRONT,GL_LINE);
-  //glPolygonMode(GL_BACK,GL_LINE);
-
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffers[INDEXES]);
   glDrawElements(GL_TRIANGLES, m_nindexes, GL_UNSIGNED_INT, 0);
 }
-

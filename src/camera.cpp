@@ -106,3 +106,7 @@ void Camera::animate(const uint step) {
 
   m_target = m_position + m_forward;
 }
+
+void Camera::clearKeyStates() {
+  m_keystates.clear();
+}
