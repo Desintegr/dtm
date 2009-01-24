@@ -5,8 +5,9 @@
 #include "opengl_scene.h"
 
 MainWindow::MainWindow(QWidget* parent):
-  QMainWindow(parent),
-  scene(NULL) {
+  QMainWindow(parent) {
+  scene = NULL;
+
   resize(800, 600);
   setWindowTitle("Digital Terrain Model");
   createActions();

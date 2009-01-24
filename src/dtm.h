@@ -7,7 +7,20 @@ class Point3d;
 
 class DTM {
 
-  public: // TODO
+  public:
+    DTM(QString fileName);
+
+    inline uint ncols() const {
+      return m_ncols;
+    }
+
+    inline uint nrows() const {
+      return m_nrows;
+    }
+
+    void draw() const;
+
+  private:
     uint m_ncols;
     uint m_nrows;
     uint m_xllcorner;
@@ -15,8 +28,8 @@ class DTM {
     uint m_cellsize;
     float m_nodata;
 
-    float minz;
-    float maxz;
+    float m_minz;
+    float m_maxz;
 
     uint m_nvertices;
     Point3d* m_vertices;
@@ -38,14 +51,10 @@ class DTM {
     };
     uint m_buffers[3];
 
-  public:
-    DTM();
-
-    void load(QString filename);
+  private:
     void initVBO();
-    void draw();
+    void free();
 
-    void affiche_normales(int);
 
 };
 

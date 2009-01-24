@@ -3,11 +3,6 @@
 
 class Point3d {
 
-  private:
-    float m_x;
-    float m_y;
-    float m_z;
-
   public:
     Point3d(const float x=0,
             const float y=0,
@@ -50,7 +45,13 @@ class Point3d {
     Point3d operator/(const float f) const;
 
     Point3d cross(const Point3d& p) const;
-    Point3d normalize() const;
+    Point3d& normalize();
+
+  private:
+    float m_x;
+    float m_y;
+    float m_z;
+
 };
 
 #endif

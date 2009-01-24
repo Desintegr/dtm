@@ -2,44 +2,41 @@
 
 #include <QtGui>
 
-#include "point3d.h" // TODO
+#include "camera.h"
+#include "dtm.h"
+#include "light.h"
 
 OpenGLScene::OpenGLScene(QString fileName, QWidget* parent):
-  QGLWidget(parent),
-  current(0),
-  last(0) {
-  refresh.setInterval(1000/FPS);
-  refresh.setSingleShot(true);
-  connect(&refresh, SIGNAL(timeout()), this, SLOT(update()));
-  refresh.start();
+  QGLWidget(parent), m_fileName(fileName) {
+  m_current = 0;
+  m_last = 0;
 
-  ticks.start();
+  m_refresh.setInterval(1000/FPS);
+  m_refresh.setSingleShot(true);
+  connect(&m_refresh, SIGNAL(timeout()), this, SLOT(update()));
+  m_refresh.start();
 
-  dtm.load(fileName);
+  m_ticks.start();
+}
+
+OpenGLScene::~OpenGLScene() {
+  delete m_camera;
+  delete m_dtm;
+  delete m_light;
 }
 
 void OpenGLScene::initializeGL() {
+  m_camera = new Camera;
+  m_dtm = new DTM(m_fileName);
+  m_light = new Light(m_dtm);
+
   glEnable(GL_DEPTH_TEST);
-  dtm.initVBO();
-
-  float lmodel_ambient[]={0.5,0.5,0.5,1.0};
-  float mat_specular[] = {1.0,1.0,1.0,1.0};
-  float mat_shininess[] = { 50. };
-
-  glShadeModel (GL_SMOOTH);
-  glLightModelfv(GL_LIGHT_MODEL_AMBIENT,lmodel_ambient);
-  glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,GL_TRUE);
-  glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-  glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
-  glEnable(GL_LIGHTING);
-  glEnable(GL_LIGHT0);
 
   //texture = QPixmap("data/med2.png");
   //glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_REPLACE);
   //bindTexture(texture, GL_TEXTURE_2D);
 
   //glEnable(GL_TEXTURE_2D);
-
 }
 
 void OpenGLScene::resizeGL(const int w, const int h) {
@@ -50,7 +47,6 @@ void OpenGLScene::resizeGL(const int w, const int h) {
   gluPerspective(45, float(w/h), 0.001, 10000);
 }
 
-#include <QtDebug>
 void OpenGLScene::paintGL() {
   glClearColor(0, 0, 0, 0);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -58,7 +54,7 @@ void OpenGLScene::paintGL() {
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 
-  camera.look();
+  m_camera->look();
 
   //GLfloat coord_tex[] = {
   //  0.0f, 0.0f, 
@@ -70,10 +66,7 @@ void OpenGLScene::paintGL() {
   //glEnableClientState(GL_TEXTURE_COORD_ARRAY);
   //glTexCoordPointer(2,GL_FLOAT,0,coord_tex);
 
-  dtm.draw();
-
-  float light_position[] = {dtm.m_ncols/2, dtm.m_nrows/2, dtm.maxz, 1};
-  glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+  m_dtm->draw();
 
   swapBuffers();
 }
@@ -85,7 +78,7 @@ void OpenGLScene::mouseMoveEvent(QMouseEvent* e) {
     int relx = e->globalX() - QCursor::pos().x();
     int rely = e->globalY() - QCursor::pos().y();
 
-    camera.mouseMove(relx, rely);
+    m_camera->mouseMove(relx, rely);
   }
 }
 
@@ -103,18 +96,18 @@ void OpenGLScene::mouseReleaseEvent(QMouseEvent* e) {
 
 void OpenGLScene::wheelEvent(QWheelEvent* e) {
   if(e->orientation() == Qt::Vertical)
-    camera.wheel(e->delta() > 0);
+    m_camera->wheel(e->delta() > 0);
 }
 
 void OpenGLScene::keyPressEvent(QKeyEvent* e) {
   if(e->key() == Qt::Key_Escape)
     releaseKeyboard();
   else
-    camera.keyPress(e->key(), true);
+    m_camera->keyPress(e->key(), true);
 }
 
 void OpenGLScene::keyReleaseEvent(QKeyEvent* e) {
-  camera.keyPress(e->key(), false);
+  m_camera->keyPress(e->key(), false);
 }
 
 void OpenGLScene::enterEvent(QEvent*) {
@@ -126,21 +119,21 @@ void OpenGLScene::leaveEvent(QEvent*) {
 }
 
 void OpenGLScene::update() {
-  current += ticks.restart();
-  const uint elapsed = current - last;
-  last = current;
+  m_current += m_ticks.restart();
+  const uint elapsed = m_current - m_last;
+  m_last = m_current;
 
   QTime ti;
   ti.start();
 
-  camera.animate(elapsed);
+  m_camera->animate(elapsed);
   updateGL();
 
-  const uint stop = current + ti.elapsed();
-  if ((stop - last) < 1000/FPS)
-    refresh.setInterval(1000/FPS - (stop - last));
+  const uint stop = m_current + ti.elapsed();
+  if ((stop - m_last) < 1000/FPS)
+    m_refresh.setInterval(1000/FPS - (stop - m_last));
   else
-    refresh.setInterval(0);
+    m_refresh.setInterval(0);
 
-  refresh.start();
+  m_refresh.start();
 }

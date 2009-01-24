@@ -4,20 +4,20 @@
 #include <QGLWidget>
 #include <QTime>
 #include <QTimer>
+#include <QString>
 
 #include <QPixmap> // TODO
 
-#include "camera.h"
-#include "dtm.h"
+class Camera;
+class DTM;
+class Light;
 
 class OpenGLScene: public QGLWidget {
   Q_OBJECT
 
-  private:
-    static const uint FPS = 50;
-
   public:
     OpenGLScene(QString fileName, QWidget* parent=0);
+    ~OpenGLScene();
 
   protected:
     void initializeGL();
@@ -34,15 +34,20 @@ class OpenGLScene: public QGLWidget {
     void leaveEvent(QEvent* e);
 
   private:
-    Camera camera;
-    DTM dtm;
+    static const uint FPS = 50;
 
-    QTimer refresh;
-    QTime ticks;
-    uint current;
-    uint last;
+    QString m_fileName;
 
-    QPixmap texture;
+    Camera* m_camera;
+    DTM* m_dtm;
+    Light* m_light;
+
+    QTimer m_refresh;
+    QTime m_ticks;
+    uint m_current;
+    uint m_last;
+
+    //QPixmap texture;
 
   private slots:
     void update();
