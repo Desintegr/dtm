@@ -34,6 +34,8 @@ void OpenGLScene::initializeGL() {
 
   bindTexture(QPixmap(m_fileName + ".png"), GL_TEXTURE_2D);
   glEnable(GL_TEXTURE_2D);
+
+  m_camera->mouseMove(0, 0);
 }
 
 void OpenGLScene::resizeGL(const int w, const int h) {
