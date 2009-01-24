@@ -7,7 +7,7 @@
 #include "light.h"
 
 OpenGLScene::OpenGLScene(QString fileName, QWidget* parent):
-  QGLWidget(parent), m_fileName(fileName) {
+  QGLWidget(parent), m_fileName(fileName.remove(QRegExp(".grd$"))) {
   m_current = 0;
   m_last = 0;
 
@@ -32,11 +32,8 @@ void OpenGLScene::initializeGL() {
 
   glEnable(GL_DEPTH_TEST);
 
-  //texture = QPixmap("data/med2.png");
-  //glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_REPLACE);
-  //bindTexture(texture, GL_TEXTURE_2D);
-
-  //glEnable(GL_TEXTURE_2D);
+  bindTexture(QImage(m_fileName + ".png"), GL_TEXTURE_2D);
+  glEnable(GL_TEXTURE_2D);
 }
 
 void OpenGLScene::resizeGL(const int w, const int h) {
@@ -55,16 +52,6 @@ void OpenGLScene::paintGL() {
   glLoadIdentity();
 
   m_camera->look();
-
-  //GLfloat coord_tex[] = {
-  //  0.0f, 0.0f, 
-  //  500.0f, 0.0f,
-  //  500.0f, 500.0f, 
-  //  0.0f, 500.0f
-  //} ;
-
-  //glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-  //glTexCoordPointer(2,GL_FLOAT,0,coord_tex);
 
   m_dtm->draw();
 

@@ -6,7 +6,7 @@
 #include <QTimer>
 #include <QString>
 
-#include <QPixmap> // TODO
+class QPixmap;
 
 class Camera;
 class DTM;
@@ -47,7 +47,7 @@ class OpenGLScene: public QGLWidget {
     uint m_current;
     uint m_last;
 
-    //QPixmap texture;
+    QImage *texture;
 
   private slots:
     void update();

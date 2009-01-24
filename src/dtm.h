@@ -3,6 +3,8 @@
 
 #include <QString>
 
+class QTextStream;
+
 class Point3d;
 
 class DTM {
@@ -29,13 +31,9 @@ class DTM {
     float m_nodata;
 
     float m_minz;
-    float m_maxz;
 
     uint m_nvertices;
     Point3d* m_vertices;
-
-    uint m_ncolors;
-    float* m_colors;
 
     uint m_nindexes;
     uint* m_indexes;
@@ -43,18 +41,24 @@ class DTM {
     uint m_nnormals;
     Point3d* m_normals;
 
+    uint m_ntextures;
+    float* m_textures;
+
     enum Buffers {
       VERTICES,
-      //COLORS,
       NORMALS,
-      INDEXES
+      INDEXES,
+      TEXTURES
     };
-    uint m_buffers[3];
+    uint m_buffers[4];
 
   private:
+    void initVertices(QTextStream& in);
+    void initIndexes();
+    void initNormals();
+    void initTextures();
     void initVBO();
     void free();
-
 
 };
 
