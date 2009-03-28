@@ -3,18 +3,17 @@
 
 class DTM;
 
-class Light {
+class Light
+{
+public:
+  Light(DTM *dtm);
 
-  public:
-    Light(DTM* dtm);
+  void set();
 
-    void set();
+private:
+  float m_position[4];
 
-  private:
-    float m_position[4];
-
-    DTM* m_dtm;
-
+  DTM *m_dtm;
 };
 
 #endif

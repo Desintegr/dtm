@@ -3,9 +3,9 @@
 
 #include <QString>
 
-class QTextStream;
-
 class Point3d;
+
+class QTextStream;
 
 class DTM
 {
@@ -18,7 +18,7 @@ public:
 
   float minz() const;
 
-  Point3d* vertices() const;
+  Point3d * vertices() const;
 
   void draw() const;
 
@@ -35,10 +35,10 @@ private:
   uint m_nvertices;
   uint m_nindices;
 
-  Point3d* m_vertices;
-  uint* m_indices;
-  Point3d* m_normals;
-  float* m_textures;
+  Point3d *m_vertices;
+  uint *m_indices;
+  Point3d *m_normals;
+  float *m_textures;
 
   enum Buffers
   {

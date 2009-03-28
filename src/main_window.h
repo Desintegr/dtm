@@ -5,29 +5,29 @@
 
 class OpenGLScene;
 
-class MainWindow: public QMainWindow {
+class MainWindow: public QMainWindow
+{
   Q_OBJECT
 
-  private:
-    QMenu* fileMenu;
+public:
+  MainWindow(QWidget *parent=0);
 
-    QAction* loadSceneAction;
-    QAction* closeSceneAction;
-    QAction* quitAction;
+private:
+  QMenu *fileMenu;
 
-    OpenGLScene* scene; 
+  QAction *loadSceneAction;
+  QAction *closeSceneAction;
+  QAction *quitAction;
 
-  public:
-    MainWindow(QWidget* parent=0);
+  OpenGLScene *scene;
 
-  private:
-    void createMenus();
-    void createActions();
+private:
+  void createMenus();
+  void createActions();
 
-  private slots:
-    void loadScene();
-    void closeScene();
-
+private slots:
+  void loadScene();
+  void closeScene();
 };
 
 #endif

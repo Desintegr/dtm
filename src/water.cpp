@@ -1,26 +1,26 @@
 #include "water.h"
 
+#include "dtm.h"
+#include "point3d.h"
+
 #define GL_GLEXT_PROTOTYPES
+
+#include <QtOpenGL>
+#include <QtCore>
 
 #include <algorithm>
 
 #include <cfloat>
 
-#include <QtOpenGL>
-#include <QtCore>
-
-#include "dtm.h"
-#include "point3d.h"
-
 Water::Water(DTM *dtm):
   m_dtm(dtm),
   m_ncols(dtm->ncols()),
   m_nrows(dtm->nrows()),
-  z(new float[m_nrows*m_ncols])
+  z(new float[m_nrows * m_ncols])
 {
-  for(uint i=0; i<m_nrows; i++)
-    for(uint j=0; j<m_ncols; j++) {
-      const uint k = i*m_ncols+j;
+  for(uint i = 0; i < m_nrows; ++i)
+    for(uint j = 0; j < m_ncols; ++j) {
+      const uint k = i * m_ncols + j;
       z[k] = 0;
     }
 
@@ -43,12 +43,12 @@ Water::~Water()
 
 void Water::initVertices()
 {
-  m_nvertices = m_nrows*m_ncols;
+  m_nvertices = m_nrows * m_ncols;
   m_vertices = new Point3d[m_nvertices];
 
-  for(uint i=0; i<m_nrows; i++)
-    for(uint j=0; j<m_ncols; j++) {
-      const uint k = i*m_ncols+j;
+  for(uint i = 0; i < m_nrows; ++i)
+    for(uint j = 0; j < m_ncols; ++j) {
+      const uint k = i * m_ncols + j;
 
        m_vertices[k].setX(i);
        m_vertices[k].setY(j);
@@ -58,26 +58,27 @@ void Water::initVertices()
 
 void Water::initIndices()
 {
-  m_nindices = 3*2*(m_nrows-1)*(m_ncols-1);
+  m_nindices = 3 * 2 * (m_nrows - 1) * (m_ncols - 1);
   m_indices = new uint[m_nindices];
 
-  for(uint i=0; i<m_nrows-1; i++)
-    for(uint j=0; j<m_ncols-1; j++) {
-      const uint k = 3*2*(i*(m_ncols-1)+j);
+  for(uint i=0; i < m_nrows - 1; ++i)
+    for(uint j=0; j<m_ncols-1; ++j) {
+      const uint k = 3 * 2 * (i * (m_ncols - 1) + j);
 
       // triangle 1
-      m_indices[k] = i*m_ncols+j;
-      m_indices[k+1] = (i+1)*m_ncols+j;
-      m_indices[k+2] = i*m_ncols+j+1;
+      m_indices[k] = i * m_ncols + j;
+      m_indices[k + 1] = (i + 1) * m_ncols + j;
+      m_indices[k + 2] = i * m_ncols + j + 1;
 
       // triangle 2
-      m_indices[k+3] = (i+1)*m_ncols+j+1;
-      m_indices[k+4] = (i+1)*m_ncols+j;
-      m_indices[k+5] = i*m_ncols+j+1;
+      m_indices[k + 3] = (i + 1) * m_ncols + j + 1;
+      m_indices[k + 4] = (i + 1 ) * m_ncols + j;
+      m_indices[k + 5] = i * m_ncols + j + 1;
     }
 }
 
-void Water::initVBO() {
+void Water::initVBO()
+{
   glGenBuffers(2, m_buffers);
 
   glBindBuffer(GL_ARRAY_BUFFER, m_buffers[VERTICES]);
@@ -87,11 +88,13 @@ void Water::initVBO() {
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_nindices*sizeof(uint), m_indices, GL_STATIC_DRAW);
 }
 
-void Water::free() {
+void Water::free()
+{
   delete[] m_indices;
 }
 
-void Water::draw() const {
+void Water::draw() const
+{
   glBindBuffer(GL_ARRAY_BUFFER, m_buffers[VERTICES]);
   glVertexPointer(3, GL_FLOAT, 0, 0);
   glEnableClientState(GL_VERTEX_ARRAY);
@@ -100,7 +103,7 @@ void Water::draw() const {
 
   glColor4f(0, 0.34, 0.68, 0.4);
   glDrawElements(GL_TRIANGLES, m_nindices, GL_UNSIGNED_INT, 0);
-  glColor4f(1,1,1,1);
+  glColor4f(1, 1 , 1 , 1);
 
   glDisableClientState(GL_VERTEX_ARRAY);
 
@@ -110,25 +113,25 @@ void Water::draw() const {
 
 void Water::update() const
 {
-  for(uint i=0; i<m_nrows; i++)
-    for(uint j=0; j<m_ncols; j++) {
-      const uint k = i*m_ncols+j;
+  for(uint i = 0; i < m_nrows; ++i)
+    for(uint j = 0; j < m_ncols; ++j) {
+      const uint k = i * m_ncols + j;
       if(i != 0 && i != m_nrows - 1 && j != 0 && j != m_ncols - 1 && z[k] != 0) {
       uint k2 = 0;
 
       for(int c = 0; c < 4; c++) {
         switch(c) {
           case 0:
-            k2 = (i-1)*m_ncols+j;
+            k2 = (i - 1) * m_ncols + j;
             break;
           case 1:
-            k2 = i*m_ncols+(j-1);
+            k2 = i * m_ncols + (j - 1);
             break;
           case 2:
-            k2 = (i+1)*m_ncols+j;
+            k2 = (i + 1 ) * m_ncols + j;
             break;
           case 3:
-            k2 = i*m_ncols+(j+1);
+            k2 = i * m_ncols + ( j + 1);
             break;
         }
 
@@ -150,6 +153,4 @@ void Water::update() const
       }
     }
   }
-
-  //z[2222] += 5;
 }

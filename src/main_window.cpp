@@ -1,11 +1,12 @@
 #include "main_window.h"
 
-#include <QtGui>
-
 #include "opengl_scene.h"
 
-MainWindow::MainWindow(QWidget* parent):
-  QMainWindow(parent) {
+#include <QtGui>
+
+MainWindow::MainWindow(QWidget *parent):
+  QMainWindow(parent)
+{
   scene = NULL;
 
   resize(800, 600);
@@ -14,7 +15,8 @@ MainWindow::MainWindow(QWidget* parent):
   createMenus();
 }
 
-void MainWindow::createActions() {
+void MainWindow::createActions()
+{
   loadSceneAction = new QAction("&Load...", this);
   connect(loadSceneAction, SIGNAL(triggered()), this, SLOT(loadScene()));
 
@@ -26,7 +28,8 @@ void MainWindow::createActions() {
   connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
 }
 
-void MainWindow::createMenus() {
+void MainWindow::createMenus()
+{
   fileMenu = menuBar()->addMenu(tr("&File"));
   fileMenu->addAction(loadSceneAction);
   fileMenu->addAction(closeSceneAction);
@@ -34,7 +37,8 @@ void MainWindow::createMenus() {
   fileMenu->addAction(quitAction);
 }
 
-void MainWindow::loadScene() {
+void MainWindow::loadScene()
+{
   QString fileName = QFileDialog::getOpenFileName(this,
                                                   tr("Open File"),
                                                   QDir::currentPath(),
@@ -48,7 +52,8 @@ void MainWindow::loadScene() {
   }
 }
 
-void MainWindow::closeScene() {
+void MainWindow::closeScene()
+{
   if(scene) {
     scene->close();
     delete scene;
