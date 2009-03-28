@@ -18,7 +18,6 @@ Light::Light(DTM *dtm):
 
   glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
   glMaterialfv(GL_FRONT, GL_SHININESS, &shininess);
-
 }
 
 void Light::set()

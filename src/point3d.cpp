@@ -14,6 +14,7 @@ Point3d & Point3d::operator+=(const Point3d &p)
   m_x += p.x();
   m_y += p.y();
   m_z += p.z();
+
   return *this;
 }
 
@@ -27,6 +28,7 @@ Point3d & Point3d::operator-=(const Point3d &p)
   m_x -= p.x();
   m_y -= p.y();
   m_z -= p.z();
+
   return *this;
 }
 
@@ -40,6 +42,7 @@ Point3d & Point3d::operator*=(const float f)
   m_x *= f;
   m_y *= f;
   m_z *= f;
+
   return *this;
 }
 
@@ -53,6 +56,7 @@ Point3d & Point3d::operator/=(const float f)
   m_x /= f;
   m_y /= f;
   m_z /= f;
+
   return *this;
 }
 
@@ -74,5 +78,6 @@ Point3d & Point3d::normalize()
   m_x *= r;
   m_y *= r;
   m_z *= r;
+
   return *this;
 }

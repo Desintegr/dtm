@@ -3,6 +3,9 @@
 
 #include <QtCore>
 
+typedef uint index_t;
+typedef uint size_t;
+
 class DTM;
 class Point3d;
 
@@ -24,22 +27,22 @@ private:
 
   QTimer *timer;
 
-  uint m_ncols;
-  uint m_nrows;
-  uint m_nvertices;
-  uint m_nindices;
+  size_t m_ncols;
+  size_t m_nrows;
+  size_t m_nvertices;
+  size_t m_nindices;
 
   float* z;
 
   Point3d* m_vertices;
-  uint* m_indices;
+  index_t* m_indices;
 
   enum Buffers
   {
     VERTICES,
     INDICES,
   };
-  uint m_buffers[2];
+  index_t m_buffers[2];
 
 private:
   void initVertices();

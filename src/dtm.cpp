@@ -55,9 +55,9 @@ void DTM::initVertices(QTextStream& in)
   m_nvertices = m_nrows * m_ncols;
   m_vertices = new Point3d[m_nvertices];
 
-  for(uint i = 0; i < m_nrows; ++i)
-    for(uint j = 0; j < m_ncols; ++j) {
-      const uint k = i * m_ncols + j;
+  for(index_t i = 0; i < m_nrows; ++i)
+    for(index_t j = 0; j < m_ncols; ++j) {
+      const index_t k = i * m_ncols + j;
 
       m_vertices[k].setX(i);
       m_vertices[k].setY(j);
@@ -71,9 +71,9 @@ void DTM::initVertices(QTextStream& in)
     }
 
   // remplacement des nodata par le z minimum
-  for(uint i = 0; i < m_nrows; ++i)
-    for(uint j = 0; j < m_ncols; ++j) {
-      const uint k = i * m_ncols + j;
+  for(index_t i = 0; i < m_nrows; ++i)
+    for(index_t j = 0; j < m_ncols; ++j) {
+      const index_t k = i * m_ncols + j;
       if(m_vertices[k].z() == m_nodata)
         m_vertices[k].setZ(m_minz);
     }
@@ -82,11 +82,11 @@ void DTM::initVertices(QTextStream& in)
 void DTM::initIndices()
 {
   m_nindices = 3 * 2 * (m_nrows - 1) * (m_ncols - 1);
-  m_indices = new uint[m_nindices];
+  m_indices = new index_t[m_nindices];
 
-  for(uint i = 0; i < m_nrows - 1; ++i)
-    for(uint j = 0; j < m_ncols - 1; ++j) {
-      const uint k = 3 * 2 * (i * (m_ncols - 1) + j);
+  for(index_t i = 0; i < m_nrows - 1; ++i)
+    for(index_t j = 0; j < m_ncols - 1; ++j) {
+      const index_t k = 3 * 2 * (i * (m_ncols - 1) + j);
 
       // triangle 1
       m_indices[k] = i * m_ncols + j;
@@ -104,9 +104,9 @@ void DTM::initNormals()
 {
   m_normals = new Point3d[m_nvertices];
 
-  for(uint i = 0; i < m_nrows - 1; ++i)
-    for(uint j = 0; j < m_ncols - 1; ++j) {
-      const uint k = 3 * 2 * (i * (m_ncols - 1) + j);
+  for(index_t i = 0; i < m_nrows - 1; ++i)
+    for(index_t j = 0; j < m_ncols - 1; ++j) {
+      const index_t k = 3 * 2 * (i * (m_ncols - 1) + j);
 
       Point3d p1;
       Point3d p2;
@@ -131,7 +131,7 @@ void DTM::initNormals()
       m_normals[m_indices[k + 5]] += p3;
     }
 
-  for(uint i = 0; i < m_nvertices; ++i)
+  for(index_t i = 0; i < m_nvertices; ++i)
     m_normals[i].normalize();
 }
 
@@ -139,9 +139,9 @@ void DTM::initTextures()
 {
   m_textures = new float[2 * m_nvertices];
 
-  for(uint i = 0; i < m_nrows; ++i)
-    for(uint j = 0; j < m_ncols; ++j) {
-      const uint k = 2 * (i * m_ncols + j);
+  for(index_t i = 0; i < m_nrows; ++i)
+    for(index_t j = 0; j < m_ncols; ++j) {
+      const index_t k = 2 * (i * m_ncols + j);
 
       // coordonnée x de la texture
       m_textures[k] = m_vertices[(i * m_ncols + j)].y()/(m_ncols - 1);
@@ -165,7 +165,7 @@ void DTM::initVBO()
   glBufferData(GL_ARRAY_BUFFER, 2 * m_nvertices * sizeof(float), m_textures, GL_STATIC_DRAW);
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffers[INDICES]);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_nindices * sizeof(uint), m_indices, GL_STATIC_DRAW);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_nindices * sizeof(index_t), m_indices, GL_STATIC_DRAW);
 }
 
 void DTM::free()

@@ -18,9 +18,9 @@ Water::Water(DTM *dtm):
   m_nrows(dtm->nrows()),
   z(new float[m_nrows * m_ncols])
 {
-  for(uint i = 0; i < m_nrows; ++i)
-    for(uint j = 0; j < m_ncols; ++j) {
-      const uint k = i * m_ncols + j;
+  for(index_t i = 0; i < m_nrows; ++i)
+    for(index_t j = 0; j < m_ncols; ++j) {
+      const index_t k = i * m_ncols + j;
       z[k] = 0;
     }
 
@@ -46,9 +46,9 @@ void Water::initVertices()
   m_nvertices = m_nrows * m_ncols;
   m_vertices = new Point3d[m_nvertices];
 
-  for(uint i = 0; i < m_nrows; ++i)
-    for(uint j = 0; j < m_ncols; ++j) {
-      const uint k = i * m_ncols + j;
+  for(index_t i = 0; i < m_nrows; ++i)
+    for(index_t j = 0; j < m_ncols; ++j) {
+      const index_t k = i * m_ncols + j;
 
        m_vertices[k].setX(i);
        m_vertices[k].setY(j);
@@ -59,11 +59,11 @@ void Water::initVertices()
 void Water::initIndices()
 {
   m_nindices = 3 * 2 * (m_nrows - 1) * (m_ncols - 1);
-  m_indices = new uint[m_nindices];
+  m_indices = new index_t[m_nindices];
 
-  for(uint i=0; i < m_nrows - 1; ++i)
-    for(uint j=0; j<m_ncols-1; ++j) {
-      const uint k = 3 * 2 * (i * (m_ncols - 1) + j);
+  for(index_t i=0; i < m_nrows - 1; ++i)
+    for(index_t j=0; j<m_ncols-1; ++j) {
+      const index_t k = 3 * 2 * (i * (m_ncols - 1) + j);
 
       // triangle 1
       m_indices[k] = i * m_ncols + j;
@@ -85,7 +85,7 @@ void Water::initVBO()
   glBufferData(GL_ARRAY_BUFFER, m_nvertices*sizeof(Point3d), m_vertices, GL_DYNAMIC_DRAW);
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffers[INDICES]);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_nindices*sizeof(uint), m_indices, GL_STATIC_DRAW);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_nindices*sizeof(index_t), m_indices, GL_STATIC_DRAW);
 }
 
 void Water::free()
@@ -113,13 +113,13 @@ void Water::draw() const
 
 void Water::update() const
 {
-  for(uint i = 0; i < m_nrows; ++i)
-    for(uint j = 0; j < m_ncols; ++j) {
-      const uint k = i * m_ncols + j;
+  for(index_t i = 0; i < m_nrows; ++i)
+    for(index_t j = 0; j < m_ncols; ++j) {
+      const index_t k = i * m_ncols + j;
       if(i != 0 && i != m_nrows - 1 && j != 0 && j != m_ncols - 1 && z[k] != 0) {
-      uint k2 = 0;
+      index_t k2 = 0;
 
-      for(int c = 0; c < 4; c++) {
+      for(int c = 0; c < 4; ++c) {
         switch(c) {
           case 0:
             k2 = (i - 1) * m_ncols + j;

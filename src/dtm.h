@@ -7,14 +7,17 @@ class Point3d;
 
 class QTextStream;
 
+typedef uint size_t;
+typedef uint index_t;
+
 class DTM
 {
 public:
   DTM(QString fileName);
   ~DTM();
 
-  uint ncols() const;
-  uint nrows() const;
+  size_t ncols() const;
+  size_t nrows() const;
 
   float minz() const;
 
@@ -23,20 +26,20 @@ public:
   void draw() const;
 
 private:
-  uint m_ncols;
-  uint m_nrows;
-  uint m_xllcorner;
-  uint m_yllcorner;
-  uint m_cellsize;
+  size_t m_ncols;
+  size_t m_nrows;
+  size_t m_xllcorner;
+  size_t m_yllcorner;
+  size_t m_cellsize;
   float m_nodata;
 
   float m_minz;
 
-  uint m_nvertices;
-  uint m_nindices;
+  size_t m_nvertices;
+  size_t m_nindices;
 
   Point3d *m_vertices;
-  uint *m_indices;
+  index_t *m_indices;
   Point3d *m_normals;
   float *m_textures;
 
@@ -47,7 +50,7 @@ private:
     INDICES,
     TEXTURES
   };
-  uint m_buffers[4];
+  index_t m_buffers[4];
 
 private:
   void initVertices(QTextStream& in);
@@ -58,12 +61,12 @@ private:
   void free();
 };
 
-inline uint DTM::ncols() const
+inline size_t DTM::ncols() const
 {
   return m_ncols;
 }
 
-inline uint DTM::nrows() const
+inline size_t DTM::nrows() const
 {
   return m_nrows;
 }
