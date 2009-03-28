@@ -14,7 +14,7 @@ class DTM
 {
 public:
   DTM(QString fileName);
-  ~DTM();
+  virtual ~DTM();
 
   size_t ncols() const;
   size_t nrows() const;

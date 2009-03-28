@@ -12,33 +12,50 @@
 
 #include <cfloat>
 
-Water::Water(DTM *dtm):
+Water::Water(DTM *dtm, QString fileName):
   m_dtm(dtm),
   m_ncols(dtm->ncols()),
   m_nrows(dtm->nrows()),
-  z(new float[m_nrows * m_ncols])
+  m_z(new float[m_nrows * m_ncols])
 {
   for(index_t i = 0; i < m_nrows; ++i)
     for(index_t j = 0; j < m_ncols; ++j) {
       const index_t k = i * m_ncols + j;
-      z[k] = 0;
+      m_z[k] = 0;
     }
+
+  QFile file(fileName + ".water");
+
+  if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    return;
+
+  int x;
+  int y;
+
+  QTextStream in(&file);
+  while(!in.atEnd()) {
+    in >> x;
+    in >> y;
+    m_sources.append(x * m_ncols + y);
+  }
+
+  file.close();
 
   initVertices();
   initIndices();
   initVBO();
   free();
 
-  timer = new QTimer(this);
-  connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-  timer->start(200);
+  m_timer = new QTimer(this);
+  connect(m_timer, SIGNAL(timeout()), this, SLOT(update()));
+  m_timer->start(200);
 }
 
 Water::~Water()
 {
-  delete[] z;
+  delete[] m_z;
   delete[] m_vertices;
-  delete timer;
+  delete m_timer;
 }
 
 void Water::initVertices()
@@ -103,7 +120,7 @@ void Water::draw() const
 
   glColor4f(0, 0.34, 0.68, 0.4);
   glDrawElements(GL_TRIANGLES, m_nindices, GL_UNSIGNED_INT, 0);
-  glColor4f(1, 1 , 1 , 1);
+  glColor4f(1, 1, 1, 1);
 
   glDisableClientState(GL_VERTEX_ARRAY);
 
@@ -111,12 +128,12 @@ void Water::draw() const
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void Water::update() const
+void Water::update()
 {
   for(index_t i = 0; i < m_nrows; ++i)
     for(index_t j = 0; j < m_ncols; ++j) {
       const index_t k = i * m_ncols + j;
-      if(i != 0 && i != m_nrows - 1 && j != 0 && j != m_ncols - 1 && z[k] != 0) {
+      if(i != 0 && i != m_nrows - 1 && j != 0 && j != m_ncols - 1 && m_z[k] != 0) {
       index_t k2 = 0;
 
       for(int c = 0; c < 4; ++c) {
@@ -135,17 +152,17 @@ void Water::update() const
             break;
         }
 
-        float v = m_dtm->vertices()[k].z() + z[k];
-        float v2 = m_dtm->vertices()[k2].z() + z[k2];
+        float v = m_dtm->vertices()[k].z() + m_z[k];
+        float v2 = m_dtm->vertices()[k2].z() + m_z[k2];
 
         if(v > v2) {
-          float e = std::min(z[k], v - v2);
+          float e = std::min(m_z[k], v - v2);
 
-          z[k] -= e;
-          z[k2] += e;
+          m_z[k] -= e;
+          m_z[k2] += e;
 
-          m_vertices[k].setZ(m_dtm->vertices()[k].z() + z[k]);
-          m_vertices[k2].setZ(m_dtm->vertices()[k2].z() + z[k2]);
+          m_vertices[k].setZ(m_dtm->vertices()[k].z() + m_z[k]);
+          m_vertices[k2].setZ(m_dtm->vertices()[k2].z() + m_z[k2]);
 
           glBindBuffer(GL_ARRAY_BUFFER, m_buffers[VERTICES]);
           glBufferData(GL_ARRAY_BUFFER, m_nvertices*sizeof(Point3d), m_vertices, GL_DYNAMIC_DRAW);
@@ -153,4 +170,12 @@ void Water::update() const
       }
     }
   }
+
+  fill();
+}
+
+void Water::fill()
+{
+  foreach (int k, m_sources)
+     m_z[k] += 1;
 }

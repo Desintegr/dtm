@@ -33,7 +33,7 @@ void OpenGLScene::initializeGL()
   m_camera = new Camera;
   m_dtm = new DTM(m_fileName);
   m_light = new Light(m_dtm);
-  m_water = new Water(m_dtm);
+  m_water = new Water(m_dtm, m_fileName);
 
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_BLEND);

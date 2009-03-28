@@ -14,25 +14,27 @@ class Water: public QObject
   Q_OBJECT
 
 public:
-  Water(DTM *dtm);
-  ~Water();
+  Water(DTM *dtm, QString fileName);
+  virtual ~Water();
 
   void draw() const;
 
 public slots:
-  void update() const;
+  void update();
 
 private:
   DTM *m_dtm;
 
-  QTimer *timer;
+  QTimer *m_timer;
+
+  QList<int> m_sources;
 
   size_t m_ncols;
   size_t m_nrows;
   size_t m_nvertices;
   size_t m_nindices;
 
-  float* z;
+  float* m_z;
 
   Point3d* m_vertices;
   index_t* m_indices;
@@ -49,6 +51,8 @@ private:
   void initIndices();
   void initVBO();
   void free();
+
+  void fill();
 };
 
 #endif
