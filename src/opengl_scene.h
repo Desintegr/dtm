@@ -11,6 +11,7 @@ class QPixmap;
 class Camera;
 class DTM;
 class Light;
+class Water;
 
 class OpenGLScene: public QGLWidget {
   Q_OBJECT
@@ -38,9 +39,10 @@ class OpenGLScene: public QGLWidget {
 
     QString m_fileName;
 
-    Camera* m_camera;
-    DTM* m_dtm;
-    Light* m_light;
+    Camera *m_camera;
+    DTM *m_dtm;
+    Light *m_light;
+    Water *m_water;
 
     QTimer m_refresh;
     QTime m_ticks;

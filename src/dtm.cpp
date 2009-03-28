@@ -42,6 +42,11 @@ DTM::DTM(QString fileName) {
   file.close();
 }
 
+DTM::~DTM()
+{
+  delete[] m_vertices;
+}
+
 void DTM::initVertices(QTextStream& in) {
   m_minz = FLT_MAX;
 
@@ -139,36 +144,61 @@ void DTM::initTextures() {
     }
 }
 
-void DTM::DTM::initVBO() {
+void DTM::initVBO() {
   glGenBuffers(4, m_buffers);
 
   glBindBuffer(GL_ARRAY_BUFFER, m_buffers[VERTICES]);
   glBufferData(GL_ARRAY_BUFFER, m_nvertices*sizeof(Point3d), m_vertices, GL_STATIC_DRAW);
-  glVertexPointer(3, GL_FLOAT, 0, 0);
-  glEnableClientState(GL_VERTEX_ARRAY);
+  //glVertexPointer(3, GL_FLOAT, 0, 0);
+  //glEnableClientState(GL_VERTEX_ARRAY);
 
   glBindBuffer(GL_ARRAY_BUFFER, m_buffers[NORMALS]);
   glBufferData(GL_ARRAY_BUFFER, m_nvertices*sizeof(Point3d), m_normals, GL_STATIC_DRAW);
-  glNormalPointer(GL_FLOAT, 0, 0);
-  glEnableClientState(GL_NORMAL_ARRAY);
+  //glNormalPointer(GL_FLOAT, 0, 0);
+  //glEnableClientState(GL_NORMAL_ARRAY);
 
   glBindBuffer(GL_ARRAY_BUFFER, m_buffers[TEXTURES]);
   glBufferData(GL_ARRAY_BUFFER, 2*m_nvertices*sizeof(float), m_textures, GL_STATIC_DRAW);
-  glTexCoordPointer(2, GL_FLOAT, 0, 0);
-  glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+  //glTexCoordPointer(2, GL_FLOAT, 0, 0);
+  //glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffers[INDICES]);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_nindices*sizeof(uint), m_indices, GL_STATIC_DRAW);
 }
 
 void DTM::free() {
-  delete[] m_vertices;
   delete[] m_normals;
   delete[] m_indices;
   delete[] m_textures;
 }
 
 void DTM::draw() const {
+  glEnable(GL_LIGHTING);
+  glEnable(GL_LIGHT0);
+
+  glBindBuffer(GL_ARRAY_BUFFER, m_buffers[NORMALS]);
+  glNormalPointer(GL_FLOAT, 0, 0);
+  glEnableClientState(GL_NORMAL_ARRAY);
+
+  glBindBuffer(GL_ARRAY_BUFFER, m_buffers[TEXTURES]);
+  glTexCoordPointer(2, GL_FLOAT, 0, 0);
+  glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+  glBindBuffer(GL_ARRAY_BUFFER, m_buffers[VERTICES]);
+  glVertexPointer(3, GL_FLOAT, 0, 0);
+  glEnableClientState(GL_VERTEX_ARRAY);
+
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffers[INDICES]);
+
   glDrawElements(GL_TRIANGLES, m_nindices, GL_UNSIGNED_INT, 0);
+
+  glDisableClientState(GL_VERTEX_ARRAY);
+  glDisableClientState(GL_NORMAL_ARRAY);
+  glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+  glDisable(GL_LIGHTING);
+  glDisable(GL_LIGHT0);
 }

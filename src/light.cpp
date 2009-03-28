@@ -11,7 +11,7 @@ Light::Light(DTM* dtm):
   float specular[4] = {1.0, 1.0, 1.0, 1.0};
   float shininess = 100;
 
-  glShadeModel (GL_SMOOTH);
+  glShadeModel(GL_SMOOTH);
 
   glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient);
   glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
@@ -19,8 +19,6 @@ Light::Light(DTM* dtm):
   glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
   glMaterialfv(GL_FRONT, GL_SHININESS, &shininess);
 
-  glEnable(GL_LIGHTING);
-  glEnable(GL_LIGHT0);
 }
 
 void Light::set() {

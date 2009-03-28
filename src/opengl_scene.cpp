@@ -5,6 +5,7 @@
 #include "camera.h"
 #include "dtm.h"
 #include "light.h"
+#include "water.h"
 
 OpenGLScene::OpenGLScene(QString fileName, QWidget* parent):
   QGLWidget(parent), m_fileName(fileName.remove(QRegExp(".grd$"))) {
@@ -29,8 +30,11 @@ void OpenGLScene::initializeGL() {
   m_camera = new Camera;
   m_dtm = new DTM(m_fileName);
   m_light = new Light(m_dtm);
+  m_water = new Water(m_dtm);
 
   glEnable(GL_DEPTH_TEST);
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
   bindTexture(QPixmap(m_fileName + ".png"), GL_TEXTURE_2D);
   glEnable(GL_TEXTURE_2D);
@@ -56,6 +60,7 @@ void OpenGLScene::paintGL() {
   m_camera->look();
 
   m_dtm->draw();
+  m_water->draw();
 }
 
 void OpenGLScene::mouseMoveEvent(QMouseEvent* e) {
