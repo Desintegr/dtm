@@ -7,14 +7,18 @@
 #include <QtOpenGL>
 #include <QtCore>
 
+#include <iostream>
+
 #include <cfloat>
 
 DTM::DTM(QString fileName)
 {
   QFile file(fileName + ".grd");
 
-  if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-    return;
+  if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+    std::cerr << "Error: unable to read grid file" << std::endl;
+    exit(EXIT_FAILURE);
+  }
 
   QTextStream in(&file);
 

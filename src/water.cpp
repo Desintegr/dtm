@@ -9,6 +9,7 @@
 #include <QtCore>
 
 #include <algorithm>
+#include <iostream>
 
 #include <cfloat>
 
@@ -16,7 +17,8 @@ Water::Water(DTM *dtm, QString fileName):
   m_dtm(dtm),
   m_ncols(dtm->ncols()),
   m_nrows(dtm->nrows()),
-  m_z(new float[m_nrows * m_ncols])
+  m_z(new float[m_nrows * m_ncols]),
+  m_timer(new QTimer(this))
 {
   for(index_t i = 0; i < m_nrows; ++i)
     for(index_t j = 0; j < m_ncols; ++j) {
@@ -27,7 +29,7 @@ Water::Water(DTM *dtm, QString fileName):
   QFile file(fileName + ".water");
 
   if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-    return;
+    std::cerr << "Warning: error while reading water source file" << std::endl;
 
   int x;
   int y;
@@ -46,7 +48,6 @@ Water::Water(DTM *dtm, QString fileName):
   initVBO();
   free();
 
-  m_timer = new QTimer(this);
   connect(m_timer, SIGNAL(timeout()), this, SLOT(update()));
   m_timer->start(200);
 }
@@ -130,43 +131,43 @@ void Water::draw() const
 
 void Water::update()
 {
-  for(index_t i = 0; i < m_nrows; ++i)
-    for(index_t j = 0; j < m_ncols; ++j) {
+  for(index_t i = 1; i < m_nrows; ++i)
+    for(index_t j = 1; j < m_ncols; ++j) {
       const index_t k = i * m_ncols + j;
-      if(i != 0 && i != m_nrows - 1 && j != 0 && j != m_ncols - 1 && m_z[k] != 0) {
-      index_t k2 = 0;
+      if(m_z[k] != 0) {
+        index_t k2 = 0;
 
-      for(int c = 0; c < 4; ++c) {
-        switch(c) {
-          case 0:
-            k2 = (i - 1) * m_ncols + j;
-            break;
-          case 1:
-            k2 = i * m_ncols + (j - 1);
-            break;
-          case 2:
-            k2 = (i + 1 ) * m_ncols + j;
-            break;
-          case 3:
-            k2 = i * m_ncols + ( j + 1);
-            break;
-        }
+        for(int c = 0; c < 4; ++c) {
+          switch(c) {
+            case 0:
+              k2 = (i - 1) * m_ncols + j;
+              break;
+            case 1:
+              k2 = i * m_ncols + (j - 1);
+              break;
+            case 2:
+              k2 = (i + 1 ) * m_ncols + j;
+              break;
+            case 3:
+              k2 = i * m_ncols + ( j + 1);
+              break;
+          }
 
-        float v = m_dtm->vertices()[k].z() + m_z[k];
-        float v2 = m_dtm->vertices()[k2].z() + m_z[k2];
+          float v = m_dtm->vertices()[k].z() + m_z[k];
+          float v2 = m_dtm->vertices()[k2].z() + m_z[k2];
 
-        if(v > v2) {
-          float e = std::min(m_z[k], v - v2);
+          if(v > v2) {
+            float e = std::min(m_z[k], v - v2);
 
-          m_z[k] -= e;
-          m_z[k2] += e;
+            m_z[k] -= e;
+            m_z[k2] += e;
 
-          m_vertices[k].setZ(m_dtm->vertices()[k].z() + m_z[k]);
-          m_vertices[k2].setZ(m_dtm->vertices()[k2].z() + m_z[k2]);
+            m_vertices[k].setZ(m_dtm->vertices()[k].z() + m_z[k]);
+            m_vertices[k2].setZ(m_dtm->vertices()[k2].z() + m_z[k2]);
 
-          glBindBuffer(GL_ARRAY_BUFFER, m_buffers[VERTICES]);
-          glBufferData(GL_ARRAY_BUFFER, m_nvertices*sizeof(Point3d), m_vertices, GL_DYNAMIC_DRAW);
-        }
+            glBindBuffer(GL_ARRAY_BUFFER, m_buffers[VERTICES]);
+            glBufferData(GL_ARRAY_BUFFER, m_nvertices * sizeof(Point3d), m_vertices, GL_DYNAMIC_DRAW);
+          }
       }
     }
   }
@@ -176,6 +177,6 @@ void Water::update()
 
 void Water::fill()
 {
-  foreach (int k, m_sources)
+  foreach(int k, m_sources)
      m_z[k] += 1;
 }

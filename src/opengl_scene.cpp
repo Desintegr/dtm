@@ -1,15 +1,20 @@
 #include "opengl_scene.h"
 
-#include <QtGui>
-
 #include "camera.h"
 #include "dtm.h"
 #include "light.h"
 #include "water.h"
 
+#include <QtGui>
+
+#include <iostream>
+
 OpenGLScene::OpenGLScene(QString fileName, QWidget *parent):
-  QGLWidget(parent), m_fileName(fileName.remove(QRegExp(".grd$")))
+  QGLWidget(parent),
+  m_fileName(fileName.remove(QRegExp(".grd$")))
 {
+  setWindowTitle("Flood simulation");
+
   m_current = 0;
   m_last = 0;
 
@@ -26,6 +31,7 @@ OpenGLScene::~OpenGLScene()
   delete m_camera;
   delete m_dtm;
   delete m_light;
+  delete m_water;
 }
 
 void OpenGLScene::initializeGL()
@@ -39,8 +45,14 @@ void OpenGLScene::initializeGL()
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-  bindTexture(QPixmap(m_fileName + ".png"), GL_TEXTURE_2D);
-  glEnable(GL_TEXTURE_2D);
+  QPixmap texture(m_fileName + ".png");
+  if(texture.isNull()) {
+    std::cerr << "Warning: error while reading texture file" << std::endl;
+  }
+  else {
+    bindTexture(texture, GL_TEXTURE_2D);
+    glEnable(GL_TEXTURE_2D);
+  }
 
   m_camera->mouseMove(0, 0);
 }

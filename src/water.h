@@ -25,8 +25,6 @@ public slots:
 private:
   DTM *m_dtm;
 
-  QTimer *m_timer;
-
   QList<int> m_sources;
 
   size_t m_ncols;
@@ -35,6 +33,8 @@ private:
   size_t m_nindices;
 
   float* m_z;
+
+  QTimer *m_timer;
 
   Point3d* m_vertices;
   index_t* m_indices;
