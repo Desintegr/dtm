@@ -3,21 +3,63 @@
 
 #include "point3d.h"
 
-#include <QHash>
+#include <QtCore>
 
 class Camera
 {
 public:
+  /**
+   * Constructeur de caméra
+   */
   Camera();
 
+  /**
+   * Déplacement relatif de la souris
+   *
+   * @param x déplacement relatif horizontal de la souris
+   * @param y déplacement relatif vertical de la souris
+   */
   void mouseMove(const int x, const int y);
+
+  /**
+   * Change l'état d'une touche du clavier
+   *
+   * @param key touche
+   * @param state vrai : touche pressée,
+   *              faux : touche relachée
+   */
   void keyPress(const int key, const bool state);
+
+  /**
+   * Changement de position de la molette
+   *
+   * @param dir vrai vers le haut
+   *            faux vers le bas
+   */
   void wheel(const bool dir);
 
+  /**
+   * Repositionnement de la caméra
+   */
   void look() const;
+
+  /**
+   * Déplacement de la caméra
+   *
+   * @param step étape du déplacement
+   */
   void animate(const uint step);
 
+  /**
+   * Réinitialisation de l'état des touches du clavier
+   */
   void clearKeyStates();
+
+private:
+  /**
+   * Recalcule les vecteurs de placement de caméra à partir des angles
+   */
+  void vectorFromAngles();
 
 private:
   static const float PI = 3.1415926535;
@@ -40,8 +82,6 @@ private:
   uint m_wheeltime;
   int m_wheeldir;
 
-private:
-  void vectorFromAngles();
 };
 
 #endif

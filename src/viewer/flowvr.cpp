@@ -20,6 +20,7 @@ FlowVR::~FlowVR()
 
 bool FlowVR::init()
 {
+  // initialisation des ports FlowVR
   m_dtmOut = new flowvr::OutputPort("dtmOut");
   m_waterIn = new flowvr::InputPort("waterIn");
 
@@ -27,6 +28,7 @@ bool FlowVR::init()
   ports.push_back(m_dtmOut);
   ports.push_back(m_waterIn);
 
+  // initialisation du ModuleAPI FlowVR
   m_module = flowvr::initModule(ports);
 
   return m_module;

@@ -6,14 +6,40 @@
 class FlowVR
 {
 public:
+  /**
+   * Constructeur du module FlowVR de visualisation
+   */
   FlowVR();
-  virtual ~FlowVR();
-  bool init();
 
+  /**
+   * Destructeur du module FlowVR de visualisation
+   */
+  virtual ~FlowVR();
+
+  /**
+   * Retourne le port de sortie dtmOut
+   *
+   * Ce port est utilisé pour envoyer les données du terrain
+   */
   flowvr::OutputPort * dtmOut() const;
+
+  /**
+   * Retourne le port d'entrée waterIn
+   *
+   * Ce port est utilisé pour recevoir les données de l'inondation
+   */
   flowvr::InputPort * waterIn() const;
 
+  /**
+   * Retourne le ModuleAPI FlowVR
+   */
   flowvr::ModuleAPI * module() const;
+
+  /**
+   * Initialise les ports FlowVR du module
+   * @return vrai si les ports sont initialisés correctement
+   */
+  bool init();
 
 private:
   flowvr::OutputPort *m_dtmOut;

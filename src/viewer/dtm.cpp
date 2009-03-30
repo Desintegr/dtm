@@ -1,28 +1,25 @@
 #include "dtm.h"
 
-#include "flowvr.h"
 #include "point3d.h"
 
 #define GL_GLEXT_PROTOTYPES
 
 #include <QtOpenGL>
-#include <QtCore>
-
-#include <flowvr/module.h>
 
 #include <iostream>
 
 #include <cfloat>
 
-DTM::DTM(QString fileName)
+DTM::DTM(const QString &filename)
 {
-  QFile file(fileName + ".grd");
+  QFile file(filename + ".grd");
 
   if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
     std::cerr << "Error: unable to read grid file" << std::endl;
     exit(EXIT_FAILURE);
   }
 
+  // lecture des informations sur le terrain
   QTextStream in(&file);
 
   QString null;
@@ -48,13 +45,43 @@ DTM::DTM(QString fileName)
   free();
 
   file.close();
-
-  //send();
 }
 
 DTM::~DTM()
 {
   delete[] m_vertices;
+}
+
+void DTM::draw() const
+{
+  glEnable(GL_LIGHTING);
+  glEnable(GL_LIGHT0);
+
+  glBindBuffer(GL_ARRAY_BUFFER, m_buffers[NORMALS]);
+  glNormalPointer(GL_FLOAT, 0, 0);
+  glEnableClientState(GL_NORMAL_ARRAY);
+
+  glBindBuffer(GL_ARRAY_BUFFER, m_buffers[TEXTURES]);
+  glTexCoordPointer(2, GL_FLOAT, 0, 0);
+  glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+  glBindBuffer(GL_ARRAY_BUFFER, m_buffers[VERTICES]);
+  glVertexPointer(3, GL_FLOAT, 0, 0);
+  glEnableClientState(GL_VERTEX_ARRAY);
+
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffers[INDICES]);
+
+  glDrawElements(GL_TRIANGLES, m_nindices, GL_UNSIGNED_INT, 0);
+
+  glDisableClientState(GL_VERTEX_ARRAY);
+  glDisableClientState(GL_NORMAL_ARRAY);
+  glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+  glDisable(GL_LIGHTING);
+  glDisable(GL_LIGHT0);
 }
 
 void DTM::initVertices(QTextStream& in)
@@ -64,6 +91,7 @@ void DTM::initVertices(QTextStream& in)
   m_nvertices = m_nrows * m_ncols;
   m_vertices = new Point3d[m_nvertices];
 
+  // lecture des données du terrain
   for(index_t i = 0; i < m_nrows; ++i)
     for(index_t j = 0; j < m_ncols; ++j) {
       const index_t k = i * m_ncols + j;
@@ -183,74 +211,3 @@ void DTM::free()
   delete[] m_indices;
   delete[] m_textures;
 }
-
-void DTM::draw() const
-{
-  glEnable(GL_LIGHTING);
-  glEnable(GL_LIGHT0);
-
-  glBindBuffer(GL_ARRAY_BUFFER, m_buffers[NORMALS]);
-  glNormalPointer(GL_FLOAT, 0, 0);
-  glEnableClientState(GL_NORMAL_ARRAY);
-
-  glBindBuffer(GL_ARRAY_BUFFER, m_buffers[TEXTURES]);
-  glTexCoordPointer(2, GL_FLOAT, 0, 0);
-  glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-  glBindBuffer(GL_ARRAY_BUFFER, m_buffers[VERTICES]);
-  glVertexPointer(3, GL_FLOAT, 0, 0);
-  glEnableClientState(GL_VERTEX_ARRAY);
-
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffers[INDICES]);
-
-  glDrawElements(GL_TRIANGLES, m_nindices, GL_UNSIGNED_INT, 0);
-
-  glDisableClientState(GL_VERTEX_ARRAY);
-  glDisableClientState(GL_NORMAL_ARRAY);
-  glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-  glDisable(GL_LIGHTING);
-  glDisable(GL_LIGHT0);
-}
-
-/*
-void DTM::send() const
-{
-  // envoi du nombre de lignes
-
-  flowvr::MessageWrite nrowsMsg;
-  nrowsMsg.data = m_flowvr->module()->alloc(sizeof(size_t));
-  memcpy(nrowsMsg.data.writeAccess(), &m_nrows, sizeof(size_t));
-  m_flowvr->module()->put(m_flowvr->dtmOut(), nrowsMsg);
-
-  // envoi du nombre de colonnes
-
-  flowvr::MessageWrite ncolsMsg;
-  ncolsMsg.data = m_flowvr->module()->alloc(sizeof(size_t));
-  memcpy(ncolsMsg.data.writeAccess(), &m_ncols, sizeof(size_t));
-  m_flowvr->module()->put(m_flowvr->dtmOut(), ncolsMsg);
-
-  // envoi du terrain
-
-  flowvr::MessageWrite dtmMsg;
-
-  const size_t size = m_nrows * m_ncols;
-  float dtm[size];
-
-  for(index_t i = 0; i < m_nrows; ++i)
-    for(index_t j = 0; j < m_ncols; ++j) {
-      const index_t k = i * m_ncols + j;
-      dtm[k] = m_vertices[k].z();
-    }
-
-  const size_t size_alloc = size * sizeof(float);
-
-  dtmMsg.data = m_flowvr->module()->alloc(size_alloc);
-  memcpy(dtmMsg.data.writeAccess(), dtm, size_alloc);
-
-  m_flowvr->module()->put(m_flowvr->dtmOut(), dtmMsg);
-}
-*/

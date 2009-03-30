@@ -7,20 +7,14 @@ class FlowVR
 {
 public:
   /**
-   * Constructeur de module FlowVR
+   * Constructeur de module FlowVR d'inondation
    */
   FlowVR();
 
   /**
-   * Destructeur de module FlowVR
+   * Destructeur de module FlowVR d'inondation
    */
   virtual ~FlowVR();
-
-  /**
-   * Initialise les ports FlowVR du module
-   * @return vrai si les ports sont initialisés correctement
-   */
-  bool init();
 
   /**
    * Retourne le port de sortie waterOut
@@ -40,6 +34,12 @@ public:
    * Retourne le ModuleAPI FlowVR
    */
   flowvr::ModuleAPI * module() const;
+
+  /**
+   * Initialise les ports FlowVR du module
+   * @return vrai si les ports sont initialisés correctement
+   */
+  bool init();
 
 private:
   flowvr::OutputPort *m_waterOut;

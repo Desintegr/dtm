@@ -9,9 +9,9 @@
 
 #include <iostream>
 
-OpenGLScene::OpenGLScene(QString fileName, QWidget *parent):
+OpenGLScene::OpenGLScene(QString filename, QWidget *parent):
   QGLWidget(parent),
-  m_fileName(fileName.remove(QRegExp(".grd$")))
+  m_filename(filename.remove(QRegExp(".grd$")))
 {
   setWindowTitle("Flood simulation");
 
@@ -39,8 +39,8 @@ OpenGLScene::~OpenGLScene()
 
 void OpenGLScene::initializeGL()
 {
-  m_camera = new Camera;
-  m_dtm = new DTM(m_fileName);
+  m_camera = new Camera();
+  m_dtm = new DTM(m_filename);
   m_light = new Light(m_dtm);
   m_water = new Water(m_dtm);
 
@@ -52,7 +52,7 @@ void OpenGLScene::initializeGL()
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-  QPixmap texture(m_fileName + ".png");
+  QPixmap texture(m_filename + ".png");
   if(texture.isNull()) {
     std::cerr << "Warning: error while reading texture file" << std::endl;
   }

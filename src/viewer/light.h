@@ -6,8 +6,17 @@ class DTM;
 class Light
 {
 public:
+  /**
+   * Constructeur de lumière
+   *
+   * @param dtm le terrain
+   */
   Light(DTM *dtm);
 
+private:
+  /**
+   * Place la lumière
+   */
   void set();
 
 private:

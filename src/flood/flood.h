@@ -1,12 +1,12 @@
 #ifndef FLOOD_H
 #define FLOOD_H
 
+#include "flowvr.h"
+
 #include <QtCore>
 
 typedef unsigned int index_t;
 typedef unsigned int size_t;
-
-class FlowVR;
 
 class Flood: public QObject
 {
@@ -28,12 +28,6 @@ public:
    */
   virtual ~Flood();
 
-private slots:
-  /**
-   * Mise à jour des niveaux de l'eau
-   */
-  void update();
-
 private:
   /**
    * Récupère le terrain à partir du module viewer
@@ -53,13 +47,19 @@ private:
   void fill();
 
   /**
-   * Envoie les niveaux de l'eau à module viewer
+   * Envoie les niveaux de l'eau au module viewer
    */
   void sendWater() const;
 
+private slots:
+  /**
+   * Met à jour les niveaux de l'eau
+   */
+  void update();
+
 private:
-  QTimer *m_timer;
-  FlowVR *m_flowvr;
+  QTimer m_timer;
+  FlowVR m_flowvr;
 
   size_t m_nrows;
   size_t m_ncols;

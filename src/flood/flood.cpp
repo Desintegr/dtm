@@ -1,12 +1,9 @@
 #include "flood.h"
 
-#include "flowvr.h"
 
-Flood::Flood(const QString &filename):
-  m_timer(new QTimer()),
-  m_flowvr(new FlowVR())
+Flood::Flood(const QString &filename)
 {
-  if(!m_flowvr->init()) {
+  if(!m_flowvr.init()) {
     std::cerr << "Error: cannot initialize FlowVR ports" << std::endl;
     exit(EXIT_FAILURE);
   }
@@ -22,16 +19,13 @@ Flood::Flood(const QString &filename):
       m_water[k] = 0;
     }
 
-  // au timeout, on met à jour les niveaux de l'eau
-  connect(m_timer, SIGNAL(timeout()), this, SLOT(update()));
-  m_timer->start(200); // lancement de l'itération de mise à jour
+  // met les niveaux de l'eau au timeout du timer
+  connect(&m_timer, SIGNAL(timeout()), this, SLOT(update()));
+  m_timer.start(200); // lancement de l'itération de mise à jour
 }
 
 Flood::~Flood()
 {
-  delete m_flowvr;
-  delete m_timer;
-
   delete m_dtm;
   delete m_water;
 }
@@ -39,25 +33,25 @@ Flood::~Flood()
 void Flood::getDTM()
 {
   // réception du nombre de lignes
-  if(m_flowvr->module()->wait()) {
+  if(m_flowvr.module()->wait()) {
     flowvr::Message nrowsMsg;
-    m_flowvr->module()->get(m_flowvr->dtmIn(), nrowsMsg);
+    m_flowvr.module()->get(m_flowvr.dtmIn(), nrowsMsg);
 
     memcpy(&m_nrows, nrowsMsg.data.readAccess(), sizeof(size_t));
   }
 
   // réception du nombre de colonnes
-  if(m_flowvr->module()->wait()) {
+  if(m_flowvr.module()->wait()) {
     flowvr::Message ncolsMsg;
-    m_flowvr->module()->get(m_flowvr->dtmIn(), ncolsMsg);
+    m_flowvr.module()->get(m_flowvr.dtmIn(), ncolsMsg);
 
     memcpy(&m_ncols, ncolsMsg.data.readAccess(), sizeof(size_t));
   }
 
   // réception du terrain
-  if(m_flowvr->module()->wait()) {
+  if(m_flowvr.module()->wait()) {
     flowvr::Message dtmMsg;
-    m_flowvr->module()->get(m_flowvr->dtmIn(), dtmMsg);
+    m_flowvr.module()->get(m_flowvr.dtmIn(), dtmMsg);
 
     const size_t size = m_nrows * m_ncols;
     m_dtm = new float[size];
@@ -84,6 +78,26 @@ void Flood::readSources(const QString &fileName)
   }
 
   file.close();
+}
+
+void Flood::fill()
+{
+  // augmente l'eau de 1 pour chaque source
+  foreach(int k, m_sources)
+     m_water[k] += 1;
+}
+
+void Flood::sendWater() const
+{
+  static const size_t size = m_nrows * m_ncols * sizeof(float);
+
+  // envoie des niveaux de l'eau
+  flowvr::MessageWrite waterMsg;
+
+  waterMsg.data = m_flowvr.module()->alloc(size);
+  memcpy(waterMsg.data.writeAccess(), m_water, size);
+
+  m_flowvr.module()->put(m_flowvr.waterOut(), waterMsg);
 }
 
 void Flood::update()
@@ -126,24 +140,4 @@ void Flood::update()
 
   fill(); // remplit les sources
   sendWater(); // envoie les niveaux d'eau
-}
-
-void Flood::fill()
-{
-  // augmente l'eau de 1 pour chaque source
-  foreach(int k, m_sources)
-     m_water[k] += 1;
-}
-
-void Flood::sendWater() const
-{
-  static const size_t size = m_nrows * m_ncols * sizeof(float);
-
-  // envoie des niveaux de l'eau
-  flowvr::MessageWrite waterMsg;
-
-  waterMsg.data = m_flowvr->module()->alloc(size);
-  memcpy(waterMsg.data.writeAccess(), m_water, size);
-
-  m_flowvr->module()->put(m_flowvr->waterOut(), waterMsg);
 }

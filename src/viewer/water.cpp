@@ -50,7 +50,7 @@ void Water::initVertices()
 
        m_vertices[k].setX(i);
        m_vertices[k].setY(j);
-       m_vertices[k].setZ(m_dtm->minz());
+       m_vertices[k].setZ(m_dtm->minZ());
     }
 }
 
