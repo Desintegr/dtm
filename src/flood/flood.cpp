@@ -1,6 +1,5 @@
 #include "flood.h"
 
-
 Flood::Flood(const QString &filename)
 {
   if(!m_flowvr.init()) {
@@ -69,11 +68,11 @@ void Flood::readSources(const QString &fileName)
   int x;
   int y;
 
-  // FIXME source en 0 en trop
   QTextStream in(&file);
   while(!in.atEnd()) {
     in >> x;
     in >> y;
+    in.skipWhiteSpace();
     m_sources.append(x * m_ncols + y);
   }
 
