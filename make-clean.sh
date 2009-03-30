@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# simple script to clean
+
 rm -rf bin
 rm -rf build
 rm -rf cmake

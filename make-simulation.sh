@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# simple script to configure, compile and install the example
+# simple script to configure, compile and install the modules
 
 PWD1=$PWD;
 mkdir build;
