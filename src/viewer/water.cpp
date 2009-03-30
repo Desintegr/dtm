@@ -1,30 +1,24 @@
 #include "water.h"
 
-#include "flowvr.h"
 #include "dtm.h"
 #include "point3d.h"
 
 #define GL_GLEXT_PROTOTYPES
 
 #include <QtOpenGL>
-#include <QtCore>
 
 #include <algorithm>
-#include <iostream>
-
-#include <cfloat>
 
 Water::Water(DTM *dtm):
   m_dtm(dtm),
   m_ncols(dtm->ncols()),
   m_nrows(dtm->nrows()),
-  m_z(new float[m_nrows * m_ncols])/*,
-  m_timer(new QTimer(this))*/
+  m_values(new float[m_nrows * m_ncols])
 {
   for(index_t i = 0; i < m_nrows; ++i)
     for(index_t j = 0; j < m_ncols; ++j) {
       const index_t k = i * m_ncols + j;
-      m_z[k] = 0;
+      m_values[k] = 0;
     }
 
   initVertices();
@@ -35,7 +29,7 @@ Water::Water(DTM *dtm):
 
 Water::~Water()
 {
-  delete[] m_z;
+  delete[] m_values;
   delete[] m_vertices;
 }
 

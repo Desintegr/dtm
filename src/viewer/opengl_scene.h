@@ -48,7 +48,8 @@ protected:
    */
   void mouseMoveEvent(QMouseEvent *e);
 
-  /** Événement de bouton de souris pressé
+  /**
+   * Événement de bouton de souris pressé
    */
   void mousePressEvent(QMouseEvent *e);
 
@@ -57,26 +58,36 @@ protected:
    */
   void mouseReleaseEvent(QMouseEvent *e);
 
-
-  /** Événement de déplacement de molette
+  /**
+   * Événement de déplacement de molette
    */
   void wheelEvent(QWheelEvent *e);
 
-  /** Événement de touche de clavier pressée
+  /**
+   * Événement de touche de clavier pressée
    */
   void keyPressEvent(QKeyEvent *e);
 
-  /** Événement de touche de clavier relachée
+  /**
+   * Événement de touche de clavier relachée
    */
   void keyReleaseEvent(QKeyEvent *e);
 
-  /** Événement de curseur entrant dans la fenêtre
+  /**
+   * Événement de curseur entrant dans la fenêtre
    */
   void enterEvent(QEvent *e);
 
-  /** Événement de curseur sortant de la fenêtre
+  /**
+   * Événement de curseur sortant de la fenêtre
    */
   void leaveEvent(QEvent *e);
+
+private slots:
+  /**
+   * Demande la mise à jour de la scène
+   */
+  void update();
 
 private:
   static const uint FPS = 50;
@@ -94,9 +105,6 @@ private:
   QTime m_ticks;
   uint m_current;
   uint m_last;
-
-private slots:
-  void update();
 };
 
 #endif

@@ -6,7 +6,6 @@
 typedef unsigned int index_t;
 typedef unsigned int size_t;
 
-class FlowVR;
 class DTM;
 class Point3d;
 
@@ -15,15 +14,32 @@ class Water: public QObject
   Q_OBJECT
 
 public:
+  /**
+   * Constructeur d'eau
+   *
+   * @param dtm le terrain
+   */
   Water(DTM *dtm);
+
+  /**
+   * Destructeur d'eau
+   */
   virtual ~Water();
 
-  void draw() const;
+  /**
+   * Retourne les données de l'eau
+   */
+  float * values() const;
 
-  void run();
-
-  float * z() const;
+  /**
+   * Retourne les somments de l'eau
+   */
   Point3d * vertices() const;
+
+  /**
+   * Dessine l'eau
+   */
+  void draw() const;
 
 public slots:
   void update();
@@ -36,11 +52,7 @@ private:
   size_t m_nvertices;
   size_t m_nindices;
 
-  float *m_z;
-
-  //FlowVR *m_flowvr;
-
-  //QTimer *m_timer;
+  float *m_values;
 
   Point3d* m_vertices;
   index_t* m_indices;
@@ -57,19 +69,16 @@ private:
   void initIndices();
   void initVBO();
   void free();
-
-  //void fill();
 };
 
-inline float * Water::z() const
+inline float * Water::values() const
 {
-  return m_z;
+  return m_values;
 }
 
 inline Point3d* Water::vertices() const
 {
   return m_vertices;
 }
-
 
 #endif

@@ -8,8 +8,6 @@ typedef unsigned int index_t;
 
 class Point3d;
 
-class QTextStream;
-
 class DTM
 {
 public:
@@ -66,7 +64,8 @@ private:
    */
   void initNormals();
 
-  /** Initialise les textures du terrain
+  /**
+   * Initialise les textures du terrain
    */
   void initTextures();
 

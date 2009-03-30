@@ -11,6 +11,10 @@ Camera::Camera():
 {
 }
 
+Camera::~Camera()
+{
+}
+
 void Camera::mouseMove(const int x, const int y)
 {
   m_theta -= x * SENSITIVITY;

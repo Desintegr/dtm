@@ -14,6 +14,11 @@ public:
   Camera();
 
   /**
+   * Destructeur de caméra
+   */
+  virtual ~Camera();
+
+  /**
    * Déplacement relatif de la souris
    *
    * @param x déplacement relatif horizontal de la souris
@@ -81,7 +86,6 @@ private:
   bool m_wheelactive;
   uint m_wheeltime;
   int m_wheeldir;
-
 };
 
 #endif

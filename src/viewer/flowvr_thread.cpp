@@ -74,13 +74,13 @@ void FlowVRThread::getWater() {
   flowvr::Message waterMsg;
   m_flowvr.module()->get(m_flowvr.waterIn(), waterMsg);
 
-  memcpy(m_water->z(), waterMsg.data.readAccess(), size);
+  memcpy(m_water->values(), waterMsg.data.readAccess(), size);
 
   for(index_t i = 0; i < m_dtm->nrows(); ++i)
     for(index_t j = 0; j < m_dtm->ncols(); ++j) {
       const index_t k = i * m_dtm->ncols() + j;
-      if(m_water->z()[k] != 0)
-        m_water->vertices()[k].setZ(m_dtm->vertices()[k].z() + m_water->z()[k]);
+      if(m_water->values()[k] != 0)
+        m_water->vertices()[k].setZ(m_dtm->vertices()[k].z() + m_water->values()[k]);
     }
 
   // signal de mise à jour pour la visualisation

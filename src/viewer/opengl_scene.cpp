@@ -1,11 +1,10 @@
 #include "opengl_scene.h"
 
-#include "flowvr.h"
 #include "camera.h"
 #include "dtm.h"
+#include "flowvr_thread.h"
 #include "light.h"
 #include "water.h"
-#include "flowvr_thread.h"
 
 #include <iostream>
 
@@ -48,10 +47,14 @@ void OpenGLScene::initializeGL()
   connect(m_flowVRThread, SIGNAL(updated()), m_water, SLOT(update()));
   m_flowVRThread->start();
 
+  // test de profondeur
   glEnable(GL_DEPTH_TEST);
+
+  // opacité
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+  // texture
   QPixmap texture(m_filename + ".png");
   if(texture.isNull()) {
     std::cerr << "Warning: error while reading texture file" << std::endl;
@@ -70,7 +73,7 @@ void OpenGLScene::resizeGL(const int w, const int h)
 
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluPerspective(45, (float) w / (float) h, 1, 3000);
+  gluPerspective(45, (float) w / h, 1, 3000);
 }
 
 void OpenGLScene::paintGL()
@@ -90,6 +93,7 @@ void OpenGLScene::paintGL()
 void OpenGLScene::mouseMoveEvent(QMouseEvent *e)
 {
   if(e->buttons() == Qt::LeftButton) {
+    // place le curseur au milieu pour calculer le déplacement relatif
     QCursor::setPos(QPoint(mapToGlobal(QPoint(width() / 2, height() / 2))));
 
     int relx = e->globalX() - QCursor::pos().x();
