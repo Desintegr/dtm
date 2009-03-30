@@ -2,8 +2,8 @@
 
 #include "flowvr.h"
 
-Flood::Flood(QString fileName):
-  m_timer(new QTimer(this)),
+Flood::Flood(const QString &filename):
+  m_timer(new QTimer()),
   m_flowvr(new FlowVR())
 {
   if(!m_flowvr->init()) {
@@ -11,9 +11,10 @@ Flood::Flood(QString fileName):
     exit(EXIT_FAILURE);
   }
 
-  getDTM();
-  readSources(fileName);
+  getDTM(); // lecture du terrain
+  readSources(filename); // lecture des sources
 
+  // initialisation des niveaux de l'eau à 0
   m_water = new float[m_nrows * m_ncols];
   for(index_t i = 0; i < m_nrows; ++i)
     for(index_t j = 0; j < m_ncols; ++j) {
@@ -21,24 +22,23 @@ Flood::Flood(QString fileName):
       m_water[k] = 0;
     }
 
+  // au timeout, on met à jour les niveaux de l'eau
   connect(m_timer, SIGNAL(timeout()), this, SLOT(update()));
-  m_timer->start(200);
+  m_timer->start(200); // lancement de l'itération de mise à jour
 }
 
 Flood::~Flood()
 {
   delete m_flowvr;
+  delete m_timer;
 
   delete m_dtm;
   delete m_water;
-
-  delete m_timer;
 }
 
 void Flood::getDTM()
 {
   // réception du nombre de lignes
-
   if(m_flowvr->module()->wait()) {
     flowvr::Message nrowsMsg;
     m_flowvr->module()->get(m_flowvr->dtmIn(), nrowsMsg);
@@ -47,7 +47,6 @@ void Flood::getDTM()
   }
 
   // réception du nombre de colonnes
-
   if(m_flowvr->module()->wait()) {
     flowvr::Message ncolsMsg;
     m_flowvr->module()->get(m_flowvr->dtmIn(), ncolsMsg);
@@ -56,7 +55,6 @@ void Flood::getDTM()
   }
 
   // réception du terrain
-
   if(m_flowvr->module()->wait()) {
     flowvr::Message dtmMsg;
     m_flowvr->module()->get(m_flowvr->dtmIn(), dtmMsg);
@@ -67,17 +65,17 @@ void Flood::getDTM()
   }
 }
 
-void Flood::readSources(QString fileName)
+void Flood::readSources(const QString &fileName)
 {
   QFile file(fileName);
 
   if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-    std::cerr << "Warning: error while reading water source file" << std::endl;
+    std::cerr << "Warning: error while reading water sources file" << std::endl;
 
   int x;
   int y;
 
-  // TODO 0 en trop
+  // FIXME source en 0 en trop
   QTextStream in(&file);
   while(!in.atEnd()) {
     in >> x;
@@ -93,10 +91,10 @@ void Flood::update()
   for(index_t i = 1; i < m_nrows; ++i)
     for(index_t j = 1; j < m_ncols; ++j) {
       const index_t k = i * m_ncols + j;
-      if(m_water[k] != 0) {
+      if(m_water[k] != 0) { // ne fait rien si le niveau d'eau est nul
         index_t k2 = 0;
 
-        for(int c = 0; c < 4; ++c) {
+        for(int c = 0; c < 4; ++c) { // dans les quatre directions
           switch(c) {
             case 0:
               k2 = (i - 1) * m_ncols + j;
@@ -116,6 +114,7 @@ void Flood::update()
           const float v2 = m_dtm[k2] + m_water[k2];
 
           if(v > v2) {
+            // calcul du trop plein
             const float e = std::min(m_water[k], v - v2);
 
             m_water[k] -= e;
@@ -125,20 +124,22 @@ void Flood::update()
     }
   }
 
-  fill();
-  sendWater();
+  fill(); // remplit les sources
+  sendWater(); // envoie les niveaux d'eau
 }
 
 void Flood::fill()
 {
+  // augmente l'eau de 1 pour chaque source
   foreach(int k, m_sources)
      m_water[k] += 1;
 }
 
 void Flood::sendWater() const
 {
-  const size_t size = m_nrows * m_ncols * sizeof(float);
+  static const size_t size = m_nrows * m_ncols * sizeof(float);
 
+  // envoie des niveaux de l'eau
   flowvr::MessageWrite waterMsg;
 
   waterMsg.data = m_flowvr->module()->alloc(size);

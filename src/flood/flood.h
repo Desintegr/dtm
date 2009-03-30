@@ -13,16 +13,48 @@ class Flood: public QObject
   Q_OBJECT
 
 public:
-  Flood(QString fileName);
+  /**
+   * Constructeur du module d'inondation
+   *
+   * Lit un fichier en entrée contenant les sources de l'inondation
+   * Format du fichier : deux entiers par ligne correspondant au point x et y
+   *
+   * @param le nom du fichier contenant les sources
+   */
+  Flood(const QString &filename);
+
+  /**
+   * Destructeur du module d'inondation
+   */
   virtual ~Flood();
 
-public slots:
+private slots:
+  /**
+   * Mise à jour des niveaux de l'eau
+   */
   void update();
 
 private:
+  /**
+   * Récupère le terrain à partir du module viewer
+   */
   void getDTM();
-  void readSources(QString fileName);
+
+  /**
+   * Lit le fichier contenant les sources
+   *
+   * @param filename le nom du fichier contenant les sources
+   */
+  void readSources(const QString &filename);
+
+  /**
+   * Remplit d'eau les différentes sources
+   */
   void fill();
+
+  /**
+   * Envoie les niveaux de l'eau à module viewer
+   */
   void sendWater() const;
 
 private:

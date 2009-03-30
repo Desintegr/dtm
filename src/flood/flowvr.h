@@ -12,7 +12,7 @@ public:
   FlowVR();
 
   /**
-   * Desctructeur de module FlowVR
+   * Destructeur de module FlowVR
    */
   virtual ~FlowVR();
 

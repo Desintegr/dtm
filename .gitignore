@@ -1,5 +1,8 @@
-dtm
-*.o
-moc_*.cpp
-Makefile
-data/
+bin/
+build/
+cmake/
+lib/
+log*
+*.xml
+*.err.csv
+*.out.csv
