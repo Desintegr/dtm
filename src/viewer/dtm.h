@@ -7,8 +7,10 @@ class Point3d;
 
 class QTextStream;
 
-typedef uint size_t;
-typedef uint index_t;
+typedef unsigned int size_t;
+typedef unsigned int index_t;
+
+class FlowVR;
 
 class DTM
 {
@@ -43,6 +45,8 @@ private:
   Point3d *m_normals;
   float *m_textures;
 
+  //FlowVR *m_flowvr;
+
   enum Buffers
   {
     VERTICES,
@@ -59,6 +63,8 @@ private:
   void initTextures();
   void initVBO();
   void free();
+
+  //void send() const;
 };
 
 inline size_t DTM::ncols() const

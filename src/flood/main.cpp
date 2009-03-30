@@ -1,4 +1,4 @@
-#include "opengl_scene.h"
+#include "flood.h"
 
 #include <QApplication>
 
@@ -7,19 +7,17 @@
 int main(int argc, char *argv[])
 {
   if(argc < 2) {
-    std::cout << "Error: no input file given" << std::endl;
+    std::cerr << "Error: no input file given" << std::endl;
     return EXIT_FAILURE;
   }
 
   if(argc > 2) {
-    std::cout << "Error: too many arguments" << std::endl;
+    std::cerr << "Error: too many arguments" << std::endl;
     return EXIT_FAILURE;
   }
 
   QApplication app(argc, argv);
-
-  OpenGLScene scene(argv[1]);
-  scene.show();
+  Flood flood(argv[1]);
 
   return app.exec();
 }

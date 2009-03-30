@@ -3,9 +3,10 @@
 
 #include <QtCore>
 
-typedef uint index_t;
-typedef uint size_t;
+typedef unsigned int index_t;
+typedef unsigned int size_t;
 
+class FlowVR;
 class DTM;
 class Point3d;
 
@@ -14,10 +15,15 @@ class Water: public QObject
   Q_OBJECT
 
 public:
-  Water(DTM *dtm, QString fileName);
+  Water(DTM *dtm);
   virtual ~Water();
 
   void draw() const;
+
+  void run();
+
+  float * z() const;
+  Point3d * vertices() const;
 
 public slots:
   void update();
@@ -25,16 +31,16 @@ public slots:
 private:
   DTM *m_dtm;
 
-  QList<int> m_sources;
-
   size_t m_ncols;
   size_t m_nrows;
   size_t m_nvertices;
   size_t m_nindices;
 
-  float* m_z;
+  float *m_z;
 
-  QTimer *m_timer;
+  //FlowVR *m_flowvr;
+
+  //QTimer *m_timer;
 
   Point3d* m_vertices;
   index_t* m_indices;
@@ -52,7 +58,18 @@ private:
   void initVBO();
   void free();
 
-  void fill();
+  //void fill();
 };
+
+inline float * Water::z() const
+{
+  return m_z;
+}
+
+inline Point3d* Water::vertices() const
+{
+  return m_vertices;
+}
+
 
 #endif

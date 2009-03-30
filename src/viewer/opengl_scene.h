@@ -1,15 +1,11 @@
 #ifndef DTM_WIDGET_H
 #define DTM_WIDGET_H
 
-#include <QGLWidget>
-#include <QTime>
-#include <QTimer>
-#include <QString>
-
-class QPixmap;
+#include <QtOpenGL>
 
 class Camera;
 class DTM;
+class FlowVRThread;
 class Light;
 class Water;
 
@@ -19,7 +15,7 @@ class OpenGLScene: public QGLWidget
 
 public:
   OpenGLScene(QString fileName, QWidget *parent=0);
-  ~OpenGLScene();
+  virtual ~OpenGLScene();
 
 protected:
   void initializeGL();
@@ -44,6 +40,8 @@ private:
   DTM *m_dtm;
   Light *m_light;
   Water *m_water;
+
+  FlowVRThread *m_flowVRThread;
 
   QTimer m_refresh;
   QTime m_ticks;

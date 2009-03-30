@@ -1,11 +1,14 @@
 #include "dtm.h"
 
+#include "flowvr.h"
 #include "point3d.h"
 
 #define GL_GLEXT_PROTOTYPES
 
 #include <QtOpenGL>
 #include <QtCore>
+
+#include <flowvr/module.h>
 
 #include <iostream>
 
@@ -45,6 +48,8 @@ DTM::DTM(QString fileName)
   free();
 
   file.close();
+
+  //send();
 }
 
 DTM::~DTM()
@@ -210,3 +215,42 @@ void DTM::draw() const
   glDisable(GL_LIGHTING);
   glDisable(GL_LIGHT0);
 }
+
+/*
+void DTM::send() const
+{
+  // envoi du nombre de lignes
+
+  flowvr::MessageWrite nrowsMsg;
+  nrowsMsg.data = m_flowvr->module()->alloc(sizeof(size_t));
+  memcpy(nrowsMsg.data.writeAccess(), &m_nrows, sizeof(size_t));
+  m_flowvr->module()->put(m_flowvr->dtmOut(), nrowsMsg);
+
+  // envoi du nombre de colonnes
+
+  flowvr::MessageWrite ncolsMsg;
+  ncolsMsg.data = m_flowvr->module()->alloc(sizeof(size_t));
+  memcpy(ncolsMsg.data.writeAccess(), &m_ncols, sizeof(size_t));
+  m_flowvr->module()->put(m_flowvr->dtmOut(), ncolsMsg);
+
+  // envoi du terrain
+
+  flowvr::MessageWrite dtmMsg;
+
+  const size_t size = m_nrows * m_ncols;
+  float dtm[size];
+
+  for(index_t i = 0; i < m_nrows; ++i)
+    for(index_t j = 0; j < m_ncols; ++j) {
+      const index_t k = i * m_ncols + j;
+      dtm[k] = m_vertices[k].z();
+    }
+
+  const size_t size_alloc = size * sizeof(float);
+
+  dtmMsg.data = m_flowvr->module()->alloc(size_alloc);
+  memcpy(dtmMsg.data.writeAccess(), dtm, size_alloc);
+
+  m_flowvr->module()->put(m_flowvr->dtmOut(), dtmMsg);
+}
+*/

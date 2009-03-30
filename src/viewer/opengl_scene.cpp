@@ -1,11 +1,11 @@
 #include "opengl_scene.h"
 
+#include "flowvr.h"
 #include "camera.h"
 #include "dtm.h"
 #include "light.h"
 #include "water.h"
-
-#include <QtGui>
+#include "flowvr_thread.h"
 
 #include <iostream>
 
@@ -32,6 +32,9 @@ OpenGLScene::~OpenGLScene()
   delete m_dtm;
   delete m_light;
   delete m_water;
+
+  m_flowVRThread->quit();
+  delete m_flowVRThread;
 }
 
 void OpenGLScene::initializeGL()
@@ -39,7 +42,11 @@ void OpenGLScene::initializeGL()
   m_camera = new Camera;
   m_dtm = new DTM(m_fileName);
   m_light = new Light(m_dtm);
-  m_water = new Water(m_dtm, m_fileName);
+  m_water = new Water(m_dtm);
+
+  m_flowVRThread = new FlowVRThread(m_dtm, m_water);
+  connect(m_flowVRThread, SIGNAL(updated()), m_water, SLOT(update()));
+  m_flowVRThread->start();
 
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_BLEND);
