@@ -1,6 +1,6 @@
-PROJECT(prototype)
+PROJECT(simulation)
 
-SET(app prototype)
+SET(app simulation)
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 

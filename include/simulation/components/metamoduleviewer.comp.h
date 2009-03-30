@@ -1,13 +1,13 @@
 #ifndef METAMODULEVIEWER_COMP_H
 #define METAMODULEVIEWER_COMP_H
 
-#include "prototype/components/moduleviewer.comp.h"
+#include "simulation/components/moduleviewer.comp.h"
 
 #include <flowvr/app/components/metamoduleflowvr-run-ssh.comp.h>
 
 using namespace flowvr::app;
 
-namespace prototype
+namespace simulation
 {
 
 class MetaModuleViewer: public MetaModuleFlowvrRunSSH<ModuleViewer>

@@ -1,18 +1,18 @@
-#include <prototype/components/metamoduleflood.comp.h>
-#include <prototype/components/metamoduleviewer.comp.h>
-#include <prototype/components/prototype.comp.h>
+#include <simulation/components/metamoduleflood.comp.h>
+#include <simulation/components/metamoduleviewer.comp.h>
+#include <simulation/components/simulation.comp.h>
 
 #include <flowvr/app/components/connection.comp.h>
 #include <flowvr/app/core/genclass.h>
 
 using namespace flowvr;
 
-namespace prototype
+namespace simulation
 {
 
-GENCLASS(prototype)
+GENCLASS(simulation)
 
-void prototype::execute() {
+void simulation::execute() {
   Component* viewer = addObject(MetaModuleViewer("viewer"));
   Component* flood = addObject(MetaModuleFlood("flood"));
 

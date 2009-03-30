@@ -5,7 +5,7 @@
 
 using namespace flowvr::app;
 
-namespace prototype
+namespace simulation
 {
 
 class ModuleViewer: public Module
@@ -16,8 +16,8 @@ public:
   virtual Component * create() const;
 };
 
-inline ModuleViewer::ModuleViewer(const std::string &id_):
-  Module(id_)
+inline ModuleViewer::ModuleViewer(const std::string &id):
+  Module(id)
 {
   setInfo("OpenGL viewer");
   addPort("waterIn", INPUT);

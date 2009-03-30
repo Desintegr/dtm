@@ -5,7 +5,7 @@
 
 using namespace flowvr::app;
 
-namespace prototype
+namespace simulation
 {
 
 class ModuleFlood: public Module

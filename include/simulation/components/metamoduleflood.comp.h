@@ -1,13 +1,13 @@
 #ifndef METAMODULEFLOOD_COMP_H
 #define METAMODULEFLOOD_COMP_H
 
-#include "prototype/components/moduleflood.comp.h"
+#include "simulation/components/moduleflood.comp.h"
 
 #include <flowvr/app/components/metamoduleflowvr-run-ssh.comp.h>
 
 using namespace flowvr::app;
 
-namespace prototype
+namespace simulation
 {
 
 class MetaModuleFlood: public MetaModuleFlowvrRunSSH<ModuleFlood>
