@@ -20,7 +20,7 @@ Flood::Flood(const QString &filename)
 
   // met les niveaux de l'eau au timeout du timer
   connect(&m_timer, SIGNAL(timeout()), this, SLOT(update()));
-  m_timer.start(200); // lancement de l'itération de mise à jour
+  m_timer.start(100); // lancement de l'itération de mise à jour
 }
 
 Flood::~Flood()

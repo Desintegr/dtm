@@ -19,7 +19,7 @@ public:
 };
 
 inline MetaModuleViewer::MetaModuleViewer(const std::string &id):
-  MetaModuleFlowvrRunSSH<ModuleViewer>(id, CmdLine("viewer data/64.grd"))
+  MetaModuleFlowvrRunSSH<ModuleViewer>(id, CmdLine("viewer data/512.grd"))
 {
 }
 

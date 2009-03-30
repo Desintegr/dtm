@@ -19,7 +19,7 @@ public:
 };
 
 inline MetaModuleFlood::MetaModuleFlood(const std::string &id):
-  MetaModuleFlowvrRunSSH<ModuleFlood>(id, CmdLine("flood data/64.water"))
+  MetaModuleFlowvrRunSSH<ModuleFlood>(id, CmdLine("flood data/512.water"))
 {
 }
 
