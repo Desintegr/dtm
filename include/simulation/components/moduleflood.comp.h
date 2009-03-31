@@ -20,6 +20,7 @@ inline ModuleFlood::ModuleFlood(const std::string &id):
   Module(id)
 {
   setInfo("Flood simulation");
+
   addPort("dtmIn", INPUT);
   addPort("waterOut", OUTPUT);
 }

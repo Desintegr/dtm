@@ -1,7 +1,6 @@
 #include "opengl_scene.h"
 
-#include <QApplication>
-#include <QtCore>
+#include <QtGui>
 
 #include <iostream>
 

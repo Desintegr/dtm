@@ -20,6 +20,7 @@ inline ModuleViewer::ModuleViewer(const std::string &id):
   Module(id)
 {
   setInfo("OpenGL viewer");
+
   addPort("waterIn", INPUT);
   addPort("dtmOut", OUTPUT);
 }

@@ -21,6 +21,7 @@ public:
 inline MetaModuleViewer::MetaModuleViewer(const std::string &id):
   MetaModuleFlowvrRunSSH<ModuleViewer>(id, CmdLine("viewer data/512.grd"))
 {
+  getRun()->openDisplay(":0");
 }
 
 inline Component * MetaModuleViewer::create() const
