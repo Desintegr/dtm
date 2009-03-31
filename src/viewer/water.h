@@ -42,7 +42,10 @@ public:
   void draw() const;
 
 public slots:
-  void update();
+  /**
+   * Met à jour le VBO des sommets de l'eau
+   */
+  void updateVBO();
 
 private:
   DTM *m_dtm;

@@ -44,7 +44,7 @@ void OpenGLScene::initializeGL()
   m_water = new Water(m_dtm);
 
   m_flowVRThread = new FlowVRThread(m_dtm, m_water);
-  connect(m_flowVRThread, SIGNAL(updated()), m_water, SLOT(update()));
+  connect(m_flowVRThread, SIGNAL(updated()), m_water, SLOT(updateVBO()));
   m_flowVRThread->start();
 
   // test de profondeur

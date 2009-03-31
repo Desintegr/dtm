@@ -103,7 +103,7 @@ void Water::draw() const
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void Water::update()
+void Water::updateVBO()
 {
   glBindBuffer(GL_ARRAY_BUFFER, m_buffers[VERTICES]);
   glBufferData(GL_ARRAY_BUFFER, m_nvertices * sizeof(Point3d), m_vertices, GL_DYNAMIC_DRAW);
