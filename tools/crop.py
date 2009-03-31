@@ -1,4 +1,7 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+# outil pour découper les terrains
 
 import sys
 

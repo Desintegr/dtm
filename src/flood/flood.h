@@ -19,7 +19,7 @@ public:
    * Lit un fichier en entrée contenant les sources de l'inondation
    * Format du fichier : deux entiers par ligne correspondant au point x et y
    *
-   * @param le nom du fichier contenant les sources
+   * @param filename le nom du fichier contenant les sources
    */
   Flood(const QString &filename);
 
