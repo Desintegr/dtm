@@ -1,8 +1,0 @@
-bin/
-build/
-cmake/
-lib/
-log*
-*.xml
-*.err.csv
-*.out.csv
