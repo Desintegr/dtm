@@ -4,7 +4,7 @@
 
 #include <QtOpenGL>
 
-Light::Light(DTM *dtm):
+Light::Light(const DTM *dtm):
   m_dtm(dtm)
 {
   float ambient[4] = {1.0, 1.0, 1.0, 1.0};

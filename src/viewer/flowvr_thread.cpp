@@ -4,7 +4,7 @@
 #include "water.h"
 #include "point3d.h"
 
-FlowVRThread::FlowVRThread(DTM *dtm, Water *water):
+FlowVRThread::FlowVRThread(const DTM *dtm, const Water *water):
   m_dtm(dtm),
   m_water(water)
 {

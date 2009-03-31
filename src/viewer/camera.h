@@ -13,7 +13,7 @@ public:
   /**
    * Constructeur de caméra et initialise la position de la caméra
    */
-  Camera(DTM *dtm);
+  Camera(const DTM *dtm);
 
   /**
    * Déplacement relatif de la souris
@@ -70,7 +70,7 @@ private:
   static const uint BOOST = 10;
   static const uint WHEELTIME = 250;
 
-  DTM *m_dtm;
+  const DTM *m_dtm;
 
   Point3d m_position;
   Point3d m_target;

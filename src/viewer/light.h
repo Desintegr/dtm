@@ -11,7 +11,7 @@ public:
    *
    * @param dtm le terrain
    */
-  Light(DTM *dtm);
+  Light(const DTM *dtm);
 
 private:
   /**
@@ -22,7 +22,7 @@ private:
 private:
   float m_position[4];
 
-  DTM *m_dtm;
+  const DTM *m_dtm;
 };
 
 #endif

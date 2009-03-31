@@ -19,7 +19,7 @@ public:
    * @param dtm le terrain
    * @param water l'eau
    */
-  FlowVRThread(DTM *dtm, Water *water);
+  FlowVRThread(const DTM *dtm, const Water *water);
 
   /**
    * Destrcuteur du module threadé FlowVR
@@ -47,8 +47,8 @@ private:
 private:
   FlowVR m_flowvr;
 
-  DTM *m_dtm;
-  Water *m_water;
+  const DTM *m_dtm;
+  const Water *m_water;
 
 signals:
   void updated();

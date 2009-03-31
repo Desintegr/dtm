@@ -9,7 +9,7 @@
 
 #include <algorithm>
 
-Water::Water(DTM *dtm):
+Water::Water(const DTM *dtm):
   m_dtm(dtm),
   m_ncols(dtm->ncols()),
   m_nrows(dtm->nrows()),

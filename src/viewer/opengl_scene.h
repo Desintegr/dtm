@@ -92,7 +92,7 @@ private slots:
 private:
   static const uint FPS = 50;
 
-  QString m_filename;
+  const QString m_filename;
 
   Camera *m_camera;
   DTM *m_dtm;

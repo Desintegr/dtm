@@ -19,7 +19,7 @@ public:
    *
    * @param dtm le terrain
    */
-  Water(DTM *dtm);
+  Water(const DTM *dtm);
 
   /**
    * Destructeur d'eau
@@ -48,14 +48,15 @@ public slots:
   void updateVBO();
 
 private:
-  DTM *m_dtm;
+  const DTM *m_dtm;
 
-  size_t m_ncols;
-  size_t m_nrows;
-  size_t m_nvertices;
-  size_t m_nindices;
+  const size_t m_ncols;
+  const size_t m_nrows;
 
   float *m_values;
+
+  size_t m_nvertices;
+  size_t m_nindices;
 
   Point3d* m_vertices;
   index_t* m_indices;

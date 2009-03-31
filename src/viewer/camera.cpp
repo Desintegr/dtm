@@ -6,7 +6,7 @@
 
 #include <cmath>
 
-Camera::Camera(DTM *dtm):
+Camera::Camera(const DTM *dtm):
   m_dtm(dtm),
   m_position(Point3d(0, 0, (float) (m_dtm->ncols() + m_dtm->nrows()) / 2 + m_dtm->minZ())),
   m_phi(-45),
