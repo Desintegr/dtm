@@ -1,6 +1,7 @@
 #include "opengl_scene.h"
 
 #include <QApplication>
+#include <QtCore>
 
 #include <iostream>
 
@@ -17,6 +18,7 @@ int main(int argc, char *argv[])
   }
 
   QApplication app(argc, argv);
+  QDir::setCurrent(QFileInfo(argv[0]).absolutePath());
   OpenGLScene scene(argv[1]);
   scene.show();
 

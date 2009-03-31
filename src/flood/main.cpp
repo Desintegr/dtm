@@ -1,6 +1,7 @@
 #include "flood.h"
 
 #include <QApplication>
+#include <QtCore>
 
 #include <iostream>
 
@@ -17,6 +18,7 @@ int main(int argc, char *argv[])
   }
 
   QApplication app(argc, argv);
+  QDir::setCurrent(QFileInfo(argv[0]).absolutePath());
   Flood flood(argv[1]);
 
   return app.exec();
