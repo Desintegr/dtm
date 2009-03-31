@@ -94,10 +94,10 @@ private:
 
   const QString m_filename;
 
-  Camera *m_camera;
   DTM *m_dtm;
   Light *m_light;
   Water *m_water;
+  Camera *m_camera;
 
   FlowVRThread *m_flowVRThread;
 

@@ -27,10 +27,10 @@ OpenGLScene::OpenGLScene(QString filename, QWidget *parent):
 
 OpenGLScene::~OpenGLScene()
 {
-  delete m_camera;
   delete m_dtm;
   delete m_light;
   delete m_water;
+  delete m_camera;
 
   m_flowVRThread->quit();
   delete m_flowVRThread;

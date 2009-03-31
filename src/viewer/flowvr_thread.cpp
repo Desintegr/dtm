@@ -1,8 +1,8 @@
 #include "flowvr_thread.h"
 
 #include "dtm.h"
-#include "water.h"
 #include "point3d.h"
+#include "water.h"
 
 FlowVRThread::FlowVRThread(const DTM *dtm, const Water *water):
   m_dtm(dtm),
@@ -31,16 +31,20 @@ void FlowVRThread::sendDTM()
 {
   // envoie le nombre de lignes
   flowvr::MessageWrite nrowsMsg;
+
   nrowsMsg.data = m_flowvr.module()->alloc(sizeof(size_t));
-  size_t nrows = m_dtm->nrows();
+  const size_t nrows = m_dtm->nrows();
   memcpy(nrowsMsg.data.writeAccess(), &nrows, sizeof(size_t));
+
   m_flowvr.module()->put(m_flowvr.dtmOut(), nrowsMsg);
 
   // envoie le nombre de colonnes
   flowvr::MessageWrite ncolsMsg;
+
   ncolsMsg.data = m_flowvr.module()->alloc(sizeof(size_t));
-  size_t ncols = m_dtm->ncols();
+  const size_t ncols = m_dtm->ncols();
   memcpy(ncolsMsg.data.writeAccess(), &ncols, sizeof(size_t));
+
   m_flowvr.module()->put(m_flowvr.dtmOut(), ncolsMsg);
 
   // envoie le terrain
@@ -68,6 +72,7 @@ void FlowVRThread::getWater() {
 
   // reçoit les données de l'inondation
   flowvr::Message waterMsg;
+
   m_flowvr.module()->get(m_flowvr.waterIn(), waterMsg);
 
   memcpy(m_water->values(), waterMsg.data.readAccess(), size);
