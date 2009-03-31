@@ -101,8 +101,8 @@ void Flood::sendWater() const
 
 void Flood::update()
 {
-  for(index_t i = 1; i < m_nrows; ++i)
-    for(index_t j = 1; j < m_ncols; ++j) {
+  for(index_t i = 0; i < m_nrows; ++i)
+    for(index_t j = 0; j < m_ncols; ++j) {
       const index_t k = i * m_ncols + j;
       if(m_water[k] != 0) { // ne fait rien si le niveau d'eau est nul
         index_t k2 = 0;
@@ -110,16 +110,31 @@ void Flood::update()
         for(int c = 0; c < 4; ++c) { // dans les quatre directions
           switch(c) {
             case 0:
+              if(i == 0)
+                continue;
+
               k2 = (i - 1) * m_ncols + j;
               break;
+
             case 1:
+              if(j == 0)
+                continue;
+
               k2 = i * m_ncols + (j - 1);
               break;
+
             case 2:
-              k2 = (i + 1 ) * m_ncols + j;
+              if(i == m_nrows - 1)
+                continue;
+
+              k2 = (i + 1) * m_ncols + j;
               break;
+
             case 3:
-              k2 = i * m_ncols + ( j + 1);
+              if(j == m_ncols - 1)
+                continue;
+
+              k2 = i * m_ncols + (j + 1);
               break;
           }
 
