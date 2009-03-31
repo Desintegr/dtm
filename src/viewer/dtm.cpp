@@ -181,7 +181,7 @@ void DTM::initTextures()
       const index_t k = 2 * (i * m_ncols + j);
 
       // coordonnée x de la texture
-      m_textures[k] = m_vertices[(i * m_ncols + j)].y()/(m_ncols - 1);
+      m_textures[k] = m_vertices[(i * m_ncols + j)].y() / (m_ncols - 1);
 
       // coordonnée y de la texture
       m_textures[k + 1] = m_vertices[(m_nrows * m_ncols) - (i * m_ncols + j)].x() / (m_nrows - 1);
