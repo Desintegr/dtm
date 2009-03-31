@@ -5,18 +5,15 @@
 
 #include <QtCore>
 
+class DTM;
+
 class Camera
 {
 public:
   /**
-   * Constructeur de caméra
+   * Constructeur de caméra et initialise la position de la caméra
    */
-  Camera();
-
-  /**
-   * Destructeur de caméra
-   */
-  virtual ~Camera();
+  Camera(DTM *dtm);
 
   /**
    * Déplacement relatif de la souris
@@ -72,6 +69,8 @@ private:
   static const float SPEED = 0.05;
   static const uint BOOST = 10;
   static const uint WHEELTIME = 250;
+
+  DTM *m_dtm;
 
   Point3d m_position;
   Point3d m_target;

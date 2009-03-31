@@ -1,18 +1,19 @@
 #include "camera.h"
 
+#include "dtm.h"
+
 #include <QtOpenGL>
 
 #include <cmath>
 
-Camera::Camera():
-  m_phi(0),
-  m_theta(0),
+Camera::Camera(DTM *dtm):
+  m_dtm(dtm),
+  m_position(Point3d(0, 0, (float) (m_dtm->ncols() + m_dtm->nrows()) / 2 + m_dtm->minZ())),
+  m_phi(-45),
+  m_theta(45),
   m_wheelactive(false)
 {
-}
-
-Camera::~Camera()
-{
+  vectorFromAngles();
 }
 
 void Camera::mouseMove(const int x, const int y)

@@ -38,10 +38,10 @@ OpenGLScene::~OpenGLScene()
 
 void OpenGLScene::initializeGL()
 {
-  m_camera = new Camera();
   m_dtm = new DTM(m_filename);
   m_light = new Light(m_dtm);
   m_water = new Water(m_dtm);
+  m_camera = new Camera(m_dtm);
 
   m_flowVRThread = new FlowVRThread(m_dtm, m_water);
   connect(m_flowVRThread, SIGNAL(updated()), m_water, SLOT(updateVBO()));
@@ -63,8 +63,6 @@ void OpenGLScene::initializeGL()
     bindTexture(texture, GL_TEXTURE_2D);
     glEnable(GL_TEXTURE_2D);
   }
-
-  m_camera->mouseMove(0, 0);
 }
 
 void OpenGLScene::resizeGL(const int w, const int h)

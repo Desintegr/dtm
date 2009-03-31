@@ -24,7 +24,7 @@ void Light::set()
 {
   m_position[0] = (float) m_dtm->ncols() / 2;
   m_position[1] = (float) m_dtm->nrows() / 2;
-  m_position[2] = m_dtm->ncols() + m_dtm->nrows();
+  m_position[2] = (float) (m_dtm->ncols() + m_dtm->nrows()) / 2 + m_dtm->minZ();
   m_position[3] = 1;
 
   glLightfv(GL_LIGHT0, GL_POSITION, m_position);
