@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>simulation:  Fichier source de src/viewer/opengl_scene.h</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.5.6 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>Page&nbsp;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces de nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+<h1>src/viewer/opengl_scene.h</h1><a href="opengl__scene_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef DTM_WIDGET_H</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define DTM_WIDGET_H</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;QtOpenGL&gt;</span>
+<a name="l00005"></a>00005 
+<a name="l00006"></a>00006 <span class="keyword">class </span><a class="code" href="classCamera.html">Camera</a>;
+<a name="l00007"></a>00007 <span class="keyword">class </span><a class="code" href="classDTM.html">DTM</a>;
+<a name="l00008"></a>00008 <span class="keyword">class </span><a class="code" href="classFlowVRThread.html">FlowVRThread</a>;
+<a name="l00009"></a>00009 <span class="keyword">class </span><a class="code" href="classLight.html">Light</a>;
+<a name="l00010"></a>00010 <span class="keyword">class </span><a class="code" href="classWater.html">Water</a>;
+<a name="l00011"></a>00011 
+<a name="l00012"></a><a class="code" href="classOpenGLScene.html">00012</a> <span class="keyword">class </span><a class="code" href="classOpenGLScene.html">OpenGLScene</a>: <span class="keyword">public</span> QGLWidget
+<a name="l00013"></a>00013 {
+<a name="l00014"></a>00014   Q_OBJECT
+<a name="l00015"></a>00015 
+<a name="l00016"></a>00016 <span class="keyword">public</span>:
+<a name="l00023"></a>00023   <a class="code" href="classOpenGLScene.html#7b8c8ac993e7fb80b49a914dfb13ba0b">OpenGLScene</a>(QString filename, QWidget *parent=0);
+<a name="l00024"></a>00024 
+<a name="l00028"></a>00028   <span class="keyword">virtual</span> <a class="code" href="classOpenGLScene.html#9e3b2533ed475dd7b7c103d5545c8636">~OpenGLScene</a>();
+<a name="l00029"></a>00029 
+<a name="l00030"></a>00030 <span class="keyword">protected</span>:
+<a name="l00034"></a>00034   <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#55265de0ab6b968609a815b442a17cd0">initializeGL</a>();
+<a name="l00035"></a>00035 
+<a name="l00039"></a>00039   <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#119220323af12f9ab5727ab31900dbcc">resizeGL</a>(<span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h);
+<a name="l00040"></a>00040 
+<a name="l00044"></a>00044   <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#3187b60c6e610e93f8d09137c1ac2687">paintGL</a>();
+<a name="l00045"></a>00045 
+<a name="l00049"></a>00049   <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#05d62441f85fcdf1d22098bfc434b1d9">mouseMoveEvent</a>(QMouseEvent *e);
+<a name="l00050"></a>00050 
+<a name="l00054"></a>00054   <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#5be48a11fb61824c135af97b1a9acd06">mousePressEvent</a>(QMouseEvent *e);
+<a name="l00055"></a>00055 
+<a name="l00059"></a>00059   <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#62b6fa86a785d415b191ca14b02369b1">mouseReleaseEvent</a>(QMouseEvent *e);
+<a name="l00060"></a>00060 
+<a name="l00064"></a>00064   <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#92d88536c5ffd094a8a82ca8b2c03627">wheelEvent</a>(QWheelEvent *e);
+<a name="l00065"></a>00065 
+<a name="l00069"></a>00069   <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#eded54fe909c833fcf8749bb95d6d7c7">keyPressEvent</a>(QKeyEvent *e);
+<a name="l00070"></a>00070 
+<a name="l00074"></a>00074   <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#6f9672d9682869ba3daafd250a251379">keyReleaseEvent</a>(QKeyEvent *e);
+<a name="l00075"></a>00075 
+<a name="l00079"></a>00079   <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#592a453819f620ad721f52e5dde0479f">enterEvent</a>(QEvent *e);
+<a name="l00080"></a>00080 
+<a name="l00084"></a>00084   <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#e1c14261cda0e0f359a95cd47bc08e97">leaveEvent</a>(QEvent *e);
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086 <span class="keyword">private</span> slots:
+<a name="l00090"></a>00090   <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#310489fdc46372241e57491ba9adc587">update</a>();
+<a name="l00091"></a>00091 
+<a name="l00092"></a>00092 <span class="keyword">private</span>:
+<a name="l00093"></a><a class="code" href="classOpenGLScene.html#29d145e9d1e08a2acae66ed4f1dca26c">00093</a>   <span class="keyword">static</span> <span class="keyword">const</span> uint <a class="code" href="classOpenGLScene.html#29d145e9d1e08a2acae66ed4f1dca26c">FPS</a> = 50;
+<a name="l00094"></a>00094 
+<a name="l00095"></a><a class="code" href="classOpenGLScene.html#c1593b33eaec0e7a7327d3bf13db1b58">00095</a>   <span class="keyword">const</span> QString <a class="code" href="classOpenGLScene.html#c1593b33eaec0e7a7327d3bf13db1b58">m_filename</a>;
+<a name="l00096"></a>00096 
+<a name="l00097"></a><a class="code" href="classOpenGLScene.html#f915376348d39af08184537969f86dac">00097</a>   <a class="code" href="classDTM.html">DTM</a> *<a class="code" href="classOpenGLScene.html#f915376348d39af08184537969f86dac">m_dtm</a>;
+<a name="l00098"></a><a class="code" href="classOpenGLScene.html#78be6592e65a2e7bbbfedbd6dbf334d4">00098</a>   <a class="code" href="classLight.html">Light</a> *<a class="code" href="classOpenGLScene.html#78be6592e65a2e7bbbfedbd6dbf334d4">m_light</a>;
+<a name="l00099"></a><a class="code" href="classOpenGLScene.html#f8c86e66ebdd845057705c30eb1b033a">00099</a>   <a class="code" href="classWater.html">Water</a> *<a class="code" href="classOpenGLScene.html#f8c86e66ebdd845057705c30eb1b033a">m_water</a>;
+<a name="l00100"></a><a class="code" href="classOpenGLScene.html#ff166b3a7f935f95595afd7c8ce1163a">00100</a>   <a class="code" href="classCamera.html">Camera</a> *<a class="code" href="classOpenGLScene.html#ff166b3a7f935f95595afd7c8ce1163a">m_camera</a>;
+<a name="l00101"></a>00101 
+<a name="l00102"></a><a class="code" href="classOpenGLScene.html#0e6b684486797b75d598955718317e0f">00102</a>   <a class="code" href="classFlowVRThread.html">FlowVRThread</a> *<a class="code" href="classOpenGLScene.html#0e6b684486797b75d598955718317e0f">m_flowVRThread</a>;
+<a name="l00103"></a>00103 
+<a name="l00104"></a><a class="code" href="classOpenGLScene.html#aec0f181b4106483c1d63a7fa360006e">00104</a>   QTimer <a class="code" href="classOpenGLScene.html#aec0f181b4106483c1d63a7fa360006e">m_refresh</a>;
+<a name="l00105"></a><a class="code" href="classOpenGLScene.html#603f30dbbe7fe5c9a910894b6bf9a6ce">00105</a>   QTime <a class="code" href="classOpenGLScene.html#603f30dbbe7fe5c9a910894b6bf9a6ce">m_ticks</a>;
+<a name="l00106"></a><a class="code" href="classOpenGLScene.html#afb77eebdd0a118ea7017dd0367a47db">00106</a>   uint <a class="code" href="classOpenGLScene.html#afb77eebdd0a118ea7017dd0367a47db">m_current</a>;
+<a name="l00107"></a><a class="code" href="classOpenGLScene.html#b3643bcf21e1fe6cda84079a28a41199">00107</a>   uint <a class="code" href="classOpenGLScene.html#b3643bcf21e1fe6cda84079a28a41199">m_last</a>;
+<a name="l00108"></a>00108 };
+<a name="l00109"></a>00109 
+<a name="l00110"></a>00110 <span class="preprocessor">#endif</span>
+</pre></div></div>
+<hr size="1"><address style="text-align: right;"><small>Généré le Tue Mar 31 20:47:22 2009 pour simulation par&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.6 </small></address>
+</body>
+</html>

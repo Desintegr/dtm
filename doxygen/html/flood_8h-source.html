@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>simulation:  Fichier source de src/flood/flood.h</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.5.6 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>Page&nbsp;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces de nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+<h1>src/flood/flood.h</h1><a href="flood_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef FLOOD_H</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define FLOOD_H</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include "<a class="code" href="flood_2flowvr_8h.html">flowvr.h</a>"</span>
+<a name="l00005"></a>00005 
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;QtCore&gt;</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a><a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">00008</a> <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a>;
+<a name="l00009"></a><a class="code" href="flood_8h.html#7c94ea6f8948649f8d181ae55911eeaf">00009</a> <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="flood_8h.html#7c94ea6f8948649f8d181ae55911eeaf">size_t</a>;
+<a name="l00010"></a>00010 
+<a name="l00011"></a><a class="code" href="classFlood.html">00011</a> <span class="keyword">class </span><a class="code" href="classFlood.html">Flood</a>: <span class="keyword">public</span> QObject
+<a name="l00012"></a>00012 {
+<a name="l00013"></a>00013   Q_OBJECT
+<a name="l00014"></a>00014 
+<a name="l00015"></a>00015 <span class="keyword">public</span>:
+<a name="l00024"></a>00024   <a class="code" href="classFlood.html#20b1498c8dd8ec5ab0bd7828bd13ebb8">Flood</a>(<span class="keyword">const</span> QString &amp;filename);
+<a name="l00025"></a>00025 
+<a name="l00029"></a>00029   <span class="keyword">virtual</span> <a class="code" href="classFlood.html#54331a27a9f0ff298c9bc0f913795979">~Flood</a>();
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="keyword">private</span>:
+<a name="l00035"></a>00035   <span class="keywordtype">void</span> <a class="code" href="classFlood.html#77f7d1a2cb07aadae672420fb68a9ec9">getDTM</a>();
+<a name="l00036"></a>00036 
+<a name="l00042"></a>00042   <span class="keywordtype">void</span> <a class="code" href="classFlood.html#906e2e0beeab25727eef30c41f8a65e3">readSources</a>(<span class="keyword">const</span> QString &amp;filename);
+<a name="l00043"></a>00043 
+<a name="l00047"></a>00047   <span class="keywordtype">void</span> <a class="code" href="classFlood.html#bdaece15e93c7a21d4bb5f00d7657305">fill</a>();
+<a name="l00048"></a>00048 
+<a name="l00052"></a>00052   <span class="keywordtype">void</span> <a class="code" href="classFlood.html#2a2aaae3e8b13a226a33f0131a1fa63d">sendWater</a>() <span class="keyword">const</span>;
+<a name="l00053"></a>00053 
+<a name="l00054"></a>00054 <span class="keyword">private</span> slots:
+<a name="l00058"></a>00058   <span class="keywordtype">void</span> <a class="code" href="classFlood.html#86060131af4799b255702ac0a3aa0cc5">update</a>();
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060 <span class="keyword">private</span>:
+<a name="l00061"></a><a class="code" href="classFlood.html#59d21b91c81d5cb02426be165aacf55f">00061</a>   QTimer <a class="code" href="classFlood.html#59d21b91c81d5cb02426be165aacf55f">m_timer</a>;
+<a name="l00062"></a><a class="code" href="classFlood.html#5220d9ddf943bf2e4e25a7f9f62f5e0c">00062</a>   <a class="code" href="classFlowVR.html">FlowVR</a> <a class="code" href="classFlood.html#5220d9ddf943bf2e4e25a7f9f62f5e0c">m_flowvr</a>;
+<a name="l00063"></a>00063 
+<a name="l00064"></a><a class="code" href="classFlood.html#c33129e8554dfa1644b5b56cbe0eea1e">00064</a>   <span class="keywordtype">size_t</span> <a class="code" href="classFlood.html#c33129e8554dfa1644b5b56cbe0eea1e">m_nrows</a>;
+<a name="l00065"></a><a class="code" href="classFlood.html#c3caa87f858790c6df65e17e40089b2f">00065</a>   <span class="keywordtype">size_t</span> <a class="code" href="classFlood.html#c3caa87f858790c6df65e17e40089b2f">m_ncols</a>;
+<a name="l00066"></a>00066 
+<a name="l00067"></a><a class="code" href="classFlood.html#d2b1a1be6ef865864823c658f10e0ffb">00067</a>   <span class="keywordtype">float</span> *<a class="code" href="classFlood.html#d2b1a1be6ef865864823c658f10e0ffb">m_dtm</a>;
+<a name="l00068"></a><a class="code" href="classFlood.html#e2106d6aa2ef8a746fc4e0f1b3f51522">00068</a>   <span class="keywordtype">float</span> *<a class="code" href="classFlood.html#e2106d6aa2ef8a746fc4e0f1b3f51522">m_water</a>;
+<a name="l00069"></a>00069 
+<a name="l00070"></a><a class="code" href="classFlood.html#ab386fd57a758a6928de47d861b5429f">00070</a>   QList&lt;int&gt; <a class="code" href="classFlood.html#ab386fd57a758a6928de47d861b5429f">m_sources</a>;
+<a name="l00071"></a>00071 };
+<a name="l00072"></a>00072 
+<a name="l00073"></a>00073 <span class="preprocessor">#endif</span>
+</pre></div></div>
+<hr size="1"><address style="text-align: right;"><small>Généré le Tue Mar 31 20:47:22 2009 pour simulation par&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.6 </small></address>
+</body>
+</html>

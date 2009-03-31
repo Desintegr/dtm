@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>simulation:  Fichier source de src/viewer/opengl_scene.cpp</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.5.6 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>Page&nbsp;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces de nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+<h1>src/viewer/opengl_scene.cpp</h1><a href="opengl__scene_8cpp.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include "<a class="code" href="opengl__scene_8h.html">opengl_scene.h</a>"</span>
+<a name="l00002"></a>00002 
+<a name="l00003"></a>00003 <span class="preprocessor">#include "<a class="code" href="camera_8h.html">camera.h</a>"</span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include "<a class="code" href="dtm_8h.html">dtm.h</a>"</span>
+<a name="l00005"></a>00005 <span class="preprocessor">#include "<a class="code" href="flowvr__thread_8h.html">flowvr_thread.h</a>"</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include "<a class="code" href="light_8h.html">light.h</a>"</span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include "<a class="code" href="water_8h.html">water.h</a>"</span>
+<a name="l00008"></a>00008 
+<a name="l00009"></a>00009 <span class="preprocessor">#include &lt;iostream&gt;</span>
+<a name="l00010"></a>00010 
+<a name="l00011"></a><a class="code" href="classOpenGLScene.html#7b8c8ac993e7fb80b49a914dfb13ba0b">00011</a> <a class="code" href="classOpenGLScene.html#7b8c8ac993e7fb80b49a914dfb13ba0b">OpenGLScene::OpenGLScene</a>(QString filename, QWidget *parent):
+<a name="l00012"></a>00012   QGLWidget(parent),
+<a name="l00013"></a>00013   m_filename(filename.remove(QRegExp(<span class="stringliteral">".grd$"</span>)))
+<a name="l00014"></a>00014 {
+<a name="l00015"></a>00015   setWindowTitle(<span class="stringliteral">"Flood simulation"</span>);
+<a name="l00016"></a>00016 
+<a name="l00017"></a>00017   <a class="code" href="classOpenGLScene.html#afb77eebdd0a118ea7017dd0367a47db">m_current</a> = 0;
+<a name="l00018"></a>00018   <a class="code" href="classOpenGLScene.html#b3643bcf21e1fe6cda84079a28a41199">m_last</a> = 0;
+<a name="l00019"></a>00019 
+<a name="l00020"></a>00020   <a class="code" href="classOpenGLScene.html#aec0f181b4106483c1d63a7fa360006e">m_refresh</a>.setInterval(1000 / <a class="code" href="classOpenGLScene.html#29d145e9d1e08a2acae66ed4f1dca26c">FPS</a>);
+<a name="l00021"></a>00021   <a class="code" href="classOpenGLScene.html#aec0f181b4106483c1d63a7fa360006e">m_refresh</a>.setSingleShot(<span class="keyword">true</span>);
+<a name="l00022"></a>00022   connect(&amp;<a class="code" href="classOpenGLScene.html#aec0f181b4106483c1d63a7fa360006e">m_refresh</a>, SIGNAL(timeout()), <span class="keyword">this</span>, SLOT(<a class="code" href="classOpenGLScene.html#310489fdc46372241e57491ba9adc587">update</a>()));
+<a name="l00023"></a>00023   <a class="code" href="classOpenGLScene.html#aec0f181b4106483c1d63a7fa360006e">m_refresh</a>.start();
+<a name="l00024"></a>00024 
+<a name="l00025"></a>00025   <a class="code" href="classOpenGLScene.html#603f30dbbe7fe5c9a910894b6bf9a6ce">m_ticks</a>.start();
+<a name="l00026"></a>00026 }
+<a name="l00027"></a>00027 
+<a name="l00028"></a><a class="code" href="classOpenGLScene.html#9e3b2533ed475dd7b7c103d5545c8636">00028</a> <a class="code" href="classOpenGLScene.html#9e3b2533ed475dd7b7c103d5545c8636">OpenGLScene::~OpenGLScene</a>()
+<a name="l00029"></a>00029 {
+<a name="l00030"></a>00030   <span class="keyword">delete</span> <a class="code" href="classOpenGLScene.html#f915376348d39af08184537969f86dac">m_dtm</a>;
+<a name="l00031"></a>00031   <span class="keyword">delete</span> <a class="code" href="classOpenGLScene.html#78be6592e65a2e7bbbfedbd6dbf334d4">m_light</a>;
+<a name="l00032"></a>00032   <span class="keyword">delete</span> <a class="code" href="classOpenGLScene.html#f8c86e66ebdd845057705c30eb1b033a">m_water</a>;
+<a name="l00033"></a>00033   <span class="keyword">delete</span> <a class="code" href="classOpenGLScene.html#ff166b3a7f935f95595afd7c8ce1163a">m_camera</a>;
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035   <a class="code" href="classOpenGLScene.html#0e6b684486797b75d598955718317e0f">m_flowVRThread</a>-&gt;quit();
+<a name="l00036"></a>00036   <span class="keyword">delete</span> <a class="code" href="classOpenGLScene.html#0e6b684486797b75d598955718317e0f">m_flowVRThread</a>;
+<a name="l00037"></a>00037 }
+<a name="l00038"></a>00038 
+<a name="l00039"></a><a class="code" href="classOpenGLScene.html#55265de0ab6b968609a815b442a17cd0">00039</a> <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#55265de0ab6b968609a815b442a17cd0">OpenGLScene::initializeGL</a>()
+<a name="l00040"></a>00040 {
+<a name="l00041"></a>00041   <a class="code" href="classOpenGLScene.html#f915376348d39af08184537969f86dac">m_dtm</a> = <span class="keyword">new</span> <a class="code" href="classDTM.html">DTM</a>(<a class="code" href="classOpenGLScene.html#c1593b33eaec0e7a7327d3bf13db1b58">m_filename</a>);
+<a name="l00042"></a>00042   <a class="code" href="classOpenGLScene.html#78be6592e65a2e7bbbfedbd6dbf334d4">m_light</a> = <span class="keyword">new</span> <a class="code" href="classLight.html">Light</a>(<a class="code" href="classOpenGLScene.html#f915376348d39af08184537969f86dac">m_dtm</a>);
+<a name="l00043"></a>00043   <a class="code" href="classOpenGLScene.html#f8c86e66ebdd845057705c30eb1b033a">m_water</a> = <span class="keyword">new</span> <a class="code" href="classWater.html">Water</a>(<a class="code" href="classOpenGLScene.html#f915376348d39af08184537969f86dac">m_dtm</a>);
+<a name="l00044"></a>00044   <a class="code" href="classOpenGLScene.html#ff166b3a7f935f95595afd7c8ce1163a">m_camera</a> = <span class="keyword">new</span> <a class="code" href="classCamera.html">Camera</a>(<a class="code" href="classOpenGLScene.html#f915376348d39af08184537969f86dac">m_dtm</a>);
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046   <a class="code" href="classOpenGLScene.html#0e6b684486797b75d598955718317e0f">m_flowVRThread</a> = <span class="keyword">new</span> <a class="code" href="classFlowVRThread.html">FlowVRThread</a>(<a class="code" href="classOpenGLScene.html#f915376348d39af08184537969f86dac">m_dtm</a>, <a class="code" href="classOpenGLScene.html#f8c86e66ebdd845057705c30eb1b033a">m_water</a>);
+<a name="l00047"></a>00047   connect(<a class="code" href="classOpenGLScene.html#0e6b684486797b75d598955718317e0f">m_flowVRThread</a>, SIGNAL(updated()), <a class="code" href="classOpenGLScene.html#f8c86e66ebdd845057705c30eb1b033a">m_water</a>, SLOT(updateVBO()));
+<a name="l00048"></a>00048   <a class="code" href="classOpenGLScene.html#0e6b684486797b75d598955718317e0f">m_flowVRThread</a>-&gt;start();
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050   <span class="comment">// test de profondeur</span>
+<a name="l00051"></a>00051   glEnable(GL_DEPTH_TEST);
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053   <span class="comment">// opacité</span>
+<a name="l00054"></a>00054   glEnable(GL_BLEND);
+<a name="l00055"></a>00055   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057   <span class="comment">// texture</span>
+<a name="l00058"></a>00058   QPixmap texture(<a class="code" href="classOpenGLScene.html#c1593b33eaec0e7a7327d3bf13db1b58">m_filename</a> + <span class="stringliteral">".png"</span>);
+<a name="l00059"></a>00059   <span class="keywordflow">if</span>(texture.isNull()) {
+<a name="l00060"></a>00060     std::cerr &lt;&lt; <span class="stringliteral">"Warning: error while reading texture file"</span> &lt;&lt; std::endl;
+<a name="l00061"></a>00061   }
+<a name="l00062"></a>00062   <span class="keywordflow">else</span> {
+<a name="l00063"></a>00063     bindTexture(texture, GL_TEXTURE_2D);
+<a name="l00064"></a>00064     glEnable(GL_TEXTURE_2D);
+<a name="l00065"></a>00065   }
+<a name="l00066"></a>00066 }
+<a name="l00067"></a>00067 
+<a name="l00068"></a><a class="code" href="classOpenGLScene.html#119220323af12f9ab5727ab31900dbcc">00068</a> <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#119220323af12f9ab5727ab31900dbcc">OpenGLScene::resizeGL</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> w, <span class="keyword">const</span> <span class="keywordtype">int</span> h)
+<a name="l00069"></a>00069 {
+<a name="l00070"></a>00070   glViewport(0, 0, w, h);
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072   glMatrixMode(GL_PROJECTION);
+<a name="l00073"></a>00073   glLoadIdentity();
+<a name="l00074"></a>00074   gluPerspective(45, (<span class="keywordtype">float</span>) w / h, 1, 3000);
+<a name="l00075"></a>00075 }
+<a name="l00076"></a>00076 
+<a name="l00077"></a><a class="code" href="classOpenGLScene.html#3187b60c6e610e93f8d09137c1ac2687">00077</a> <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#3187b60c6e610e93f8d09137c1ac2687">OpenGLScene::paintGL</a>()
+<a name="l00078"></a>00078 {
+<a name="l00079"></a>00079   glClearColor(0, 0, 0, 0);
+<a name="l00080"></a>00080   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082   glMatrixMode(GL_MODELVIEW);
+<a name="l00083"></a>00083   glLoadIdentity();
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085   <a class="code" href="classOpenGLScene.html#ff166b3a7f935f95595afd7c8ce1163a">m_camera</a>-&gt;<a class="code" href="classCamera.html#e8f2a4d0c4406d26d0f203fd976ba8e6">look</a>();
+<a name="l00086"></a>00086 
+<a name="l00087"></a>00087   <a class="code" href="classOpenGLScene.html#f915376348d39af08184537969f86dac">m_dtm</a>-&gt;<a class="code" href="classDTM.html#5aded1ff6e5a1973ada422b15a3d799b">draw</a>();
+<a name="l00088"></a>00088   <a class="code" href="classOpenGLScene.html#f8c86e66ebdd845057705c30eb1b033a">m_water</a>-&gt;<a class="code" href="classWater.html#c315e279916704d50c9589765e20c0af">draw</a>();
+<a name="l00089"></a>00089 }
+<a name="l00090"></a>00090 
+<a name="l00091"></a><a class="code" href="classOpenGLScene.html#05d62441f85fcdf1d22098bfc434b1d9">00091</a> <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#05d62441f85fcdf1d22098bfc434b1d9">OpenGLScene::mouseMoveEvent</a>(QMouseEvent *e)
+<a name="l00092"></a>00092 {
+<a name="l00093"></a>00093   <span class="keywordflow">if</span>(e-&gt;buttons() == Qt::LeftButton) {
+<a name="l00094"></a>00094     <span class="comment">// place le curseur au milieu pour calculer le déplacement relatif</span>
+<a name="l00095"></a>00095     QCursor::setPos(QPoint(mapToGlobal(QPoint(width() / 2, height() / 2))));
+<a name="l00096"></a>00096 
+<a name="l00097"></a>00097     <span class="keywordtype">int</span> relx = e-&gt;globalX() - QCursor::pos().x();
+<a name="l00098"></a>00098     <span class="keywordtype">int</span> rely = e-&gt;globalY() - QCursor::pos().y();
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100     <a class="code" href="classOpenGLScene.html#ff166b3a7f935f95595afd7c8ce1163a">m_camera</a>-&gt;<a class="code" href="classCamera.html#95958b77758930f18b653b854ebdef72">mouseMove</a>(relx, rely);
+<a name="l00101"></a>00101   }
+<a name="l00102"></a>00102 }
+<a name="l00103"></a>00103 
+<a name="l00104"></a><a class="code" href="classOpenGLScene.html#5be48a11fb61824c135af97b1a9acd06">00104</a> <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#5be48a11fb61824c135af97b1a9acd06">OpenGLScene::mousePressEvent</a>(QMouseEvent *e)
+<a name="l00105"></a>00105 {
+<a name="l00106"></a>00106   <span class="keywordflow">if</span>(e-&gt;button() == Qt::LeftButton) {
+<a name="l00107"></a>00107     setCursor(QCursor(Qt::BlankCursor));
+<a name="l00108"></a>00108     QCursor::setPos(QPoint(mapToGlobal(QPoint(width() / 2, height() / 2))));
+<a name="l00109"></a>00109   }
+<a name="l00110"></a>00110 }
+<a name="l00111"></a>00111 
+<a name="l00112"></a><a class="code" href="classOpenGLScene.html#62b6fa86a785d415b191ca14b02369b1">00112</a> <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#62b6fa86a785d415b191ca14b02369b1">OpenGLScene::mouseReleaseEvent</a>(QMouseEvent *e)
+<a name="l00113"></a>00113 {
+<a name="l00114"></a>00114   <span class="keywordflow">if</span>(e-&gt;button() == Qt::LeftButton)
+<a name="l00115"></a>00115     setCursor(QCursor(Qt::ArrowCursor));
+<a name="l00116"></a>00116 }
+<a name="l00117"></a>00117 
+<a name="l00118"></a><a class="code" href="classOpenGLScene.html#92d88536c5ffd094a8a82ca8b2c03627">00118</a> <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#92d88536c5ffd094a8a82ca8b2c03627">OpenGLScene::wheelEvent</a>(QWheelEvent *e)
+<a name="l00119"></a>00119 {
+<a name="l00120"></a>00120   <span class="keywordflow">if</span>(e-&gt;orientation() == Qt::Vertical)
+<a name="l00121"></a>00121     <a class="code" href="classOpenGLScene.html#ff166b3a7f935f95595afd7c8ce1163a">m_camera</a>-&gt;<a class="code" href="classCamera.html#17d3a03a003db50b7d9cb0cf2231e8cb">wheel</a>(e-&gt;delta() &gt; 0);
+<a name="l00122"></a>00122 }
+<a name="l00123"></a>00123 
+<a name="l00124"></a><a class="code" href="classOpenGLScene.html#eded54fe909c833fcf8749bb95d6d7c7">00124</a> <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#eded54fe909c833fcf8749bb95d6d7c7">OpenGLScene::keyPressEvent</a>(QKeyEvent *e)
+<a name="l00125"></a>00125 {
+<a name="l00126"></a>00126   <a class="code" href="classOpenGLScene.html#ff166b3a7f935f95595afd7c8ce1163a">m_camera</a>-&gt;<a class="code" href="classCamera.html#c80dcbce47d6c1a2bb5d25d322492de7">keyPress</a>(e-&gt;key(), <span class="keyword">true</span>);
+<a name="l00127"></a>00127 }
+<a name="l00128"></a>00128 
+<a name="l00129"></a><a class="code" href="classOpenGLScene.html#6f9672d9682869ba3daafd250a251379">00129</a> <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#6f9672d9682869ba3daafd250a251379">OpenGLScene::keyReleaseEvent</a>(QKeyEvent *e)
+<a name="l00130"></a>00130 {
+<a name="l00131"></a>00131   <a class="code" href="classOpenGLScene.html#ff166b3a7f935f95595afd7c8ce1163a">m_camera</a>-&gt;<a class="code" href="classCamera.html#c80dcbce47d6c1a2bb5d25d322492de7">keyPress</a>(e-&gt;key(), <span class="keyword">false</span>);
+<a name="l00132"></a>00132 }
+<a name="l00133"></a>00133 
+<a name="l00134"></a><a class="code" href="classOpenGLScene.html#592a453819f620ad721f52e5dde0479f">00134</a> <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#592a453819f620ad721f52e5dde0479f">OpenGLScene::enterEvent</a>(QEvent *)
+<a name="l00135"></a>00135 {
+<a name="l00136"></a>00136   grabKeyboard();
+<a name="l00137"></a>00137 }
+<a name="l00138"></a>00138 
+<a name="l00139"></a><a class="code" href="classOpenGLScene.html#e1c14261cda0e0f359a95cd47bc08e97">00139</a> <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#e1c14261cda0e0f359a95cd47bc08e97">OpenGLScene::leaveEvent</a>(QEvent *)
+<a name="l00140"></a>00140 {
+<a name="l00141"></a>00141   <a class="code" href="classOpenGLScene.html#ff166b3a7f935f95595afd7c8ce1163a">m_camera</a>-&gt;<a class="code" href="classCamera.html#860463794e5705d64cebee309d741dcc">clearKeyStates</a>();
+<a name="l00142"></a>00142   releaseKeyboard();
+<a name="l00143"></a>00143 }
+<a name="l00144"></a>00144 
+<a name="l00145"></a><a class="code" href="classOpenGLScene.html#310489fdc46372241e57491ba9adc587">00145</a> <span class="keywordtype">void</span> <a class="code" href="classOpenGLScene.html#310489fdc46372241e57491ba9adc587">OpenGLScene::update</a>()
+<a name="l00146"></a>00146 {
+<a name="l00147"></a>00147   <a class="code" href="classOpenGLScene.html#afb77eebdd0a118ea7017dd0367a47db">m_current</a> += <a class="code" href="classOpenGLScene.html#603f30dbbe7fe5c9a910894b6bf9a6ce">m_ticks</a>.restart();
+<a name="l00148"></a>00148   <span class="keyword">const</span> uint elapsed = <a class="code" href="classOpenGLScene.html#afb77eebdd0a118ea7017dd0367a47db">m_current</a> - <a class="code" href="classOpenGLScene.html#b3643bcf21e1fe6cda84079a28a41199">m_last</a>;
+<a name="l00149"></a>00149   m_last = <a class="code" href="classOpenGLScene.html#afb77eebdd0a118ea7017dd0367a47db">m_current</a>;
+<a name="l00150"></a>00150 
+<a name="l00151"></a>00151   QTime ti;
+<a name="l00152"></a>00152   ti.start();
+<a name="l00153"></a>00153 
+<a name="l00154"></a>00154   <a class="code" href="classOpenGLScene.html#ff166b3a7f935f95595afd7c8ce1163a">m_camera</a>-&gt;<a class="code" href="classCamera.html#52df3e5378b120af71e311279fdc9096">animate</a>(elapsed);
+<a name="l00155"></a>00155   updateGL();
+<a name="l00156"></a>00156 
+<a name="l00157"></a>00157   <span class="keyword">const</span> uint stop = <a class="code" href="classOpenGLScene.html#afb77eebdd0a118ea7017dd0367a47db">m_current</a> + ti.elapsed();
+<a name="l00158"></a>00158   <span class="keywordflow">if</span> ((stop - m_last) &lt; 1000 / <a class="code" href="classOpenGLScene.html#29d145e9d1e08a2acae66ed4f1dca26c">FPS</a>)
+<a name="l00159"></a>00159     <a class="code" href="classOpenGLScene.html#aec0f181b4106483c1d63a7fa360006e">m_refresh</a>.setInterval(1000 / <a class="code" href="classOpenGLScene.html#29d145e9d1e08a2acae66ed4f1dca26c">FPS</a> - (stop - m_last));
+<a name="l00160"></a>00160   <span class="keywordflow">else</span>
+<a name="l00161"></a>00161     <a class="code" href="classOpenGLScene.html#aec0f181b4106483c1d63a7fa360006e">m_refresh</a>.setInterval(0);
+<a name="l00162"></a>00162 
+<a name="l00163"></a>00163   <a class="code" href="classOpenGLScene.html#aec0f181b4106483c1d63a7fa360006e">m_refresh</a>.start();
+<a name="l00164"></a>00164 }
+</pre></div></div>
+<hr size="1"><address style="text-align: right;"><small>Généré le Tue Mar 31 20:47:22 2009 pour simulation par&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.6 </small></address>
+</body>
+</html>

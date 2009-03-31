@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>simulation:  Fichier source de src/viewer/main.cpp</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.5.6 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>Page&nbsp;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces de nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+<h1>src/viewer/main.cpp</h1><a href="viewer_2main_8cpp.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include "<a class="code" href="opengl__scene_8h.html">opengl_scene.h</a>"</span>
+<a name="l00002"></a>00002 
+<a name="l00003"></a>00003 <span class="preprocessor">#include &lt;QtGui&gt;</span>
+<a name="l00004"></a>00004 
+<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;iostream&gt;</span>
+<a name="l00006"></a>00006 
+<a name="l00007"></a><a class="code" href="viewer_2main_8cpp.html#0ddf1224851353fc92bfbff6f499fa97">00007</a> <span class="keywordtype">int</span> <a class="code" href="flood_2main_8cpp.html#0ddf1224851353fc92bfbff6f499fa97">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[])
+<a name="l00008"></a>00008 {
+<a name="l00009"></a>00009   <span class="keywordflow">if</span>(argc &lt; 2) {
+<a name="l00010"></a>00010     std::cerr &lt;&lt; <span class="stringliteral">"Error: no input file given"</span> &lt;&lt; std::endl;
+<a name="l00011"></a>00011     <span class="keywordflow">return</span> EXIT_FAILURE;
+<a name="l00012"></a>00012   }
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014   <span class="keywordflow">if</span>(argc &gt; 2) {
+<a name="l00015"></a>00015     std::cerr &lt;&lt; <span class="stringliteral">"Error: too many arguments"</span> &lt;&lt; std::endl;
+<a name="l00016"></a>00016     <span class="keywordflow">return</span> EXIT_FAILURE;
+<a name="l00017"></a>00017   }
+<a name="l00018"></a>00018 
+<a name="l00019"></a>00019   QApplication app(argc, argv);
+<a name="l00020"></a>00020   QDir::setCurrent(QFileInfo(argv[0]).absolutePath());
+<a name="l00021"></a>00021   <a class="code" href="classOpenGLScene.html">OpenGLScene</a> scene(argv[1]);
+<a name="l00022"></a>00022   scene.show();
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024   <span class="keywordflow">return</span> app.exec();
+<a name="l00025"></a>00025 }
+</pre></div></div>
+<hr size="1"><address style="text-align: right;"><small>Généré le Tue Mar 31 20:47:22 2009 pour simulation par&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.6 </small></address>
+</body>
+</html>

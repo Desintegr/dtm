@@ -1,0 +1,741 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>simulation: Référence de la classe DTM</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.5.6 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>Page&nbsp;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces de nommage</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="annotated.html"><span>Liste&nbsp;des&nbsp;classes</span></a></li>
+      <li><a href="functions.html"><span>Membres&nbsp;de&nbsp;classe</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="contents">
+<h1>Référence de la classe DTM</h1><!-- doxytag: class="DTM" --><code>#include &lt;<a class="el" href="dtm_8h-source.html">dtm.h</a>&gt;</code>
+<p>
+<div class="dynheader">
+Graphe de collaboration de DTM:</div>
+<div class="dynsection">
+<p><center><img src="classDTM__coll__graph.png" border="0" usemap="#DTM__coll__map" alt="Collaboration graph"></center>
+<map name="DTM__coll__map">
+<area shape="rect" href="classPoint3d.html" title="Point3d" alt="" coords="5,5,69,32"></map>
+<center><font size="2">[<a href="graph_legend.html">légende</a>]</font></center></div>
+
+<p>
+<a href="classDTM-members.html">Liste de tous les membres</a><table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Fonctions membres publiques</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#7f59c9ac00f60d1114666a236fd66850">DTM</a> (const QString &amp;filename)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#c7a61f226e7586fb7b3a951228323460">~DTM</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="water_8h.html#7c94ea6f8948649f8d181ae55911eeaf">size_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#3b8ba8799b7f5398113cbcbcb8344fef">ncols</a> () const </td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="water_8h.html#7c94ea6f8948649f8d181ae55911eeaf">size_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#7b8349bf3b5543644ff58c8f91ce7f1c">nrows</a> () const </td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#6bc84c2821d0aaff2f463ff45cb4e968">minZ</a> () const </td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classPoint3d.html">Point3d</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#48443b939297f454fbc96dedc7cd7a10">vertices</a> () const </td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#5aded1ff6e5a1973ada422b15a3d799b">draw</a> () const </td></tr>
+
+<tr><td colspan="2"><br><h2>Types privés</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#16bab3b9a56bae5891172479f9a365b2">Buffers</a> { <a class="el" href="classDTM.html#16bab3b9a56bae5891172479f9a365b2e3e31cda008b6b0045cb7605d547fe3c">VERTICES</a>, 
+<a class="el" href="classDTM.html#16bab3b9a56bae5891172479f9a365b2e48fd46160025f8d719b0b2804a9550d">NORMALS</a>, 
+<a class="el" href="classDTM.html#16bab3b9a56bae5891172479f9a365b234606be6c7b1c8fc1283a080d4d28033">INDICES</a>, 
+<a class="el" href="classDTM.html#16bab3b9a56bae5891172479f9a365b24a482fe769781d29c0456d233f1f48b4">TEXTURES</a>
+ }</td></tr>
+
+<tr><td colspan="2"><br><h2>Fonctions membres privées</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#575ad4f8efbd21d4a1dfa505849367b2">initVertices</a> (QTextStream &amp;in)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#f101b4520b2d7fe817bfb405fb65777e">initIndices</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#d1b9e357ad3f71ab45fd66f7b9f52d41">initNormals</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#140d21fe65ba16dbfd58f1bcceb23d12">initTextures</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#82ff38990ef0cdc1ce477560c2423734">initVBO</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#9a1ece5e589ba93ba2e545067cfe6241">free</a> ()</td></tr>
+
+<tr><td colspan="2"><br><h2>Attributs privés</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="water_8h.html#7c94ea6f8948649f8d181ae55911eeaf">size_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#d4fbc47064558e52d06558b8a39f3e5a">m_ncols</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="water_8h.html#7c94ea6f8948649f8d181ae55911eeaf">size_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#b6345a63e6c776e144a2abfe40242911">m_nrows</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="water_8h.html#7c94ea6f8948649f8d181ae55911eeaf">size_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#c9d678f4113cbd93dfa50501bae2d3ff">m_xllcorner</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="water_8h.html#7c94ea6f8948649f8d181ae55911eeaf">size_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#0e32ca20ef99e5c3af33a4106aa0a26b">m_yllcorner</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="water_8h.html#7c94ea6f8948649f8d181ae55911eeaf">size_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#8ce5ef5c0136b0d2e89ab82c73aa598e">m_cellsize</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#34a2e979a67fa563638f6333dc1d1971">m_nodata</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#7cd249d6f45058e557cd4f431d838518">m_minz</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="water_8h.html#7c94ea6f8948649f8d181ae55911eeaf">size_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#274e14aa26bee0d8827f162ba7e3d6e4">m_nvertices</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="water_8h.html#7c94ea6f8948649f8d181ae55911eeaf">size_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#219705d48b91da8a18515f16bb17eabd">m_nindices</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classPoint3d.html">Point3d</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#035261a7a6a2567e54a1a027c7801414">m_vertices</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="water_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#0d06e81987799ce87bba7d3e3be23578">m_indices</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classPoint3d.html">Point3d</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#f93ce1f040cac8695fe9add4e255b4a6">m_normals</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">float *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#dd11a07b755f461c466481e47fa4d9a2">m_textures</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="water_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDTM.html#2aa8b4afbbdb4bc306031da8ba099c93">m_buffers</a> [4]</td></tr>
+
+</table>
+<hr><a name="_details"></a><h2>Description détaillée</h2>
+
+<p>Définition à la ligne <a class="el" href="dtm_8h-source.html#l00011">11</a> du fichier <a class="el" href="dtm_8h-source.html">dtm.h</a>.</p>
+<hr><h2>Documentation des énumérations membres</h2>
+<a class="anchor" name="16bab3b9a56bae5891172479f9a365b2"></a><!-- doxytag: member="DTM::Buffers" ref="16bab3b9a56bae5891172479f9a365b2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classDTM.html#16bab3b9a56bae5891172479f9a365b2">DTM::Buffers</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b>Valeurs énumérées: </b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" name="16bab3b9a56bae5891172479f9a365b2e3e31cda008b6b0045cb7605d547fe3c"></a><!-- doxytag: member="VERTICES" ref="16bab3b9a56bae5891172479f9a365b2e3e31cda008b6b0045cb7605d547fe3c" args="" -->VERTICES</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" name="16bab3b9a56bae5891172479f9a365b2e48fd46160025f8d719b0b2804a9550d"></a><!-- doxytag: member="NORMALS" ref="16bab3b9a56bae5891172479f9a365b2e48fd46160025f8d719b0b2804a9550d" args="" -->NORMALS</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" name="16bab3b9a56bae5891172479f9a365b234606be6c7b1c8fc1283a080d4d28033"></a><!-- doxytag: member="INDICES" ref="16bab3b9a56bae5891172479f9a365b234606be6c7b1c8fc1283a080d4d28033" args="" -->INDICES</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" name="16bab3b9a56bae5891172479f9a365b24a482fe769781d29c0456d233f1f48b4"></a><!-- doxytag: member="TEXTURES" ref="16bab3b9a56bae5891172479f9a365b24a482fe769781d29c0456d233f1f48b4" args="" -->TEXTURES</em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dl>
+
+<p>Définition à la ligne <a class="el" href="dtm_8h-source.html#l00101">101</a> du fichier <a class="el" href="dtm_8h-source.html">dtm.h</a>.</p>
+
+</div>
+</div><p>
+<hr><h2>Documentation des constructeurs et destructeur</h2>
+<a class="anchor" name="7f59c9ac00f60d1114666a236fd66850"></a><!-- doxytag: member="DTM::DTM" ref="7f59c9ac00f60d1114666a236fd66850" args="(const QString &amp;filename)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DTM::DTM           </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;&nbsp;</td>
+          <td class="paramname"> <em>filename</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Constructeur de terrain à partir d'un fichier<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>filename</em>&nbsp;</td><td>le nom du fichier </td></tr>
+  </table>
+</dl>
+
+<p>Définition à la ligne <a class="el" href="dtm_8cpp-source.html#l00013">13</a> du fichier <a class="el" href="dtm_8cpp-source.html">dtm.cpp</a>.</p>
+
+<p>Références <a class="el" href="dtm_8cpp-source.html#l00208">free()</a>, <a class="el" href="dtm_8cpp-source.html#l00119">initIndices()</a>, <a class="el" href="dtm_8cpp-source.html#l00140">initNormals()</a>, <a class="el" href="dtm_8cpp-source.html#l00175">initTextures()</a>, <a class="el" href="dtm_8cpp-source.html#l00191">initVBO()</a>, <a class="el" href="dtm_8cpp-source.html#l00087">initVertices()</a>, <a class="el" href="dtm_8h-source.html#l00088">m_cellsize</a>, <a class="el" href="dtm_8h-source.html#l00084">m_ncols</a>, <a class="el" href="dtm_8h-source.html#l00089">m_nodata</a>, <a class="el" href="dtm_8h-source.html#l00085">m_nrows</a>, <a class="el" href="dtm_8h-source.html#l00086">m_xllcorner</a>, et <a class="el" href="dtm_8h-source.html#l00087">m_yllcorner</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="c7a61f226e7586fb7b3a951228323460"></a><!-- doxytag: member="DTM::~DTM" ref="c7a61f226e7586fb7b3a951228323460" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DTM::~DTM           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Destructeur de terrain 
+<p>Définition à la ligne <a class="el" href="dtm_8cpp-source.html#l00050">50</a> du fichier <a class="el" href="dtm_8cpp-source.html">dtm.cpp</a>.</p>
+
+<p>Références <a class="el" href="dtm_8h-source.html#l00096">m_vertices</a>.</p>
+
+</div>
+</div><p>
+<hr><h2>Documentation des fonctions membres</h2>
+<a class="anchor" name="3b8ba8799b7f5398113cbcbcb8344fef"></a><!-- doxytag: member="DTM::ncols" ref="3b8ba8799b7f5398113cbcbcb8344fef" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="water_8h.html#7c94ea6f8948649f8d181ae55911eeaf">size_t</a> DTM::ncols           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Retourne le nombre de colonnes du terrain 
+<p>Définition à la ligne <a class="el" href="dtm_8h-source.html#l00111">111</a> du fichier <a class="el" href="dtm_8h-source.html">dtm.h</a>.</p>
+
+<p>Références <a class="el" href="dtm_8h-source.html#l00084">m_ncols</a>.</p>
+
+<p>Référencé par <a class="el" href="flowvr__thread_8cpp-source.html#l00070">FlowVRThread::getWater()</a>, <a class="el" href="flowvr__thread_8cpp-source.html#l00030">FlowVRThread::sendDTM()</a>, et <a class="el" href="light_8cpp-source.html#l00023">Light::set()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="7b8349bf3b5543644ff58c8f91ce7f1c"></a><!-- doxytag: member="DTM::nrows" ref="7b8349bf3b5543644ff58c8f91ce7f1c" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="water_8h.html#7c94ea6f8948649f8d181ae55911eeaf">size_t</a> DTM::nrows           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Retourne le nombre de lignes du terrain 
+<p>Définition à la ligne <a class="el" href="dtm_8h-source.html#l00116">116</a> du fichier <a class="el" href="dtm_8h-source.html">dtm.h</a>.</p>
+
+<p>Références <a class="el" href="dtm_8h-source.html#l00085">m_nrows</a>.</p>
+
+<p>Référencé par <a class="el" href="flowvr__thread_8cpp-source.html#l00070">FlowVRThread::getWater()</a>, <a class="el" href="flowvr__thread_8cpp-source.html#l00030">FlowVRThread::sendDTM()</a>, et <a class="el" href="light_8cpp-source.html#l00023">Light::set()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="6bc84c2821d0aaff2f463ff45cb4e968"></a><!-- doxytag: member="DTM::minZ" ref="6bc84c2821d0aaff2f463ff45cb4e968" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float DTM::minZ           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Retourne la hauteur la plus basse du terrain 
+<p>Définition à la ligne <a class="el" href="dtm_8h-source.html#l00126">126</a> du fichier <a class="el" href="dtm_8h-source.html">dtm.h</a>.</p>
+
+<p>Références <a class="el" href="dtm_8h-source.html#l00091">m_minz</a>.</p>
+
+<p>Référencé par <a class="el" href="water_8cpp-source.html#l00036">Water::initVertices()</a>, et <a class="el" href="light_8cpp-source.html#l00023">Light::set()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="48443b939297f454fbc96dedc7cd7a10"></a><!-- doxytag: member="DTM::vertices" ref="48443b939297f454fbc96dedc7cd7a10" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classPoint3d.html">Point3d</a> * DTM::vertices           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Retourne les sommets du terrain 
+<p>Définition à la ligne <a class="el" href="dtm_8h-source.html#l00121">121</a> du fichier <a class="el" href="dtm_8h-source.html">dtm.h</a>.</p>
+
+<p>Références <a class="el" href="dtm_8h-source.html#l00096">m_vertices</a>.</p>
+
+<p>Référencé par <a class="el" href="flowvr__thread_8cpp-source.html#l00070">FlowVRThread::getWater()</a>, et <a class="el" href="flowvr__thread_8cpp-source.html#l00030">FlowVRThread::sendDTM()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="5aded1ff6e5a1973ada422b15a3d799b"></a><!-- doxytag: member="DTM::draw" ref="5aded1ff6e5a1973ada422b15a3d799b" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DTM::draw           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Dessine le terrain 
+<p>Définition à la ligne <a class="el" href="dtm_8cpp-source.html#l00055">55</a> du fichier <a class="el" href="dtm_8cpp-source.html">dtm.cpp</a>.</p>
+
+<p>Références <a class="el" href="dtm_8h-source.html#l00105">INDICES</a>, <a class="el" href="dtm_8h-source.html#l00108">m_buffers</a>, <a class="el" href="dtm_8h-source.html#l00094">m_nindices</a>, <a class="el" href="dtm_8h-source.html#l00104">NORMALS</a>, <a class="el" href="dtm_8h-source.html#l00106">TEXTURES</a>, et <a class="el" href="dtm_8h-source.html#l00103">VERTICES</a>.</p>
+
+<p>Référencé par <a class="el" href="opengl__scene_8cpp-source.html#l00077">OpenGLScene::paintGL()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="575ad4f8efbd21d4a1dfa505849367b2"></a><!-- doxytag: member="DTM::initVertices" ref="575ad4f8efbd21d4a1dfa505849367b2" args="(QTextStream &amp;in)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DTM::initVertices           </td>
+          <td>(</td>
+          <td class="paramtype">QTextStream &amp;&nbsp;</td>
+          <td class="paramname"> <em>in</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Initialise les sommets du terrain 
+<p>Définition à la ligne <a class="el" href="dtm_8cpp-source.html#l00087">87</a> du fichier <a class="el" href="dtm_8cpp-source.html">dtm.cpp</a>.</p>
+
+<p>Références <a class="el" href="dtm_8h-source.html#l00091">m_minz</a>, <a class="el" href="dtm_8h-source.html#l00084">m_ncols</a>, <a class="el" href="dtm_8h-source.html#l00089">m_nodata</a>, <a class="el" href="dtm_8h-source.html#l00085">m_nrows</a>, <a class="el" href="dtm_8h-source.html#l00093">m_nvertices</a>, <a class="el" href="dtm_8h-source.html#l00096">m_vertices</a>, <a class="el" href="point3d_8h-source.html#l00124">Point3d::setX()</a>, <a class="el" href="point3d_8h-source.html#l00129">Point3d::setY()</a>, et <a class="el" href="point3d_8h-source.html#l00134">Point3d::setZ()</a>.</p>
+
+<p>Référencé par <a class="el" href="dtm_8cpp-source.html#l00013">DTM()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="f101b4520b2d7fe817bfb405fb65777e"></a><!-- doxytag: member="DTM::initIndices" ref="f101b4520b2d7fe817bfb405fb65777e" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DTM::initIndices           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Initialise les index du terrain 
+<p>Définition à la ligne <a class="el" href="dtm_8cpp-source.html#l00119">119</a> du fichier <a class="el" href="dtm_8cpp-source.html">dtm.cpp</a>.</p>
+
+<p>Références <a class="el" href="dtm_8h-source.html#l00097">m_indices</a>, <a class="el" href="dtm_8h-source.html#l00084">m_ncols</a>, <a class="el" href="dtm_8h-source.html#l00094">m_nindices</a>, et <a class="el" href="dtm_8h-source.html#l00085">m_nrows</a>.</p>
+
+<p>Référencé par <a class="el" href="dtm_8cpp-source.html#l00013">DTM()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="d1b9e357ad3f71ab45fd66f7b9f52d41"></a><!-- doxytag: member="DTM::initNormals" ref="d1b9e357ad3f71ab45fd66f7b9f52d41" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DTM::initNormals           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Initialise les normales du terrain 
+<p>Définition à la ligne <a class="el" href="dtm_8cpp-source.html#l00140">140</a> du fichier <a class="el" href="dtm_8cpp-source.html">dtm.cpp</a>.</p>
+
+<p>Références <a class="el" href="point3d_8cpp-source.html#l00068">Point3d::cross()</a>, <a class="el" href="dtm_8h-source.html#l00097">m_indices</a>, <a class="el" href="dtm_8h-source.html#l00084">m_ncols</a>, <a class="el" href="dtm_8h-source.html#l00098">m_normals</a>, <a class="el" href="dtm_8h-source.html#l00085">m_nrows</a>, <a class="el" href="dtm_8h-source.html#l00093">m_nvertices</a>, et <a class="el" href="dtm_8h-source.html#l00096">m_vertices</a>.</p>
+
+<p>Référencé par <a class="el" href="dtm_8cpp-source.html#l00013">DTM()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="140d21fe65ba16dbfd58f1bcceb23d12"></a><!-- doxytag: member="DTM::initTextures" ref="140d21fe65ba16dbfd58f1bcceb23d12" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DTM::initTextures           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Initialise les textures du terrain 
+<p>Définition à la ligne <a class="el" href="dtm_8cpp-source.html#l00175">175</a> du fichier <a class="el" href="dtm_8cpp-source.html">dtm.cpp</a>.</p>
+
+<p>Références <a class="el" href="dtm_8h-source.html#l00084">m_ncols</a>, <a class="el" href="dtm_8h-source.html#l00085">m_nrows</a>, <a class="el" href="dtm_8h-source.html#l00093">m_nvertices</a>, <a class="el" href="dtm_8h-source.html#l00099">m_textures</a>, <a class="el" href="dtm_8h-source.html#l00096">m_vertices</a>, et <a class="el" href="point3d_8h-source.html#l00110">Point3d::x()</a>.</p>
+
+<p>Référencé par <a class="el" href="dtm_8cpp-source.html#l00013">DTM()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="82ff38990ef0cdc1ce477560c2423734"></a><!-- doxytag: member="DTM::initVBO" ref="82ff38990ef0cdc1ce477560c2423734" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DTM::initVBO           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Initialise les VBO pour le terrain 
+<p>Définition à la ligne <a class="el" href="dtm_8cpp-source.html#l00191">191</a> du fichier <a class="el" href="dtm_8cpp-source.html">dtm.cpp</a>.</p>
+
+<p>Références <a class="el" href="dtm_8h-source.html#l00105">INDICES</a>, <a class="el" href="dtm_8h-source.html#l00108">m_buffers</a>, <a class="el" href="dtm_8h-source.html#l00097">m_indices</a>, <a class="el" href="dtm_8h-source.html#l00094">m_nindices</a>, <a class="el" href="dtm_8h-source.html#l00098">m_normals</a>, <a class="el" href="dtm_8h-source.html#l00093">m_nvertices</a>, <a class="el" href="dtm_8h-source.html#l00099">m_textures</a>, <a class="el" href="dtm_8h-source.html#l00096">m_vertices</a>, <a class="el" href="dtm_8h-source.html#l00104">NORMALS</a>, <a class="el" href="dtm_8h-source.html#l00106">TEXTURES</a>, et <a class="el" href="dtm_8h-source.html#l00103">VERTICES</a>.</p>
+
+<p>Référencé par <a class="el" href="dtm_8cpp-source.html#l00013">DTM()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="9a1ece5e589ba93ba2e545067cfe6241"></a><!-- doxytag: member="DTM::free" ref="9a1ece5e589ba93ba2e545067cfe6241" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DTM::free           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Libère les ressources qui ne sont plus utilisées après constructions du terrain 
+<p>Définition à la ligne <a class="el" href="dtm_8cpp-source.html#l00208">208</a> du fichier <a class="el" href="dtm_8cpp-source.html">dtm.cpp</a>.</p>
+
+<p>Références <a class="el" href="dtm_8h-source.html#l00097">m_indices</a>, <a class="el" href="dtm_8h-source.html#l00098">m_normals</a>, et <a class="el" href="dtm_8h-source.html#l00099">m_textures</a>.</p>
+
+<p>Référencé par <a class="el" href="dtm_8cpp-source.html#l00013">DTM()</a>.</p>
+
+</div>
+</div><p>
+<hr><h2>Documentation des données membres</h2>
+<a class="anchor" name="d4fbc47064558e52d06558b8a39f3e5a"></a><!-- doxytag: member="DTM::m_ncols" ref="d4fbc47064558e52d06558b8a39f3e5a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="water_8h.html#7c94ea6f8948649f8d181ae55911eeaf">size_t</a> <a class="el" href="classDTM.html#d4fbc47064558e52d06558b8a39f3e5a">DTM::m_ncols</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="dtm_8h-source.html#l00084">84</a> du fichier <a class="el" href="dtm_8h-source.html">dtm.h</a>.</p>
+
+<p>Référencé par <a class="el" href="dtm_8cpp-source.html#l00013">DTM()</a>, <a class="el" href="dtm_8cpp-source.html#l00119">initIndices()</a>, <a class="el" href="dtm_8cpp-source.html#l00140">initNormals()</a>, <a class="el" href="dtm_8cpp-source.html#l00175">initTextures()</a>, <a class="el" href="dtm_8cpp-source.html#l00087">initVertices()</a>, et <a class="el" href="dtm_8h-source.html#l00111">ncols()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="b6345a63e6c776e144a2abfe40242911"></a><!-- doxytag: member="DTM::m_nrows" ref="b6345a63e6c776e144a2abfe40242911" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="water_8h.html#7c94ea6f8948649f8d181ae55911eeaf">size_t</a> <a class="el" href="classDTM.html#b6345a63e6c776e144a2abfe40242911">DTM::m_nrows</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="dtm_8h-source.html#l00085">85</a> du fichier <a class="el" href="dtm_8h-source.html">dtm.h</a>.</p>
+
+<p>Référencé par <a class="el" href="dtm_8cpp-source.html#l00013">DTM()</a>, <a class="el" href="dtm_8cpp-source.html#l00119">initIndices()</a>, <a class="el" href="dtm_8cpp-source.html#l00140">initNormals()</a>, <a class="el" href="dtm_8cpp-source.html#l00175">initTextures()</a>, <a class="el" href="dtm_8cpp-source.html#l00087">initVertices()</a>, et <a class="el" href="dtm_8h-source.html#l00116">nrows()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="c9d678f4113cbd93dfa50501bae2d3ff"></a><!-- doxytag: member="DTM::m_xllcorner" ref="c9d678f4113cbd93dfa50501bae2d3ff" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="water_8h.html#7c94ea6f8948649f8d181ae55911eeaf">size_t</a> <a class="el" href="classDTM.html#c9d678f4113cbd93dfa50501bae2d3ff">DTM::m_xllcorner</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="dtm_8h-source.html#l00086">86</a> du fichier <a class="el" href="dtm_8h-source.html">dtm.h</a>.</p>
+
+<p>Référencé par <a class="el" href="dtm_8cpp-source.html#l00013">DTM()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="0e32ca20ef99e5c3af33a4106aa0a26b"></a><!-- doxytag: member="DTM::m_yllcorner" ref="0e32ca20ef99e5c3af33a4106aa0a26b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="water_8h.html#7c94ea6f8948649f8d181ae55911eeaf">size_t</a> <a class="el" href="classDTM.html#0e32ca20ef99e5c3af33a4106aa0a26b">DTM::m_yllcorner</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="dtm_8h-source.html#l00087">87</a> du fichier <a class="el" href="dtm_8h-source.html">dtm.h</a>.</p>
+
+<p>Référencé par <a class="el" href="dtm_8cpp-source.html#l00013">DTM()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="8ce5ef5c0136b0d2e89ab82c73aa598e"></a><!-- doxytag: member="DTM::m_cellsize" ref="8ce5ef5c0136b0d2e89ab82c73aa598e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="water_8h.html#7c94ea6f8948649f8d181ae55911eeaf">size_t</a> <a class="el" href="classDTM.html#8ce5ef5c0136b0d2e89ab82c73aa598e">DTM::m_cellsize</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="dtm_8h-source.html#l00088">88</a> du fichier <a class="el" href="dtm_8h-source.html">dtm.h</a>.</p>
+
+<p>Référencé par <a class="el" href="dtm_8cpp-source.html#l00013">DTM()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="34a2e979a67fa563638f6333dc1d1971"></a><!-- doxytag: member="DTM::m_nodata" ref="34a2e979a67fa563638f6333dc1d1971" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classDTM.html#34a2e979a67fa563638f6333dc1d1971">DTM::m_nodata</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="dtm_8h-source.html#l00089">89</a> du fichier <a class="el" href="dtm_8h-source.html">dtm.h</a>.</p>
+
+<p>Référencé par <a class="el" href="dtm_8cpp-source.html#l00013">DTM()</a>, et <a class="el" href="dtm_8cpp-source.html#l00087">initVertices()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="7cd249d6f45058e557cd4f431d838518"></a><!-- doxytag: member="DTM::m_minz" ref="7cd249d6f45058e557cd4f431d838518" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classDTM.html#7cd249d6f45058e557cd4f431d838518">DTM::m_minz</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="dtm_8h-source.html#l00091">91</a> du fichier <a class="el" href="dtm_8h-source.html">dtm.h</a>.</p>
+
+<p>Référencé par <a class="el" href="dtm_8cpp-source.html#l00087">initVertices()</a>, et <a class="el" href="dtm_8h-source.html#l00126">minZ()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="274e14aa26bee0d8827f162ba7e3d6e4"></a><!-- doxytag: member="DTM::m_nvertices" ref="274e14aa26bee0d8827f162ba7e3d6e4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="water_8h.html#7c94ea6f8948649f8d181ae55911eeaf">size_t</a> <a class="el" href="classDTM.html#274e14aa26bee0d8827f162ba7e3d6e4">DTM::m_nvertices</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="dtm_8h-source.html#l00093">93</a> du fichier <a class="el" href="dtm_8h-source.html">dtm.h</a>.</p>
+
+<p>Référencé par <a class="el" href="dtm_8cpp-source.html#l00140">initNormals()</a>, <a class="el" href="dtm_8cpp-source.html#l00175">initTextures()</a>, <a class="el" href="dtm_8cpp-source.html#l00191">initVBO()</a>, et <a class="el" href="dtm_8cpp-source.html#l00087">initVertices()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="219705d48b91da8a18515f16bb17eabd"></a><!-- doxytag: member="DTM::m_nindices" ref="219705d48b91da8a18515f16bb17eabd" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="water_8h.html#7c94ea6f8948649f8d181ae55911eeaf">size_t</a> <a class="el" href="classDTM.html#219705d48b91da8a18515f16bb17eabd">DTM::m_nindices</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="dtm_8h-source.html#l00094">94</a> du fichier <a class="el" href="dtm_8h-source.html">dtm.h</a>.</p>
+
+<p>Référencé par <a class="el" href="dtm_8cpp-source.html#l00055">draw()</a>, <a class="el" href="dtm_8cpp-source.html#l00119">initIndices()</a>, et <a class="el" href="dtm_8cpp-source.html#l00191">initVBO()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="035261a7a6a2567e54a1a027c7801414"></a><!-- doxytag: member="DTM::m_vertices" ref="035261a7a6a2567e54a1a027c7801414" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classPoint3d.html">Point3d</a>* <a class="el" href="classDTM.html#035261a7a6a2567e54a1a027c7801414">DTM::m_vertices</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="dtm_8h-source.html#l00096">96</a> du fichier <a class="el" href="dtm_8h-source.html">dtm.h</a>.</p>
+
+<p>Référencé par <a class="el" href="dtm_8cpp-source.html#l00140">initNormals()</a>, <a class="el" href="dtm_8cpp-source.html#l00175">initTextures()</a>, <a class="el" href="dtm_8cpp-source.html#l00191">initVBO()</a>, <a class="el" href="dtm_8cpp-source.html#l00087">initVertices()</a>, <a class="el" href="dtm_8h-source.html#l00121">vertices()</a>, et <a class="el" href="dtm_8cpp-source.html#l00050">~DTM()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="0d06e81987799ce87bba7d3e3be23578"></a><!-- doxytag: member="DTM::m_indices" ref="0d06e81987799ce87bba7d3e3be23578" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="water_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a>* <a class="el" href="classDTM.html#0d06e81987799ce87bba7d3e3be23578">DTM::m_indices</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="dtm_8h-source.html#l00097">97</a> du fichier <a class="el" href="dtm_8h-source.html">dtm.h</a>.</p>
+
+<p>Référencé par <a class="el" href="dtm_8cpp-source.html#l00208">free()</a>, <a class="el" href="dtm_8cpp-source.html#l00119">initIndices()</a>, <a class="el" href="dtm_8cpp-source.html#l00140">initNormals()</a>, et <a class="el" href="dtm_8cpp-source.html#l00191">initVBO()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="f93ce1f040cac8695fe9add4e255b4a6"></a><!-- doxytag: member="DTM::m_normals" ref="f93ce1f040cac8695fe9add4e255b4a6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classPoint3d.html">Point3d</a>* <a class="el" href="classDTM.html#f93ce1f040cac8695fe9add4e255b4a6">DTM::m_normals</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="dtm_8h-source.html#l00098">98</a> du fichier <a class="el" href="dtm_8h-source.html">dtm.h</a>.</p>
+
+<p>Référencé par <a class="el" href="dtm_8cpp-source.html#l00208">free()</a>, <a class="el" href="dtm_8cpp-source.html#l00140">initNormals()</a>, et <a class="el" href="dtm_8cpp-source.html#l00191">initVBO()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="dd11a07b755f461c466481e47fa4d9a2"></a><!-- doxytag: member="DTM::m_textures" ref="dd11a07b755f461c466481e47fa4d9a2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float* <a class="el" href="classDTM.html#dd11a07b755f461c466481e47fa4d9a2">DTM::m_textures</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="dtm_8h-source.html#l00099">99</a> du fichier <a class="el" href="dtm_8h-source.html">dtm.h</a>.</p>
+
+<p>Référencé par <a class="el" href="dtm_8cpp-source.html#l00208">free()</a>, <a class="el" href="dtm_8cpp-source.html#l00175">initTextures()</a>, et <a class="el" href="dtm_8cpp-source.html#l00191">initVBO()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="2aa8b4afbbdb4bc306031da8ba099c93"></a><!-- doxytag: member="DTM::m_buffers" ref="2aa8b4afbbdb4bc306031da8ba099c93" args="[4]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="water_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a> <a class="el" href="classDTM.html#2aa8b4afbbdb4bc306031da8ba099c93">DTM::m_buffers</a>[4]<code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="dtm_8h-source.html#l00108">108</a> du fichier <a class="el" href="dtm_8h-source.html">dtm.h</a>.</p>
+
+<p>Référencé par <a class="el" href="dtm_8cpp-source.html#l00055">draw()</a>, et <a class="el" href="dtm_8cpp-source.html#l00191">initVBO()</a>.</p>
+
+</div>
+</div><p>
+<hr>La documentation de cette classe a été générée à partir des fichiers suivants :<ul>
+<li>src/viewer/<a class="el" href="dtm_8h-source.html">dtm.h</a><li>src/viewer/<a class="el" href="dtm_8cpp-source.html">dtm.cpp</a></ul>
+</div>
+<hr size="1"><address style="text-align: right;"><small>Généré le Tue Mar 31 20:47:25 2009 pour simulation par&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.6 </small></address>
+</body>
+</html>

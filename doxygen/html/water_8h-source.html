@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>simulation:  Fichier source de src/viewer/water.h</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.5.6 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>Page&nbsp;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces de nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+<h1>src/viewer/water.h</h1><a href="water_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef WATER_H</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define WATER_H</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;QtCore&gt;</span>
+<a name="l00005"></a>00005 
+<a name="l00006"></a><a class="code" href="water_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">00006</a> <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a>;
+<a name="l00007"></a><a class="code" href="water_8h.html#7c94ea6f8948649f8d181ae55911eeaf">00007</a> <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="flood_8h.html#7c94ea6f8948649f8d181ae55911eeaf">size_t</a>;
+<a name="l00008"></a>00008 
+<a name="l00009"></a>00009 <span class="keyword">class </span><a class="code" href="classDTM.html">DTM</a>;
+<a name="l00010"></a>00010 <span class="keyword">class </span><a class="code" href="classPoint3d.html">Point3d</a>;
+<a name="l00011"></a>00011 
+<a name="l00012"></a><a class="code" href="classWater.html">00012</a> <span class="keyword">class </span><a class="code" href="classWater.html">Water</a>: <span class="keyword">public</span> QObject
+<a name="l00013"></a>00013 {
+<a name="l00014"></a>00014   Q_OBJECT
+<a name="l00015"></a>00015 
+<a name="l00016"></a>00016 <span class="keyword">public</span>:
+<a name="l00022"></a>00022   <a class="code" href="classWater.html#ec96d04f80ed85ae55f9c0a353746834">Water</a>(<span class="keyword">const</span> <a class="code" href="classDTM.html">DTM</a> *dtm);
+<a name="l00023"></a>00023 
+<a name="l00027"></a>00027   <span class="keyword">virtual</span> <a class="code" href="classWater.html#a613ad181694d2d0e18059f3822415fe">~Water</a>();
+<a name="l00028"></a>00028 
+<a name="l00032"></a>00032   <span class="keywordtype">float</span> * <a class="code" href="classWater.html#d9d8c59ef6b287b248afbd05f26c8edb">values</a>() <span class="keyword">const</span>;
+<a name="l00033"></a>00033 
+<a name="l00037"></a>00037   <a class="code" href="classPoint3d.html">Point3d</a> * <a class="code" href="classWater.html#d503872d4af2f0f54ae542fad6df0de5">vertices</a>() <span class="keyword">const</span>;
+<a name="l00038"></a>00038 
+<a name="l00042"></a>00042   <span class="keywordtype">void</span> <a class="code" href="classWater.html#c315e279916704d50c9589765e20c0af">draw</a>() <span class="keyword">const</span>;
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044 <span class="keyword">public</span> slots:
+<a name="l00048"></a>00048   <span class="keywordtype">void</span> <a class="code" href="classWater.html#3fe97968cdccb61f8b624d9884aacc0a">updateVBO</a>();
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050 <span class="keyword">private</span>:
+<a name="l00051"></a><a class="code" href="classWater.html#7a55887294cf9d7fd1935b898f5f4dd7">00051</a>   <span class="keyword">const</span> <a class="code" href="classDTM.html">DTM</a> *<a class="code" href="classWater.html#7a55887294cf9d7fd1935b898f5f4dd7">m_dtm</a>;
+<a name="l00052"></a>00052 
+<a name="l00053"></a><a class="code" href="classWater.html#cc5d3a8044cb01ccbfccf6ae5c5959e4">00053</a>   <span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="classWater.html#cc5d3a8044cb01ccbfccf6ae5c5959e4">m_ncols</a>;
+<a name="l00054"></a><a class="code" href="classWater.html#446ef8919850e60c7d87f976c942ae8e">00054</a>   <span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="classWater.html#446ef8919850e60c7d87f976c942ae8e">m_nrows</a>;
+<a name="l00055"></a>00055 
+<a name="l00056"></a><a class="code" href="classWater.html#010118a1e619533f09263f37b1aa686f">00056</a>   <span class="keywordtype">float</span> *<a class="code" href="classWater.html#010118a1e619533f09263f37b1aa686f">m_values</a>;
+<a name="l00057"></a>00057 
+<a name="l00058"></a><a class="code" href="classWater.html#970f5886f64b43aa0db91a48e1098c14">00058</a>   <span class="keywordtype">size_t</span> <a class="code" href="classWater.html#970f5886f64b43aa0db91a48e1098c14">m_nvertices</a>;
+<a name="l00059"></a><a class="code" href="classWater.html#4e6f2754f9dc7c9f9f4e9d67690a67eb">00059</a>   <span class="keywordtype">size_t</span> <a class="code" href="classWater.html#4e6f2754f9dc7c9f9f4e9d67690a67eb">m_nindices</a>;
+<a name="l00060"></a>00060 
+<a name="l00061"></a><a class="code" href="classWater.html#e33bafb13a4268118516d245f39673d0">00061</a>   <a class="code" href="classPoint3d.html">Point3d</a>* <a class="code" href="classWater.html#e33bafb13a4268118516d245f39673d0">m_vertices</a>;
+<a name="l00062"></a><a class="code" href="classWater.html#c1a3e797567364bff86ace0e11f823ea">00062</a>   <a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a>* <a class="code" href="classWater.html#c1a3e797567364bff86ace0e11f823ea">m_indices</a>;
+<a name="l00063"></a>00063 
+<a name="l00064"></a><a class="code" href="classWater.html#3af5d7f21065642e48e7efc9d726dd3e">00064</a>   <span class="keyword">enum</span> <a class="code" href="classWater.html#3af5d7f21065642e48e7efc9d726dd3e">Buffers</a>
+<a name="l00065"></a>00065   {
+<a name="l00066"></a><a class="code" href="classWater.html#3af5d7f21065642e48e7efc9d726dd3e32bee2ac24e47c71c631a4dff7174eb1">00066</a>     <a class="code" href="classWater.html#3af5d7f21065642e48e7efc9d726dd3e32bee2ac24e47c71c631a4dff7174eb1">VERTICES</a>,
+<a name="l00067"></a><a class="code" href="classWater.html#3af5d7f21065642e48e7efc9d726dd3ef94de3cb4797a23044aafeb9b728830f">00067</a>     <a class="code" href="classWater.html#3af5d7f21065642e48e7efc9d726dd3ef94de3cb4797a23044aafeb9b728830f">INDICES</a>,
+<a name="l00068"></a>00068   };
+<a name="l00069"></a><a class="code" href="classWater.html#c39a0f5304faba6b9654587658cac0fc">00069</a>   <a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a> <a class="code" href="classWater.html#c39a0f5304faba6b9654587658cac0fc">m_buffers</a>[2];
+<a name="l00070"></a>00070 
+<a name="l00071"></a>00071 <span class="keyword">private</span>:
+<a name="l00072"></a>00072   <span class="keywordtype">void</span> <a class="code" href="classWater.html#128d1a9b4261ab09ba32bb774c7fe04d">initVertices</a>();
+<a name="l00073"></a>00073   <span class="keywordtype">void</span> <a class="code" href="classWater.html#d3fb5dadd42f00608b52d2a35bbd826a">initIndices</a>();
+<a name="l00074"></a>00074   <span class="keywordtype">void</span> <a class="code" href="classWater.html#61d389736feba5373e4aaa65b287ced8">initVBO</a>();
+<a name="l00075"></a>00075   <span class="keywordtype">void</span> <a class="code" href="classWater.html#fd2e9df81a78b3d7eb006239b3829164">free</a>();
+<a name="l00076"></a>00076 };
+<a name="l00077"></a>00077 
+<a name="l00078"></a><a class="code" href="classWater.html#d9d8c59ef6b287b248afbd05f26c8edb">00078</a> <span class="keyword">inline</span> <span class="keywordtype">float</span> * <a class="code" href="classWater.html#d9d8c59ef6b287b248afbd05f26c8edb">Water::values</a>()<span class="keyword"> const</span>
+<a name="l00079"></a>00079 <span class="keyword"></span>{
+<a name="l00080"></a>00080   <span class="keywordflow">return</span> <a class="code" href="classWater.html#010118a1e619533f09263f37b1aa686f">m_values</a>;
+<a name="l00081"></a>00081 }
+<a name="l00082"></a>00082 
+<a name="l00083"></a><a class="code" href="classWater.html#d503872d4af2f0f54ae542fad6df0de5">00083</a> <span class="keyword">inline</span> <a class="code" href="classPoint3d.html">Point3d</a>* <a class="code" href="classWater.html#d503872d4af2f0f54ae542fad6df0de5">Water::vertices</a>()<span class="keyword"> const</span>
+<a name="l00084"></a>00084 <span class="keyword"></span>{
+<a name="l00085"></a>00085   <span class="keywordflow">return</span> <a class="code" href="classWater.html#e33bafb13a4268118516d245f39673d0">m_vertices</a>;
+<a name="l00086"></a>00086 }
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088 <span class="preprocessor">#endif</span>
+</pre></div></div>
+<hr size="1"><address style="text-align: right;"><small>Généré le Tue Mar 31 20:47:22 2009 pour simulation par&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.6 </small></address>
+</body>
+</html>

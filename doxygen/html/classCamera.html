@@ -1,0 +1,651 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>simulation: Référence de la classe Camera</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.5.6 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>Page&nbsp;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces de nommage</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="annotated.html"><span>Liste&nbsp;des&nbsp;classes</span></a></li>
+      <li><a href="functions.html"><span>Membres&nbsp;de&nbsp;classe</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="contents">
+<h1>Référence de la classe Camera</h1><!-- doxytag: class="Camera" --><code>#include &lt;<a class="el" href="camera_8h-source.html">camera.h</a>&gt;</code>
+<p>
+<div class="dynheader">
+Graphe de collaboration de Camera:</div>
+<div class="dynsection">
+<p><center><img src="classCamera__coll__graph.png" border="0" usemap="#Camera__coll__map" alt="Collaboration graph"></center>
+<map name="Camera__coll__map">
+<area shape="rect" href="classDTM.html" title="DTM" alt="" coords="87,131,135,157"><area shape="rect" href="classPoint3d.html" title="Point3d" alt="" coords="7,5,71,32"></map>
+<center><font size="2">[<a href="graph_legend.html">légende</a>]</font></center></div>
+
+<p>
+<a href="classCamera-members.html">Liste de tous les membres</a><table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Fonctions membres publiques</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#d1d9630bf0196444b0f1500b8de689c6">Camera</a> (const <a class="el" href="classDTM.html">DTM</a> *dtm)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#95958b77758930f18b653b854ebdef72">mouseMove</a> (const int x, const int y)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#c80dcbce47d6c1a2bb5d25d322492de7">keyPress</a> (const int key, const bool state)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#17d3a03a003db50b7d9cb0cf2231e8cb">wheel</a> (const bool dir)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#e8f2a4d0c4406d26d0f203fd976ba8e6">look</a> () const </td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#52df3e5378b120af71e311279fdc9096">animate</a> (const uint step)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#860463794e5705d64cebee309d741dcc">clearKeyStates</a> ()</td></tr>
+
+<tr><td colspan="2"><br><h2>Fonctions membres privées</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#b46961252a6cfb6a1f44fcd62a2a1567">vectorFromAngles</a> ()</td></tr>
+
+<tr><td colspan="2"><br><h2>Attributs privés</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">const <a class="el" href="classDTM.html">DTM</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#05c6446ac05fb91411931d0d53c09fd2">m_dtm</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classPoint3d.html">Point3d</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#b9b3f6fde46041e068f4d1d87529c39b">m_position</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classPoint3d.html">Point3d</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#7a6f8d6162960ea2e1f19d09213207c8">m_target</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classPoint3d.html">Point3d</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#963476c5dd99ec629f299f80598e9a36">m_forward</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classPoint3d.html">Point3d</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#d9c725faa5be254dcbb18088964fa8a8">m_left</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#e678bb71f8c9138aacf948a46d4236ca">m_phi</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#ed5ca51fc16a79c522bd2442fa658888">m_theta</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">QHash&lt; const int, bool &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#0e2bfa1ed9177f2991d1b96cb4dd85a8">m_keystates</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#0672bf27ff899084a313f3f13a960484">m_wheelactive</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">uint&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#8cce412a086949fe52b550da94ff8dd2">m_wheeltime</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#f468ddf749b3bb2848f37023ec4f712c">m_wheeldir</a></td></tr>
+
+<tr><td colspan="2"><br><h2>Attributs privés statiques</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static const float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#74c3003dffb310684b8660bf924f90d6">PI</a> = 3.1415926535</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static const float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#e33d41d8fea366d7a1308768b0b43a4c">SENSITIVITY</a> = 0.2</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static const float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#12bc287f7c305b389ca70ce84d5804b3">SPEED</a> = 0.05</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static const uint&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#08333a7e6fbad14cb214a49f7c2a628e">BOOST</a> = 10</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static const uint&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCamera.html#99fdf852fec2f07db841a12f40a7dcc8">WHEELTIME</a> = 250</td></tr>
+
+</table>
+<hr><a name="_details"></a><h2>Description détaillée</h2>
+
+<p>Définition à la ligne <a class="el" href="camera_8h-source.html#l00010">10</a> du fichier <a class="el" href="camera_8h-source.html">camera.h</a>.</p>
+<hr><h2>Documentation des constructeurs et destructeur</h2>
+<a class="anchor" name="d1d9630bf0196444b0f1500b8de689c6"></a><!-- doxytag: member="Camera::Camera" ref="d1d9630bf0196444b0f1500b8de689c6" args="(const DTM *dtm)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Camera::Camera           </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classDTM.html">DTM</a> *&nbsp;</td>
+          <td class="paramname"> <em>dtm</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Constructeur de caméra et initialise la position de la caméra 
+<p>Définition à la ligne <a class="el" href="camera_8cpp-source.html#l00009">9</a> du fichier <a class="el" href="camera_8cpp-source.html">camera.cpp</a>.</p>
+
+<p>Références <a class="el" href="camera_8cpp-source.html#l00104">vectorFromAngles()</a>.</p>
+
+</div>
+</div><p>
+<hr><h2>Documentation des fonctions membres</h2>
+<a class="anchor" name="95958b77758930f18b653b854ebdef72"></a><!-- doxytag: member="Camera::mouseMove" ref="95958b77758930f18b653b854ebdef72" args="(const int x, const int y)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::mouseMove           </td>
+          <td>(</td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>y</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Déplacement relatif de la souris<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>x</em>&nbsp;</td><td>déplacement relatif horizontal de la souris </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>y</em>&nbsp;</td><td>déplacement relatif vertical de la souris </td></tr>
+  </table>
+</dl>
+
+<p>Définition à la ligne <a class="el" href="camera_8cpp-source.html#l00019">19</a> du fichier <a class="el" href="camera_8cpp-source.html">camera.cpp</a>.</p>
+
+<p>Références <a class="el" href="camera_8h-source.html#l00077">m_forward</a>, <a class="el" href="camera_8h-source.html#l00080">m_phi</a>, <a class="el" href="camera_8h-source.html#l00075">m_position</a>, <a class="el" href="camera_8h-source.html#l00076">m_target</a>, <a class="el" href="camera_8h-source.html#l00081">m_theta</a>, <a class="el" href="camera_8h-source.html#l00068">SENSITIVITY</a>, et <a class="el" href="camera_8cpp-source.html#l00104">vectorFromAngles()</a>.</p>
+
+<p>Référencé par <a class="el" href="opengl__scene_8cpp-source.html#l00091">OpenGLScene::mouseMoveEvent()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="c80dcbce47d6c1a2bb5d25d322492de7"></a><!-- doxytag: member="Camera::keyPress" ref="c80dcbce47d6c1a2bb5d25d322492de7" args="(const int key, const bool state)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::keyPress           </td>
+          <td>(</td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&nbsp;</td>
+          <td class="paramname"> <em>state</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Change l'état d'une touche du clavier<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>key</em>&nbsp;</td><td>touche </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>vrai : touche pressée, faux : touche relachée </td></tr>
+  </table>
+</dl>
+
+<p>Définition à la ligne <a class="el" href="camera_8cpp-source.html#l00029">29</a> du fichier <a class="el" href="camera_8cpp-source.html">camera.cpp</a>.</p>
+
+<p>Références <a class="el" href="camera_8h-source.html#l00083">m_keystates</a>.</p>
+
+<p>Référencé par <a class="el" href="opengl__scene_8cpp-source.html#l00124">OpenGLScene::keyPressEvent()</a>, et <a class="el" href="opengl__scene_8cpp-source.html#l00129">OpenGLScene::keyReleaseEvent()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="17d3a03a003db50b7d9cb0cf2231e8cb"></a><!-- doxytag: member="Camera::wheel" ref="17d3a03a003db50b7d9cb0cf2231e8cb" args="(const bool dir)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::wheel           </td>
+          <td>(</td>
+          <td class="paramtype">const bool&nbsp;</td>
+          <td class="paramname"> <em>dir</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Changement de position de la molette<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>dir</em>&nbsp;</td><td>vrai vers le haut faux vers le bas </td></tr>
+  </table>
+</dl>
+
+<p>Définition à la ligne <a class="el" href="camera_8cpp-source.html#l00034">34</a> du fichier <a class="el" href="camera_8cpp-source.html">camera.cpp</a>.</p>
+
+<p>Références <a class="el" href="camera_8h-source.html#l00085">m_wheelactive</a>, <a class="el" href="camera_8h-source.html#l00087">m_wheeldir</a>, <a class="el" href="camera_8h-source.html#l00086">m_wheeltime</a>, et <a class="el" href="camera_8h-source.html#l00071">WHEELTIME</a>.</p>
+
+<p>Référencé par <a class="el" href="opengl__scene_8cpp-source.html#l00118">OpenGLScene::wheelEvent()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="e8f2a4d0c4406d26d0f203fd976ba8e6"></a><!-- doxytag: member="Camera::look" ref="e8f2a4d0c4406d26d0f203fd976ba8e6" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::look           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Repositionnement de la caméra 
+<p>Définition à la ligne <a class="el" href="camera_8cpp-source.html#l00041">41</a> du fichier <a class="el" href="camera_8cpp-source.html">camera.cpp</a>.</p>
+
+<p>Références <a class="el" href="camera_8h-source.html#l00075">m_position</a>, <a class="el" href="camera_8h-source.html#l00076">m_target</a>, <a class="el" href="point3d_8h-source.html#l00110">Point3d::x()</a>, <a class="el" href="point3d_8h-source.html#l00115">Point3d::y()</a>, et <a class="el" href="point3d_8h-source.html#l00120">Point3d::z()</a>.</p>
+
+<p>Référencé par <a class="el" href="opengl__scene_8cpp-source.html#l00077">OpenGLScene::paintGL()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="52df3e5378b120af71e311279fdc9096"></a><!-- doxytag: member="Camera::animate" ref="52df3e5378b120af71e311279fdc9096" args="(const uint step)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::animate           </td>
+          <td>(</td>
+          <td class="paramtype">const uint&nbsp;</td>
+          <td class="paramname"> <em>step</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Déplacement de la caméra<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>step</em>&nbsp;</td><td>étape du déplacement </td></tr>
+  </table>
+</dl>
+
+<p>Définition à la ligne <a class="el" href="camera_8cpp-source.html#l00048">48</a> du fichier <a class="el" href="camera_8cpp-source.html">camera.cpp</a>.</p>
+
+<p>Références <a class="el" href="camera_8h-source.html#l00077">m_forward</a>, <a class="el" href="camera_8h-source.html#l00083">m_keystates</a>, <a class="el" href="camera_8h-source.html#l00078">m_left</a>, <a class="el" href="camera_8h-source.html#l00080">m_phi</a>, <a class="el" href="camera_8h-source.html#l00075">m_position</a>, <a class="el" href="camera_8h-source.html#l00076">m_target</a>, <a class="el" href="camera_8h-source.html#l00081">m_theta</a>, <a class="el" href="camera_8h-source.html#l00085">m_wheelactive</a>, <a class="el" href="camera_8h-source.html#l00087">m_wheeldir</a>, <a class="el" href="camera_8h-source.html#l00086">m_wheeltime</a>, <a class="el" href="camera_8h-source.html#l00069">SPEED</a>, et <a class="el" href="camera_8cpp-source.html#l00104">vectorFromAngles()</a>.</p>
+
+<p>Référencé par <a class="el" href="opengl__scene_8cpp-source.html#l00145">OpenGLScene::update()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="860463794e5705d64cebee309d741dcc"></a><!-- doxytag: member="Camera::clearKeyStates" ref="860463794e5705d64cebee309d741dcc" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::clearKeyStates           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Réinitialisation de l'état des touches du clavier 
+<p>Définition à la ligne <a class="el" href="camera_8cpp-source.html#l00099">99</a> du fichier <a class="el" href="camera_8cpp-source.html">camera.cpp</a>.</p>
+
+<p>Références <a class="el" href="camera_8h-source.html#l00083">m_keystates</a>.</p>
+
+<p>Référencé par <a class="el" href="opengl__scene_8cpp-source.html#l00139">OpenGLScene::leaveEvent()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="b46961252a6cfb6a1f44fcd62a2a1567"></a><!-- doxytag: member="Camera::vectorFromAngles" ref="b46961252a6cfb6a1f44fcd62a2a1567" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::vectorFromAngles           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Recalcule les vecteurs de placement de caméra à partir des angles 
+<p>Définition à la ligne <a class="el" href="camera_8cpp-source.html#l00104">104</a> du fichier <a class="el" href="camera_8cpp-source.html">camera.cpp</a>.</p>
+
+<p>Références <a class="el" href="point3d_8cpp-source.html#l00068">Point3d::cross()</a>, <a class="el" href="camera_8h-source.html#l00077">m_forward</a>, <a class="el" href="camera_8h-source.html#l00078">m_left</a>, <a class="el" href="camera_8h-source.html#l00080">m_phi</a>, <a class="el" href="camera_8h-source.html#l00081">m_theta</a>, <a class="el" href="point3d_8cpp-source.html#l00075">Point3d::normalize()</a>, <a class="el" href="camera_8h-source.html#l00067">PI</a>, <a class="el" href="point3d_8h-source.html#l00124">Point3d::setX()</a>, <a class="el" href="point3d_8h-source.html#l00129">Point3d::setY()</a>, et <a class="el" href="point3d_8h-source.html#l00134">Point3d::setZ()</a>.</p>
+
+<p>Référencé par <a class="el" href="camera_8cpp-source.html#l00048">animate()</a>, <a class="el" href="camera_8cpp-source.html#l00009">Camera()</a>, et <a class="el" href="camera_8cpp-source.html#l00019">mouseMove()</a>.</p>
+
+</div>
+</div><p>
+<hr><h2>Documentation des données membres</h2>
+<a class="anchor" name="74c3003dffb310684b8660bf924f90d6"></a><!-- doxytag: member="Camera::PI" ref="74c3003dffb310684b8660bf924f90d6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const float <a class="el" href="classCamera.html#74c3003dffb310684b8660bf924f90d6">Camera::PI</a> = 3.1415926535<code> [static, private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="camera_8h-source.html#l00067">67</a> du fichier <a class="el" href="camera_8h-source.html">camera.h</a>.</p>
+
+<p>Référencé par <a class="el" href="camera_8cpp-source.html#l00104">vectorFromAngles()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="e33d41d8fea366d7a1308768b0b43a4c"></a><!-- doxytag: member="Camera::SENSITIVITY" ref="e33d41d8fea366d7a1308768b0b43a4c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const float <a class="el" href="classCamera.html#e33d41d8fea366d7a1308768b0b43a4c">Camera::SENSITIVITY</a> = 0.2<code> [static, private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="camera_8h-source.html#l00068">68</a> du fichier <a class="el" href="camera_8h-source.html">camera.h</a>.</p>
+
+<p>Référencé par <a class="el" href="camera_8cpp-source.html#l00019">mouseMove()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="12bc287f7c305b389ca70ce84d5804b3"></a><!-- doxytag: member="Camera::SPEED" ref="12bc287f7c305b389ca70ce84d5804b3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const float <a class="el" href="classCamera.html#12bc287f7c305b389ca70ce84d5804b3">Camera::SPEED</a> = 0.05<code> [static, private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="camera_8h-source.html#l00069">69</a> du fichier <a class="el" href="camera_8h-source.html">camera.h</a>.</p>
+
+<p>Référencé par <a class="el" href="camera_8cpp-source.html#l00048">animate()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="08333a7e6fbad14cb214a49f7c2a628e"></a><!-- doxytag: member="Camera::BOOST" ref="08333a7e6fbad14cb214a49f7c2a628e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint <a class="el" href="classCamera.html#08333a7e6fbad14cb214a49f7c2a628e">Camera::BOOST</a> = 10<code> [static, private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="camera_8h-source.html#l00070">70</a> du fichier <a class="el" href="camera_8h-source.html">camera.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="99fdf852fec2f07db841a12f40a7dcc8"></a><!-- doxytag: member="Camera::WHEELTIME" ref="99fdf852fec2f07db841a12f40a7dcc8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint <a class="el" href="classCamera.html#99fdf852fec2f07db841a12f40a7dcc8">Camera::WHEELTIME</a> = 250<code> [static, private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="camera_8h-source.html#l00071">71</a> du fichier <a class="el" href="camera_8h-source.html">camera.h</a>.</p>
+
+<p>Référencé par <a class="el" href="camera_8cpp-source.html#l00034">wheel()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="05c6446ac05fb91411931d0d53c09fd2"></a><!-- doxytag: member="Camera::m_dtm" ref="05c6446ac05fb91411931d0d53c09fd2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classDTM.html">DTM</a>* <a class="el" href="classCamera.html#05c6446ac05fb91411931d0d53c09fd2">Camera::m_dtm</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="camera_8h-source.html#l00073">73</a> du fichier <a class="el" href="camera_8h-source.html">camera.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="b9b3f6fde46041e068f4d1d87529c39b"></a><!-- doxytag: member="Camera::m_position" ref="b9b3f6fde46041e068f4d1d87529c39b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classPoint3d.html">Point3d</a> <a class="el" href="classCamera.html#b9b3f6fde46041e068f4d1d87529c39b">Camera::m_position</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="camera_8h-source.html#l00075">75</a> du fichier <a class="el" href="camera_8h-source.html">camera.h</a>.</p>
+
+<p>Référencé par <a class="el" href="camera_8cpp-source.html#l00048">animate()</a>, <a class="el" href="camera_8cpp-source.html#l00041">look()</a>, et <a class="el" href="camera_8cpp-source.html#l00019">mouseMove()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="7a6f8d6162960ea2e1f19d09213207c8"></a><!-- doxytag: member="Camera::m_target" ref="7a6f8d6162960ea2e1f19d09213207c8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classPoint3d.html">Point3d</a> <a class="el" href="classCamera.html#7a6f8d6162960ea2e1f19d09213207c8">Camera::m_target</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="camera_8h-source.html#l00076">76</a> du fichier <a class="el" href="camera_8h-source.html">camera.h</a>.</p>
+
+<p>Référencé par <a class="el" href="camera_8cpp-source.html#l00048">animate()</a>, <a class="el" href="camera_8cpp-source.html#l00041">look()</a>, et <a class="el" href="camera_8cpp-source.html#l00019">mouseMove()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="963476c5dd99ec629f299f80598e9a36"></a><!-- doxytag: member="Camera::m_forward" ref="963476c5dd99ec629f299f80598e9a36" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classPoint3d.html">Point3d</a> <a class="el" href="classCamera.html#963476c5dd99ec629f299f80598e9a36">Camera::m_forward</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="camera_8h-source.html#l00077">77</a> du fichier <a class="el" href="camera_8h-source.html">camera.h</a>.</p>
+
+<p>Référencé par <a class="el" href="camera_8cpp-source.html#l00048">animate()</a>, <a class="el" href="camera_8cpp-source.html#l00019">mouseMove()</a>, et <a class="el" href="camera_8cpp-source.html#l00104">vectorFromAngles()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="d9c725faa5be254dcbb18088964fa8a8"></a><!-- doxytag: member="Camera::m_left" ref="d9c725faa5be254dcbb18088964fa8a8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classPoint3d.html">Point3d</a> <a class="el" href="classCamera.html#d9c725faa5be254dcbb18088964fa8a8">Camera::m_left</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="camera_8h-source.html#l00078">78</a> du fichier <a class="el" href="camera_8h-source.html">camera.h</a>.</p>
+
+<p>Référencé par <a class="el" href="camera_8cpp-source.html#l00048">animate()</a>, et <a class="el" href="camera_8cpp-source.html#l00104">vectorFromAngles()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="e678bb71f8c9138aacf948a46d4236ca"></a><!-- doxytag: member="Camera::m_phi" ref="e678bb71f8c9138aacf948a46d4236ca" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classCamera.html#e678bb71f8c9138aacf948a46d4236ca">Camera::m_phi</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="camera_8h-source.html#l00080">80</a> du fichier <a class="el" href="camera_8h-source.html">camera.h</a>.</p>
+
+<p>Référencé par <a class="el" href="camera_8cpp-source.html#l00048">animate()</a>, <a class="el" href="camera_8cpp-source.html#l00019">mouseMove()</a>, et <a class="el" href="camera_8cpp-source.html#l00104">vectorFromAngles()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="ed5ca51fc16a79c522bd2442fa658888"></a><!-- doxytag: member="Camera::m_theta" ref="ed5ca51fc16a79c522bd2442fa658888" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classCamera.html#ed5ca51fc16a79c522bd2442fa658888">Camera::m_theta</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="camera_8h-source.html#l00081">81</a> du fichier <a class="el" href="camera_8h-source.html">camera.h</a>.</p>
+
+<p>Référencé par <a class="el" href="camera_8cpp-source.html#l00048">animate()</a>, <a class="el" href="camera_8cpp-source.html#l00019">mouseMove()</a>, et <a class="el" href="camera_8cpp-source.html#l00104">vectorFromAngles()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="0e2bfa1ed9177f2991d1b96cb4dd85a8"></a><!-- doxytag: member="Camera::m_keystates" ref="0e2bfa1ed9177f2991d1b96cb4dd85a8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QHash&lt;const int, bool&gt; <a class="el" href="classCamera.html#0e2bfa1ed9177f2991d1b96cb4dd85a8">Camera::m_keystates</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="camera_8h-source.html#l00083">83</a> du fichier <a class="el" href="camera_8h-source.html">camera.h</a>.</p>
+
+<p>Référencé par <a class="el" href="camera_8cpp-source.html#l00048">animate()</a>, <a class="el" href="camera_8cpp-source.html#l00099">clearKeyStates()</a>, et <a class="el" href="camera_8cpp-source.html#l00029">keyPress()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="0672bf27ff899084a313f3f13a960484"></a><!-- doxytag: member="Camera::m_wheelactive" ref="0672bf27ff899084a313f3f13a960484" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classCamera.html#0672bf27ff899084a313f3f13a960484">Camera::m_wheelactive</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="camera_8h-source.html#l00085">85</a> du fichier <a class="el" href="camera_8h-source.html">camera.h</a>.</p>
+
+<p>Référencé par <a class="el" href="camera_8cpp-source.html#l00048">animate()</a>, et <a class="el" href="camera_8cpp-source.html#l00034">wheel()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="8cce412a086949fe52b550da94ff8dd2"></a><!-- doxytag: member="Camera::m_wheeltime" ref="8cce412a086949fe52b550da94ff8dd2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint <a class="el" href="classCamera.html#8cce412a086949fe52b550da94ff8dd2">Camera::m_wheeltime</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="camera_8h-source.html#l00086">86</a> du fichier <a class="el" href="camera_8h-source.html">camera.h</a>.</p>
+
+<p>Référencé par <a class="el" href="camera_8cpp-source.html#l00048">animate()</a>, et <a class="el" href="camera_8cpp-source.html#l00034">wheel()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="f468ddf749b3bb2848f37023ec4f712c"></a><!-- doxytag: member="Camera::m_wheeldir" ref="f468ddf749b3bb2848f37023ec4f712c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classCamera.html#f468ddf749b3bb2848f37023ec4f712c">Camera::m_wheeldir</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="camera_8h-source.html#l00087">87</a> du fichier <a class="el" href="camera_8h-source.html">camera.h</a>.</p>
+
+<p>Référencé par <a class="el" href="camera_8cpp-source.html#l00048">animate()</a>, et <a class="el" href="camera_8cpp-source.html#l00034">wheel()</a>.</p>
+
+</div>
+</div><p>
+<hr>La documentation de cette classe a été générée à partir des fichiers suivants :<ul>
+<li>src/viewer/<a class="el" href="camera_8h-source.html">camera.h</a><li>src/viewer/<a class="el" href="camera_8cpp-source.html">camera.cpp</a></ul>
+</div>
+<hr size="1"><address style="text-align: right;"><small>Généré le Tue Mar 31 20:47:25 2009 pour simulation par&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.6 </small></address>
+</body>
+</html>

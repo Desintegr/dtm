@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>simulation:  Fichier source de src/viewer/camera.cpp</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.5.6 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>Page&nbsp;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces de nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+<h1>src/viewer/camera.cpp</h1><a href="camera_8cpp.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include "<a class="code" href="camera_8h.html">camera.h</a>"</span>
+<a name="l00002"></a>00002 
+<a name="l00003"></a>00003 <span class="preprocessor">#include "<a class="code" href="dtm_8h.html">dtm.h</a>"</span>
+<a name="l00004"></a>00004 
+<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;QtOpenGL&gt;</span>
+<a name="l00006"></a>00006 
+<a name="l00007"></a>00007 <span class="preprocessor">#include &lt;cmath&gt;</span>
+<a name="l00008"></a>00008 
+<a name="l00009"></a><a class="code" href="classCamera.html#d1d9630bf0196444b0f1500b8de689c6">00009</a> <a class="code" href="classCamera.html#d1d9630bf0196444b0f1500b8de689c6">Camera::Camera</a>(<span class="keyword">const</span> <a class="code" href="classDTM.html">DTM</a> *dtm):
+<a name="l00010"></a>00010   m_dtm(dtm),
+<a name="l00011"></a>00011   m_position(<a class="code" href="classPoint3d.html">Point3d</a>(0, 0, (float) (m_dtm-&gt;ncols() + m_dtm-&gt;nrows()) / 2 + m_dtm-&gt;minZ())),
+<a name="l00012"></a>00012   m_phi(-45),
+<a name="l00013"></a>00013   m_theta(45),
+<a name="l00014"></a>00014   m_wheelactive(false)
+<a name="l00015"></a>00015 {
+<a name="l00016"></a>00016   <a class="code" href="classCamera.html#b46961252a6cfb6a1f44fcd62a2a1567">vectorFromAngles</a>();
+<a name="l00017"></a>00017 }
+<a name="l00018"></a>00018 
+<a name="l00019"></a><a class="code" href="classCamera.html#95958b77758930f18b653b854ebdef72">00019</a> <span class="keywordtype">void</span> <a class="code" href="classCamera.html#95958b77758930f18b653b854ebdef72">Camera::mouseMove</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> x, <span class="keyword">const</span> <span class="keywordtype">int</span> y)
+<a name="l00020"></a>00020 {
+<a name="l00021"></a>00021   <a class="code" href="classCamera.html#ed5ca51fc16a79c522bd2442fa658888">m_theta</a> -= x * <a class="code" href="classCamera.html#e33d41d8fea366d7a1308768b0b43a4c">SENSITIVITY</a>;
+<a name="l00022"></a>00022   <a class="code" href="classCamera.html#e678bb71f8c9138aacf948a46d4236ca">m_phi</a> -= y * SENSITIVITY;
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024   <a class="code" href="classCamera.html#b46961252a6cfb6a1f44fcd62a2a1567">vectorFromAngles</a>();
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026   <a class="code" href="classCamera.html#7a6f8d6162960ea2e1f19d09213207c8">m_target</a> = <a class="code" href="classCamera.html#b9b3f6fde46041e068f4d1d87529c39b">m_position</a> + <a class="code" href="classCamera.html#963476c5dd99ec629f299f80598e9a36">m_forward</a>;
+<a name="l00027"></a>00027 }
+<a name="l00028"></a>00028 
+<a name="l00029"></a><a class="code" href="classCamera.html#c80dcbce47d6c1a2bb5d25d322492de7">00029</a> <span class="keywordtype">void</span> <a class="code" href="classCamera.html#c80dcbce47d6c1a2bb5d25d322492de7">Camera::keyPress</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> key, <span class="keyword">const</span> <span class="keywordtype">bool</span> state)
+<a name="l00030"></a>00030 {
+<a name="l00031"></a>00031   <a class="code" href="classCamera.html#0e2bfa1ed9177f2991d1b96cb4dd85a8">m_keystates</a>[key] = state;
+<a name="l00032"></a>00032 }
+<a name="l00033"></a>00033 
+<a name="l00034"></a><a class="code" href="classCamera.html#17d3a03a003db50b7d9cb0cf2231e8cb">00034</a> <span class="keywordtype">void</span> <a class="code" href="classCamera.html#17d3a03a003db50b7d9cb0cf2231e8cb">Camera::wheel</a>(<span class="keyword">const</span> <span class="keywordtype">bool</span> dir)
+<a name="l00035"></a>00035 {
+<a name="l00036"></a>00036   <a class="code" href="classCamera.html#0672bf27ff899084a313f3f13a960484">m_wheelactive</a> = <span class="keyword">true</span>;
+<a name="l00037"></a>00037   <a class="code" href="classCamera.html#8cce412a086949fe52b550da94ff8dd2">m_wheeltime</a> = <a class="code" href="classCamera.html#99fdf852fec2f07db841a12f40a7dcc8">WHEELTIME</a>;
+<a name="l00038"></a>00038   <a class="code" href="classCamera.html#f468ddf749b3bb2848f37023ec4f712c">m_wheeldir</a> = dir ? 1 : -1;
+<a name="l00039"></a>00039 }
+<a name="l00040"></a>00040 
+<a name="l00041"></a><a class="code" href="classCamera.html#e8f2a4d0c4406d26d0f203fd976ba8e6">00041</a> <span class="keywordtype">void</span> <a class="code" href="classCamera.html#e8f2a4d0c4406d26d0f203fd976ba8e6">Camera::look</a>()<span class="keyword"> const</span>
+<a name="l00042"></a>00042 <span class="keyword"></span>{
+<a name="l00043"></a>00043   gluLookAt(<a class="code" href="classCamera.html#b9b3f6fde46041e068f4d1d87529c39b">m_position</a>.<a class="code" href="classPoint3d.html#90f5640292820c57d4643d798af6e4b5">x</a>(), <a class="code" href="classCamera.html#b9b3f6fde46041e068f4d1d87529c39b">m_position</a>.<a class="code" href="classPoint3d.html#6f692a81cc64b186dc25c9ef35dcd073">y</a>(), <a class="code" href="classCamera.html#b9b3f6fde46041e068f4d1d87529c39b">m_position</a>.<a class="code" href="classPoint3d.html#d3a26325a95699e90df0da34d3b1841d">z</a>(),
+<a name="l00044"></a>00044             <a class="code" href="classCamera.html#7a6f8d6162960ea2e1f19d09213207c8">m_target</a>.<a class="code" href="classPoint3d.html#90f5640292820c57d4643d798af6e4b5">x</a>(), <a class="code" href="classCamera.html#7a6f8d6162960ea2e1f19d09213207c8">m_target</a>.<a class="code" href="classPoint3d.html#6f692a81cc64b186dc25c9ef35dcd073">y</a>(), <a class="code" href="classCamera.html#7a6f8d6162960ea2e1f19d09213207c8">m_target</a>.<a class="code" href="classPoint3d.html#d3a26325a95699e90df0da34d3b1841d">z</a>(),
+<a name="l00045"></a>00045             0, 0, 1);
+<a name="l00046"></a>00046 }
+<a name="l00047"></a>00047 
+<a name="l00048"></a><a class="code" href="classCamera.html#52df3e5378b120af71e311279fdc9096">00048</a> <span class="keywordtype">void</span> <a class="code" href="classCamera.html#52df3e5378b120af71e311279fdc9096">Camera::animate</a>(<span class="keyword">const</span> uint step)
+<a name="l00049"></a>00049 {
+<a name="l00050"></a>00050   <span class="comment">// orientation</span>
+<a name="l00051"></a>00051   <span class="keywordflow">if</span>(<a class="code" href="classCamera.html#0e2bfa1ed9177f2991d1b96cb4dd85a8">m_keystates</a>[Qt::Key_Up]) {
+<a name="l00052"></a>00052     <a class="code" href="classCamera.html#e678bb71f8c9138aacf948a46d4236ca">m_phi</a> += (<a class="code" href="classCamera.html#12bc287f7c305b389ca70ce84d5804b3">SPEED</a> / 2 * step);
+<a name="l00053"></a>00053     <a class="code" href="classCamera.html#b46961252a6cfb6a1f44fcd62a2a1567">vectorFromAngles</a>();
+<a name="l00054"></a>00054   }
+<a name="l00055"></a>00055   <span class="keywordflow">if</span>(<a class="code" href="classCamera.html#0e2bfa1ed9177f2991d1b96cb4dd85a8">m_keystates</a>[Qt::Key_Down]) {
+<a name="l00056"></a>00056     <a class="code" href="classCamera.html#e678bb71f8c9138aacf948a46d4236ca">m_phi</a> -= (<a class="code" href="classCamera.html#12bc287f7c305b389ca70ce84d5804b3">SPEED</a> / 2 * step);
+<a name="l00057"></a>00057     <a class="code" href="classCamera.html#b46961252a6cfb6a1f44fcd62a2a1567">vectorFromAngles</a>();
+<a name="l00058"></a>00058   }
+<a name="l00059"></a>00059   <span class="keywordflow">if</span>(<a class="code" href="classCamera.html#0e2bfa1ed9177f2991d1b96cb4dd85a8">m_keystates</a>[Qt::Key_Left]) {
+<a name="l00060"></a>00060     <a class="code" href="classCamera.html#ed5ca51fc16a79c522bd2442fa658888">m_theta</a> += (<a class="code" href="classCamera.html#12bc287f7c305b389ca70ce84d5804b3">SPEED</a> / 2 * step);
+<a name="l00061"></a>00061     <a class="code" href="classCamera.html#b46961252a6cfb6a1f44fcd62a2a1567">vectorFromAngles</a>();
+<a name="l00062"></a>00062   }
+<a name="l00063"></a>00063   <span class="keywordflow">if</span>(<a class="code" href="classCamera.html#0e2bfa1ed9177f2991d1b96cb4dd85a8">m_keystates</a>[Qt::Key_Right]) {
+<a name="l00064"></a>00064     <a class="code" href="classCamera.html#ed5ca51fc16a79c522bd2442fa658888">m_theta</a> -= (<a class="code" href="classCamera.html#12bc287f7c305b389ca70ce84d5804b3">SPEED</a> / 2 * step);
+<a name="l00065"></a>00065     <a class="code" href="classCamera.html#b46961252a6cfb6a1f44fcd62a2a1567">vectorFromAngles</a>();
+<a name="l00066"></a>00066   }
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068   <span class="comment">// position</span>
+<a name="l00069"></a>00069   <span class="keyword">const</span> <span class="keywordtype">float</span> realspeed = <a class="code" href="classCamera.html#0e2bfa1ed9177f2991d1b96cb4dd85a8">m_keystates</a>[Qt::Key_Shift] ? 10 * <a class="code" href="classCamera.html#12bc287f7c305b389ca70ce84d5804b3">SPEED</a> : <a class="code" href="classCamera.html#12bc287f7c305b389ca70ce84d5804b3">SPEED</a>;
+<a name="l00070"></a>00070 
+<a name="l00071"></a>00071   <span class="keywordflow">if</span>(<a class="code" href="classCamera.html#0e2bfa1ed9177f2991d1b96cb4dd85a8">m_keystates</a>[Qt::Key_Z])
+<a name="l00072"></a>00072     <a class="code" href="classCamera.html#b9b3f6fde46041e068f4d1d87529c39b">m_position</a> += <a class="code" href="classCamera.html#963476c5dd99ec629f299f80598e9a36">m_forward</a> * (realspeed * step);
+<a name="l00073"></a>00073   <span class="keywordflow">if</span>(<a class="code" href="classCamera.html#0e2bfa1ed9177f2991d1b96cb4dd85a8">m_keystates</a>[Qt::Key_S])
+<a name="l00074"></a>00074     <a class="code" href="classCamera.html#b9b3f6fde46041e068f4d1d87529c39b">m_position</a> -= <a class="code" href="classCamera.html#963476c5dd99ec629f299f80598e9a36">m_forward</a> * (realspeed * step);
+<a name="l00075"></a>00075   <span class="keywordflow">if</span>(<a class="code" href="classCamera.html#0e2bfa1ed9177f2991d1b96cb4dd85a8">m_keystates</a>[Qt::Key_Q])
+<a name="l00076"></a>00076     <a class="code" href="classCamera.html#b9b3f6fde46041e068f4d1d87529c39b">m_position</a> += <a class="code" href="classCamera.html#d9c725faa5be254dcbb18088964fa8a8">m_left</a> * (realspeed * step);
+<a name="l00077"></a>00077   <span class="keywordflow">if</span>(<a class="code" href="classCamera.html#0e2bfa1ed9177f2991d1b96cb4dd85a8">m_keystates</a>[Qt::Key_D])
+<a name="l00078"></a>00078     <a class="code" href="classCamera.html#b9b3f6fde46041e068f4d1d87529c39b">m_position</a> -= <a class="code" href="classCamera.html#d9c725faa5be254dcbb18088964fa8a8">m_left</a> * (realspeed * step);
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080   <span class="comment">// hauteur</span>
+<a name="l00081"></a>00081   <span class="keywordflow">if</span>(<a class="code" href="classCamera.html#0e2bfa1ed9177f2991d1b96cb4dd85a8">m_keystates</a>[Qt::Key_PageUp])
+<a name="l00082"></a>00082     <a class="code" href="classCamera.html#b9b3f6fde46041e068f4d1d87529c39b">m_position</a> += <a class="code" href="classPoint3d.html">Point3d</a>(0, 0, realspeed * step);
+<a name="l00083"></a>00083   <span class="keywordflow">if</span>(<a class="code" href="classCamera.html#0e2bfa1ed9177f2991d1b96cb4dd85a8">m_keystates</a>[Qt::Key_PageDown])
+<a name="l00084"></a>00084     <a class="code" href="classCamera.html#b9b3f6fde46041e068f4d1d87529c39b">m_position</a> -= <a class="code" href="classPoint3d.html">Point3d</a>(0, 0, realspeed * step);
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086   <span class="comment">// molette</span>
+<a name="l00087"></a>00087   <span class="keywordflow">if</span>(<a class="code" href="classCamera.html#0672bf27ff899084a313f3f13a960484">m_wheelactive</a>) {
+<a name="l00088"></a>00088     <span class="keywordflow">if</span> (step &gt; <a class="code" href="classCamera.html#8cce412a086949fe52b550da94ff8dd2">m_wheeltime</a>)
+<a name="l00089"></a>00089       <a class="code" href="classCamera.html#0672bf27ff899084a313f3f13a960484">m_wheelactive</a> = <span class="keyword">false</span>;
+<a name="l00090"></a>00090     <span class="keywordflow">else</span>
+<a name="l00091"></a>00091       <a class="code" href="classCamera.html#8cce412a086949fe52b550da94ff8dd2">m_wheeltime</a> -= step;
+<a name="l00092"></a>00092 
+<a name="l00093"></a>00093     <a class="code" href="classCamera.html#b9b3f6fde46041e068f4d1d87529c39b">m_position</a> += <a class="code" href="classPoint3d.html">Point3d</a>(0, 0, <a class="code" href="classCamera.html#f468ddf749b3bb2848f37023ec4f712c">m_wheeldir</a> * realspeed * step);
+<a name="l00094"></a>00094   }
+<a name="l00095"></a>00095 
+<a name="l00096"></a>00096   <a class="code" href="classCamera.html#7a6f8d6162960ea2e1f19d09213207c8">m_target</a> = <a class="code" href="classCamera.html#b9b3f6fde46041e068f4d1d87529c39b">m_position</a> + <a class="code" href="classCamera.html#963476c5dd99ec629f299f80598e9a36">m_forward</a>;
+<a name="l00097"></a>00097 }
+<a name="l00098"></a>00098 
+<a name="l00099"></a><a class="code" href="classCamera.html#860463794e5705d64cebee309d741dcc">00099</a> <span class="keywordtype">void</span> <a class="code" href="classCamera.html#860463794e5705d64cebee309d741dcc">Camera::clearKeyStates</a>()
+<a name="l00100"></a>00100 {
+<a name="l00101"></a>00101   <a class="code" href="classCamera.html#0e2bfa1ed9177f2991d1b96cb4dd85a8">m_keystates</a>.clear();
+<a name="l00102"></a>00102 }
+<a name="l00103"></a>00103 
+<a name="l00104"></a><a class="code" href="classCamera.html#b46961252a6cfb6a1f44fcd62a2a1567">00104</a> <span class="keywordtype">void</span> <a class="code" href="classCamera.html#b46961252a6cfb6a1f44fcd62a2a1567">Camera::vectorFromAngles</a>()
+<a name="l00105"></a>00105 {
+<a name="l00106"></a>00106   <span class="keywordflow">if</span>(<a class="code" href="classCamera.html#e678bb71f8c9138aacf948a46d4236ca">m_phi</a> &gt; 89)
+<a name="l00107"></a>00107     <a class="code" href="classCamera.html#e678bb71f8c9138aacf948a46d4236ca">m_phi</a> = 89;
+<a name="l00108"></a>00108   <span class="keywordflow">else</span> <span class="keywordflow">if</span>(<a class="code" href="classCamera.html#e678bb71f8c9138aacf948a46d4236ca">m_phi</a> &lt; -89)
+<a name="l00109"></a>00109     <a class="code" href="classCamera.html#e678bb71f8c9138aacf948a46d4236ca">m_phi</a> = -89;
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111   <span class="keyword">const</span> <span class="keywordtype">float</span> r_tmp = cos(<a class="code" href="classCamera.html#e678bb71f8c9138aacf948a46d4236ca">m_phi</a> * <a class="code" href="classCamera.html#74c3003dffb310684b8660bf924f90d6">PI</a> / 180);
+<a name="l00112"></a>00112   <a class="code" href="classCamera.html#963476c5dd99ec629f299f80598e9a36">m_forward</a>.<a class="code" href="classPoint3d.html#14b0a45e9480ffc52bb77eaeb89b83dd">setZ</a>(sin(<a class="code" href="classCamera.html#e678bb71f8c9138aacf948a46d4236ca">m_phi</a> * <a class="code" href="classCamera.html#74c3003dffb310684b8660bf924f90d6">PI</a>/ 180));
+<a name="l00113"></a>00113   <a class="code" href="classCamera.html#963476c5dd99ec629f299f80598e9a36">m_forward</a>.<a class="code" href="classPoint3d.html#8453503876d58d1b4010b8697642788e">setX</a>(r_tmp * cos(<a class="code" href="classCamera.html#ed5ca51fc16a79c522bd2442fa658888">m_theta</a> * <a class="code" href="classCamera.html#74c3003dffb310684b8660bf924f90d6">PI</a> / 180));
+<a name="l00114"></a>00114   <a class="code" href="classCamera.html#963476c5dd99ec629f299f80598e9a36">m_forward</a>.<a class="code" href="classPoint3d.html#46a761d165b2e430e3b28e49c6c53c49">setY</a>(r_tmp * sin(<a class="code" href="classCamera.html#ed5ca51fc16a79c522bd2442fa658888">m_theta</a> * <a class="code" href="classCamera.html#74c3003dffb310684b8660bf924f90d6">PI</a> / 180));
+<a name="l00115"></a>00115 
+<a name="l00116"></a>00116   <span class="keyword">const</span> <a class="code" href="classPoint3d.html">Point3d</a> up(0, 0, 1);
+<a name="l00117"></a>00117   <a class="code" href="classCamera.html#d9c725faa5be254dcbb18088964fa8a8">m_left</a> = up.<a class="code" href="classPoint3d.html#77901e48befcbe7117833eb40699a681">cross</a>(<a class="code" href="classCamera.html#963476c5dd99ec629f299f80598e9a36">m_forward</a>);
+<a name="l00118"></a>00118   <a class="code" href="classCamera.html#d9c725faa5be254dcbb18088964fa8a8">m_left</a>.<a class="code" href="classPoint3d.html#48825edf53df31ffeb5eb5211984ba6e">normalize</a>();
+<a name="l00119"></a>00119 }
+</pre></div></div>
+<hr size="1"><address style="text-align: right;"><small>Généré le Tue Mar 31 20:47:22 2009 pour simulation par&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.6 </small></address>
+</body>
+</html>

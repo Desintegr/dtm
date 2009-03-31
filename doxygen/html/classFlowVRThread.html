@@ -1,0 +1,264 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>simulation: Référence de la classe FlowVRThread</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.5.6 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>Page&nbsp;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces de nommage</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="annotated.html"><span>Liste&nbsp;des&nbsp;classes</span></a></li>
+      <li><a href="functions.html"><span>Membres&nbsp;de&nbsp;classe</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="contents">
+<h1>Référence de la classe FlowVRThread</h1><!-- doxytag: class="FlowVRThread" --><code>#include &lt;<a class="el" href="flowvr__thread_8h-source.html">flowvr_thread.h</a>&gt;</code>
+<p>
+<div class="dynheader">
+Graphe de collaboration de FlowVRThread:</div>
+<div class="dynsection">
+<p><center><img src="classFlowVRThread__coll__graph.png" border="0" usemap="#FlowVRThread__coll__map" alt="Collaboration graph"></center>
+<map name="FlowVRThread__coll__map">
+<area shape="rect" href="classWater.html" title="Water" alt="" coords="7,203,63,229"><area shape="rect" href="classDTM.html" title="DTM" alt="" coords="87,112,135,139"><area shape="rect" href="classPoint3d.html" title="Point3d" alt="" coords="5,5,69,32"><area shape="rect" href="classFlowVR.html" title="FlowVR" alt="" coords="175,203,241,229"></map>
+<center><font size="2">[<a href="graph_legend.html">légende</a>]</font></center></div>
+
+<p>
+<a href="classFlowVRThread-members.html">Liste de tous les membres</a><table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Signaux</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlowVRThread.html#b33b3d62d41769b0606ff213085c5c9b">updated</a> ()</td></tr>
+
+<tr><td colspan="2"><br><h2>Fonctions membres publiques</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlowVRThread.html#f9142da74ae5b06091ebc6fd64ea3c9a">FlowVRThread</a> (const <a class="el" href="classDTM.html">DTM</a> *dtm, const <a class="el" href="classWater.html">Water</a> *water)</td></tr>
+
+<tr><td colspan="2"><br><h2>Fonctions membres protégées</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlowVRThread.html#9ffe5abde268350ddfed335d3289cf15">run</a> ()</td></tr>
+
+<tr><td colspan="2"><br><h2>Fonctions membres privées</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlowVRThread.html#614994e112d6e0a377d64ff8926a34ea">sendDTM</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlowVRThread.html#807a3263f3dfb78bea59bb704686dea7">getWater</a> ()</td></tr>
+
+<tr><td colspan="2"><br><h2>Attributs privés</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classFlowVR.html">FlowVR</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlowVRThread.html#d9690aa0d2e77fbe3d3ac639fff2cbbc">m_flowvr</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">const <a class="el" href="classDTM.html">DTM</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlowVRThread.html#e440ffdba218437a462dede9d0a3a8bb">m_dtm</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">const <a class="el" href="classWater.html">Water</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlowVRThread.html#f51890869e2f7d418d66c8ecbc5da509">m_water</a></td></tr>
+
+</table>
+<hr><a name="_details"></a><h2>Description détaillée</h2>
+
+<p>Définition à la ligne <a class="el" href="flowvr__thread_8h-source.html#l00011">11</a> du fichier <a class="el" href="flowvr__thread_8h-source.html">flowvr_thread.h</a>.</p>
+<hr><h2>Documentation des constructeurs et destructeur</h2>
+<a class="anchor" name="f9142da74ae5b06091ebc6fd64ea3c9a"></a><!-- doxytag: member="FlowVRThread::FlowVRThread" ref="f9142da74ae5b06091ebc6fd64ea3c9a" args="(const DTM *dtm, const Water *water)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FlowVRThread::FlowVRThread           </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classDTM.html">DTM</a> *&nbsp;</td>
+          <td class="paramname"> <em>dtm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classWater.html">Water</a> *&nbsp;</td>
+          <td class="paramname"> <em>water</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Constructeur du module threadé <a class="el" href="classFlowVR.html">FlowVR</a><p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>dtm</em>&nbsp;</td><td>le terrain </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>water</em>&nbsp;</td><td>l'eau </td></tr>
+  </table>
+</dl>
+
+<p>Définition à la ligne <a class="el" href="flowvr__thread_8cpp-source.html#l00007">7</a> du fichier <a class="el" href="flowvr__thread_8cpp-source.html">flowvr_thread.cpp</a>.</p>
+
+<p>Références <a class="el" href="flood_2flowvr_8cpp-source.html#l00021">FlowVR::init()</a>, et <a class="el" href="flowvr__thread_8h-source.html#l00043">m_flowvr</a>.</p>
+
+</div>
+</div><p>
+<hr><h2>Documentation des fonctions membres</h2>
+<a class="anchor" name="9ffe5abde268350ddfed335d3289cf15"></a><!-- doxytag: member="FlowVRThread::run" ref="9ffe5abde268350ddfed335d3289cf15" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FlowVRThread::run           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Lance le thread 
+<p>Définition à la ligne <a class="el" href="flowvr__thread_8cpp-source.html#l00017">17</a> du fichier <a class="el" href="flowvr__thread_8cpp-source.html">flowvr_thread.cpp</a>.</p>
+
+<p>Références <a class="el" href="flowvr__thread_8cpp-source.html#l00070">getWater()</a>, <a class="el" href="flowvr__thread_8h-source.html#l00043">m_flowvr</a>, <a class="el" href="flood_2flowvr_8h-source.html#l00061">FlowVR::module()</a>, et <a class="el" href="flowvr__thread_8cpp-source.html#l00030">sendDTM()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="614994e112d6e0a377d64ff8926a34ea"></a><!-- doxytag: member="FlowVRThread::sendDTM" ref="614994e112d6e0a377d64ff8926a34ea" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FlowVRThread::sendDTM           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Envoie le terrain au module d'inondation 
+<p>Définition à la ligne <a class="el" href="flowvr__thread_8cpp-source.html#l00030">30</a> du fichier <a class="el" href="flowvr__thread_8cpp-source.html">flowvr_thread.cpp</a>.</p>
+
+<p>Références <a class="el" href="viewer_2flowvr_8h-source.html#l00051">FlowVR::dtmOut()</a>, <a class="el" href="flowvr__thread_8h-source.html#l00045">m_dtm</a>, <a class="el" href="flowvr__thread_8h-source.html#l00043">m_flowvr</a>, <a class="el" href="flood_2flowvr_8h-source.html#l00061">FlowVR::module()</a>, <a class="el" href="dtm_8h-source.html#l00111">DTM::ncols()</a>, <a class="el" href="dtm_8h-source.html#l00116">DTM::nrows()</a>, <a class="el" href="dtm_8h-source.html#l00121">DTM::vertices()</a>, et <a class="el" href="point3d_8h-source.html#l00120">Point3d::z()</a>.</p>
+
+<p>Référencé par <a class="el" href="flowvr__thread_8cpp-source.html#l00017">run()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="807a3263f3dfb78bea59bb704686dea7"></a><!-- doxytag: member="FlowVRThread::getWater" ref="807a3263f3dfb78bea59bb704686dea7" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FlowVRThread::getWater           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Reçoit les données d'eau du module d'inondation 
+<p>Définition à la ligne <a class="el" href="flowvr__thread_8cpp-source.html#l00070">70</a> du fichier <a class="el" href="flowvr__thread_8cpp-source.html">flowvr_thread.cpp</a>.</p>
+
+<p>Références <a class="el" href="flowvr__thread_8h-source.html#l00045">m_dtm</a>, <a class="el" href="flowvr__thread_8h-source.html#l00043">m_flowvr</a>, <a class="el" href="flowvr__thread_8h-source.html#l00046">m_water</a>, <a class="el" href="flood_2flowvr_8h-source.html#l00061">FlowVR::module()</a>, <a class="el" href="dtm_8h-source.html#l00111">DTM::ncols()</a>, <a class="el" href="dtm_8h-source.html#l00116">DTM::nrows()</a>, <a class="el" href="point3d_8h-source.html#l00134">Point3d::setZ()</a>, <a class="el" href="classFlowVRThread.html#b33b3d62d41769b0606ff213085c5c9b">updated()</a>, <a class="el" href="water_8h-source.html#l00078">Water::values()</a>, <a class="el" href="dtm_8h-source.html#l00121">DTM::vertices()</a>, <a class="el" href="water_8h-source.html#l00083">Water::vertices()</a>, <a class="el" href="viewer_2flowvr_8h-source.html#l00056">FlowVR::waterIn()</a>, et <a class="el" href="point3d_8h-source.html#l00120">Point3d::z()</a>.</p>
+
+<p>Référencé par <a class="el" href="flowvr__thread_8cpp-source.html#l00017">run()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="b33b3d62d41769b0606ff213085c5c9b"></a><!-- doxytag: member="FlowVRThread::updated" ref="b33b3d62d41769b0606ff213085c5c9b" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FlowVRThread::updated           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [signal]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Référencé par <a class="el" href="flowvr__thread_8cpp-source.html#l00070">getWater()</a>.</p>
+
+</div>
+</div><p>
+<hr><h2>Documentation des données membres</h2>
+<a class="anchor" name="d9690aa0d2e77fbe3d3ac639fff2cbbc"></a><!-- doxytag: member="FlowVRThread::m_flowvr" ref="d9690aa0d2e77fbe3d3ac639fff2cbbc" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classFlowVR.html">FlowVR</a> <a class="el" href="classFlowVRThread.html#d9690aa0d2e77fbe3d3ac639fff2cbbc">FlowVRThread::m_flowvr</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="flowvr__thread_8h-source.html#l00043">43</a> du fichier <a class="el" href="flowvr__thread_8h-source.html">flowvr_thread.h</a>.</p>
+
+<p>Référencé par <a class="el" href="flowvr__thread_8cpp-source.html#l00007">FlowVRThread()</a>, <a class="el" href="flowvr__thread_8cpp-source.html#l00070">getWater()</a>, <a class="el" href="flowvr__thread_8cpp-source.html#l00017">run()</a>, et <a class="el" href="flowvr__thread_8cpp-source.html#l00030">sendDTM()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="e440ffdba218437a462dede9d0a3a8bb"></a><!-- doxytag: member="FlowVRThread::m_dtm" ref="e440ffdba218437a462dede9d0a3a8bb" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classDTM.html">DTM</a>* <a class="el" href="classFlowVRThread.html#e440ffdba218437a462dede9d0a3a8bb">FlowVRThread::m_dtm</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="flowvr__thread_8h-source.html#l00045">45</a> du fichier <a class="el" href="flowvr__thread_8h-source.html">flowvr_thread.h</a>.</p>
+
+<p>Référencé par <a class="el" href="flowvr__thread_8cpp-source.html#l00070">getWater()</a>, et <a class="el" href="flowvr__thread_8cpp-source.html#l00030">sendDTM()</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="f51890869e2f7d418d66c8ecbc5da509"></a><!-- doxytag: member="FlowVRThread::m_water" ref="f51890869e2f7d418d66c8ecbc5da509" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classWater.html">Water</a>* <a class="el" href="classFlowVRThread.html#f51890869e2f7d418d66c8ecbc5da509">FlowVRThread::m_water</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Définition à la ligne <a class="el" href="flowvr__thread_8h-source.html#l00046">46</a> du fichier <a class="el" href="flowvr__thread_8h-source.html">flowvr_thread.h</a>.</p>
+
+<p>Référencé par <a class="el" href="flowvr__thread_8cpp-source.html#l00070">getWater()</a>.</p>
+
+</div>
+</div><p>
+<hr>La documentation de cette classe a été générée à partir des fichiers suivants :<ul>
+<li>src/viewer/<a class="el" href="flowvr__thread_8h-source.html">flowvr_thread.h</a><li>src/viewer/<a class="el" href="flowvr__thread_8cpp-source.html">flowvr_thread.cpp</a></ul>
+</div>
+<hr size="1"><address style="text-align: right;"><small>Généré le Tue Mar 31 20:47:25 2009 pour simulation par&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.6 </small></address>
+</body>
+</html>

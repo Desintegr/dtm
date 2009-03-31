@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>simulation:  Fichier source de src/viewer/dtm.h</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.5.6 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>Page&nbsp;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces de nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+<h1>src/viewer/dtm.h</h1><a href="dtm_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef DTM_H</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define DTM_H</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;QtCore&gt;</span>
+<a name="l00005"></a>00005 
+<a name="l00006"></a><a class="code" href="dtm_8h.html#7c94ea6f8948649f8d181ae55911eeaf">00006</a> <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="flood_8h.html#7c94ea6f8948649f8d181ae55911eeaf">size_t</a>;
+<a name="l00007"></a><a class="code" href="dtm_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">00007</a> <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a>;
+<a name="l00008"></a>00008 
+<a name="l00009"></a>00009 <span class="keyword">class </span><a class="code" href="classPoint3d.html">Point3d</a>;
+<a name="l00010"></a>00010 
+<a name="l00011"></a><a class="code" href="classDTM.html">00011</a> <span class="keyword">class </span><a class="code" href="classDTM.html">DTM</a>
+<a name="l00012"></a>00012 {
+<a name="l00013"></a>00013 <span class="keyword">public</span>:
+<a name="l00019"></a>00019   <a class="code" href="classDTM.html#7f59c9ac00f60d1114666a236fd66850">DTM</a>(<span class="keyword">const</span> QString &amp;filename);
+<a name="l00020"></a>00020 
+<a name="l00024"></a>00024   <span class="keyword">virtual</span> <a class="code" href="classDTM.html#c7a61f226e7586fb7b3a951228323460">~DTM</a>();
+<a name="l00025"></a>00025 
+<a name="l00029"></a>00029   <span class="keywordtype">size_t</span> <a class="code" href="classDTM.html#3b8ba8799b7f5398113cbcbcb8344fef">ncols</a>() <span class="keyword">const</span>;
+<a name="l00030"></a>00030 
+<a name="l00034"></a>00034   <span class="keywordtype">size_t</span> <a class="code" href="classDTM.html#7b8349bf3b5543644ff58c8f91ce7f1c">nrows</a>() <span class="keyword">const</span>;
+<a name="l00035"></a>00035 
+<a name="l00039"></a>00039   <span class="keywordtype">float</span> <a class="code" href="classDTM.html#6bc84c2821d0aaff2f463ff45cb4e968">minZ</a>() <span class="keyword">const</span>;
+<a name="l00040"></a>00040 
+<a name="l00044"></a>00044   <a class="code" href="classPoint3d.html">Point3d</a> * <a class="code" href="classDTM.html#48443b939297f454fbc96dedc7cd7a10">vertices</a>() <span class="keyword">const</span>;
+<a name="l00045"></a>00045 
+<a name="l00049"></a>00049   <span class="keywordtype">void</span> <a class="code" href="classDTM.html#5aded1ff6e5a1973ada422b15a3d799b">draw</a>() <span class="keyword">const</span>;
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051 <span class="keyword">private</span>:
+<a name="l00055"></a>00055   <span class="keywordtype">void</span> <a class="code" href="classDTM.html#575ad4f8efbd21d4a1dfa505849367b2">initVertices</a>(QTextStream &amp;in);
+<a name="l00056"></a>00056 
+<a name="l00060"></a>00060   <span class="keywordtype">void</span> <a class="code" href="classDTM.html#f101b4520b2d7fe817bfb405fb65777e">initIndices</a>();
+<a name="l00061"></a>00061 
+<a name="l00065"></a>00065   <span class="keywordtype">void</span> <a class="code" href="classDTM.html#d1b9e357ad3f71ab45fd66f7b9f52d41">initNormals</a>();
+<a name="l00066"></a>00066 
+<a name="l00070"></a>00070   <span class="keywordtype">void</span> <a class="code" href="classDTM.html#140d21fe65ba16dbfd58f1bcceb23d12">initTextures</a>();
+<a name="l00071"></a>00071 
+<a name="l00075"></a>00075   <span class="keywordtype">void</span> <a class="code" href="classDTM.html#82ff38990ef0cdc1ce477560c2423734">initVBO</a>();
+<a name="l00076"></a>00076 
+<a name="l00081"></a>00081   <span class="keywordtype">void</span> <a class="code" href="classDTM.html#9a1ece5e589ba93ba2e545067cfe6241">free</a>();
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083 <span class="keyword">private</span>:
+<a name="l00084"></a><a class="code" href="classDTM.html#d4fbc47064558e52d06558b8a39f3e5a">00084</a>   <span class="keywordtype">size_t</span> <a class="code" href="classDTM.html#d4fbc47064558e52d06558b8a39f3e5a">m_ncols</a>;
+<a name="l00085"></a><a class="code" href="classDTM.html#b6345a63e6c776e144a2abfe40242911">00085</a>   <span class="keywordtype">size_t</span> <a class="code" href="classDTM.html#b6345a63e6c776e144a2abfe40242911">m_nrows</a>;
+<a name="l00086"></a><a class="code" href="classDTM.html#c9d678f4113cbd93dfa50501bae2d3ff">00086</a>   <span class="keywordtype">size_t</span> <a class="code" href="classDTM.html#c9d678f4113cbd93dfa50501bae2d3ff">m_xllcorner</a>;
+<a name="l00087"></a><a class="code" href="classDTM.html#0e32ca20ef99e5c3af33a4106aa0a26b">00087</a>   <span class="keywordtype">size_t</span> <a class="code" href="classDTM.html#0e32ca20ef99e5c3af33a4106aa0a26b">m_yllcorner</a>;
+<a name="l00088"></a><a class="code" href="classDTM.html#8ce5ef5c0136b0d2e89ab82c73aa598e">00088</a>   <span class="keywordtype">size_t</span> <a class="code" href="classDTM.html#8ce5ef5c0136b0d2e89ab82c73aa598e">m_cellsize</a>;
+<a name="l00089"></a><a class="code" href="classDTM.html#34a2e979a67fa563638f6333dc1d1971">00089</a>   <span class="keywordtype">float</span> <a class="code" href="classDTM.html#34a2e979a67fa563638f6333dc1d1971">m_nodata</a>;
+<a name="l00090"></a>00090 
+<a name="l00091"></a><a class="code" href="classDTM.html#7cd249d6f45058e557cd4f431d838518">00091</a>   <span class="keywordtype">float</span> <a class="code" href="classDTM.html#7cd249d6f45058e557cd4f431d838518">m_minz</a>;
+<a name="l00092"></a>00092 
+<a name="l00093"></a><a class="code" href="classDTM.html#274e14aa26bee0d8827f162ba7e3d6e4">00093</a>   <span class="keywordtype">size_t</span> <a class="code" href="classDTM.html#274e14aa26bee0d8827f162ba7e3d6e4">m_nvertices</a>;
+<a name="l00094"></a><a class="code" href="classDTM.html#219705d48b91da8a18515f16bb17eabd">00094</a>   <span class="keywordtype">size_t</span> <a class="code" href="classDTM.html#219705d48b91da8a18515f16bb17eabd">m_nindices</a>;
+<a name="l00095"></a>00095 
+<a name="l00096"></a><a class="code" href="classDTM.html#035261a7a6a2567e54a1a027c7801414">00096</a>   <a class="code" href="classPoint3d.html">Point3d</a> *<a class="code" href="classDTM.html#035261a7a6a2567e54a1a027c7801414">m_vertices</a>;
+<a name="l00097"></a><a class="code" href="classDTM.html#0d06e81987799ce87bba7d3e3be23578">00097</a>   <a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a> *<a class="code" href="classDTM.html#0d06e81987799ce87bba7d3e3be23578">m_indices</a>;
+<a name="l00098"></a><a class="code" href="classDTM.html#f93ce1f040cac8695fe9add4e255b4a6">00098</a>   <a class="code" href="classPoint3d.html">Point3d</a> *<a class="code" href="classDTM.html#f93ce1f040cac8695fe9add4e255b4a6">m_normals</a>;
+<a name="l00099"></a><a class="code" href="classDTM.html#dd11a07b755f461c466481e47fa4d9a2">00099</a>   <span class="keywordtype">float</span> *<a class="code" href="classDTM.html#dd11a07b755f461c466481e47fa4d9a2">m_textures</a>;
+<a name="l00100"></a>00100 
+<a name="l00101"></a><a class="code" href="classDTM.html#16bab3b9a56bae5891172479f9a365b2">00101</a>   <span class="keyword">enum</span> <a class="code" href="classDTM.html#16bab3b9a56bae5891172479f9a365b2">Buffers</a>
+<a name="l00102"></a>00102   {
+<a name="l00103"></a><a class="code" href="classDTM.html#16bab3b9a56bae5891172479f9a365b2e3e31cda008b6b0045cb7605d547fe3c">00103</a>     <a class="code" href="classDTM.html#16bab3b9a56bae5891172479f9a365b2e3e31cda008b6b0045cb7605d547fe3c">VERTICES</a>,
+<a name="l00104"></a><a class="code" href="classDTM.html#16bab3b9a56bae5891172479f9a365b2e48fd46160025f8d719b0b2804a9550d">00104</a>     <a class="code" href="classDTM.html#16bab3b9a56bae5891172479f9a365b2e48fd46160025f8d719b0b2804a9550d">NORMALS</a>,
+<a name="l00105"></a><a class="code" href="classDTM.html#16bab3b9a56bae5891172479f9a365b234606be6c7b1c8fc1283a080d4d28033">00105</a>     <a class="code" href="classDTM.html#16bab3b9a56bae5891172479f9a365b234606be6c7b1c8fc1283a080d4d28033">INDICES</a>,
+<a name="l00106"></a><a class="code" href="classDTM.html#16bab3b9a56bae5891172479f9a365b24a482fe769781d29c0456d233f1f48b4">00106</a>     <a class="code" href="classDTM.html#16bab3b9a56bae5891172479f9a365b24a482fe769781d29c0456d233f1f48b4">TEXTURES</a>
+<a name="l00107"></a>00107   };
+<a name="l00108"></a><a class="code" href="classDTM.html#2aa8b4afbbdb4bc306031da8ba099c93">00108</a>   <a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a> <a class="code" href="classDTM.html#2aa8b4afbbdb4bc306031da8ba099c93">m_buffers</a>[4];
+<a name="l00109"></a>00109 };
+<a name="l00110"></a>00110 
+<a name="l00111"></a><a class="code" href="classDTM.html#3b8ba8799b7f5398113cbcbcb8344fef">00111</a> <span class="keyword">inline</span> <span class="keywordtype">size_t</span> <a class="code" href="classDTM.html#3b8ba8799b7f5398113cbcbcb8344fef">DTM::ncols</a>()<span class="keyword"> const</span>
+<a name="l00112"></a>00112 <span class="keyword"></span>{
+<a name="l00113"></a>00113   <span class="keywordflow">return</span> <a class="code" href="classDTM.html#d4fbc47064558e52d06558b8a39f3e5a">m_ncols</a>;
+<a name="l00114"></a>00114 }
+<a name="l00115"></a>00115 
+<a name="l00116"></a><a class="code" href="classDTM.html#7b8349bf3b5543644ff58c8f91ce7f1c">00116</a> <span class="keyword">inline</span> <span class="keywordtype">size_t</span> <a class="code" href="classDTM.html#7b8349bf3b5543644ff58c8f91ce7f1c">DTM::nrows</a>()<span class="keyword"> const</span>
+<a name="l00117"></a>00117 <span class="keyword"></span>{
+<a name="l00118"></a>00118   <span class="keywordflow">return</span> <a class="code" href="classDTM.html#b6345a63e6c776e144a2abfe40242911">m_nrows</a>;
+<a name="l00119"></a>00119 }
+<a name="l00120"></a>00120 
+<a name="l00121"></a><a class="code" href="classDTM.html#48443b939297f454fbc96dedc7cd7a10">00121</a> <span class="keyword">inline</span> <a class="code" href="classPoint3d.html">Point3d</a> * <a class="code" href="classDTM.html#48443b939297f454fbc96dedc7cd7a10">DTM::vertices</a>()<span class="keyword"> const</span>
+<a name="l00122"></a>00122 <span class="keyword"></span>{
+<a name="l00123"></a>00123   <span class="keywordflow">return</span> <a class="code" href="classDTM.html#035261a7a6a2567e54a1a027c7801414">m_vertices</a>;
+<a name="l00124"></a>00124 }
+<a name="l00125"></a>00125 
+<a name="l00126"></a><a class="code" href="classDTM.html#6bc84c2821d0aaff2f463ff45cb4e968">00126</a> <span class="keyword">inline</span> <span class="keywordtype">float</span> <a class="code" href="classDTM.html#6bc84c2821d0aaff2f463ff45cb4e968">DTM::minZ</a>()<span class="keyword"> const</span>
+<a name="l00127"></a>00127 <span class="keyword"></span>{
+<a name="l00128"></a>00128   <span class="keywordflow">return</span> <a class="code" href="classDTM.html#7cd249d6f45058e557cd4f431d838518">m_minz</a>;
+<a name="l00129"></a>00129 }
+<a name="l00130"></a>00130 
+<a name="l00131"></a>00131 <span class="preprocessor">#endif</span>
+</pre></div></div>
+<hr size="1"><address style="text-align: right;"><small>Généré le Tue Mar 31 20:47:22 2009 pour simulation par&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.6 </small></address>
+</body>
+</html>

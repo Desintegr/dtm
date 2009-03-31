@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>simulation:  Fichier source de src/viewer/dtm.cpp</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.5.6 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>Page&nbsp;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces de nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+<h1>src/viewer/dtm.cpp</h1><a href="dtm_8cpp.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include "<a class="code" href="dtm_8h.html">dtm.h</a>"</span>
+<a name="l00002"></a>00002 
+<a name="l00003"></a>00003 <span class="preprocessor">#include "<a class="code" href="point3d_8h.html">point3d.h</a>"</span>
+<a name="l00004"></a>00004 
+<a name="l00005"></a><a class="code" href="dtm_8cpp.html#120fb070bddb21f0bd899f50252c4cb5">00005</a> <span class="preprocessor">#define GL_GLEXT_PROTOTYPES</span>
+<a name="l00006"></a>00006 <span class="preprocessor"></span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include &lt;QtOpenGL&gt;</span>
+<a name="l00008"></a>00008 
+<a name="l00009"></a>00009 <span class="preprocessor">#include &lt;iostream&gt;</span>
+<a name="l00010"></a>00010 
+<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;cfloat&gt;</span>
+<a name="l00012"></a>00012 
+<a name="l00013"></a><a class="code" href="classDTM.html#7f59c9ac00f60d1114666a236fd66850">00013</a> <a class="code" href="classDTM.html#7f59c9ac00f60d1114666a236fd66850">DTM::DTM</a>(<span class="keyword">const</span> QString &amp;filename)
+<a name="l00014"></a>00014 {
+<a name="l00015"></a>00015   QFile file(filename + <span class="stringliteral">".grd"</span>);
+<a name="l00016"></a>00016 
+<a name="l00017"></a>00017   <span class="keywordflow">if</span> (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+<a name="l00018"></a>00018     std::cerr &lt;&lt; <span class="stringliteral">"Error: unable to read grid file"</span> &lt;&lt; std::endl;
+<a name="l00019"></a>00019     exit(EXIT_FAILURE);
+<a name="l00020"></a>00020   }
+<a name="l00021"></a>00021 
+<a name="l00022"></a>00022   <span class="comment">// lecture des informations sur le terrain</span>
+<a name="l00023"></a>00023   QTextStream in(&amp;file);
+<a name="l00024"></a>00024 
+<a name="l00025"></a>00025   QString null;
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027   in &gt;&gt; null;
+<a name="l00028"></a>00028   in &gt;&gt; <a class="code" href="classDTM.html#d4fbc47064558e52d06558b8a39f3e5a">m_ncols</a>;
+<a name="l00029"></a>00029   in &gt;&gt; null;
+<a name="l00030"></a>00030   in &gt;&gt; <a class="code" href="classDTM.html#b6345a63e6c776e144a2abfe40242911">m_nrows</a>;
+<a name="l00031"></a>00031   in &gt;&gt; null;
+<a name="l00032"></a>00032   in &gt;&gt; <a class="code" href="classDTM.html#c9d678f4113cbd93dfa50501bae2d3ff">m_xllcorner</a>;
+<a name="l00033"></a>00033   in &gt;&gt; null;
+<a name="l00034"></a>00034   in &gt;&gt; <a class="code" href="classDTM.html#0e32ca20ef99e5c3af33a4106aa0a26b">m_yllcorner</a>;
+<a name="l00035"></a>00035   in &gt;&gt; null;
+<a name="l00036"></a>00036   in &gt;&gt; <a class="code" href="classDTM.html#8ce5ef5c0136b0d2e89ab82c73aa598e">m_cellsize</a>;
+<a name="l00037"></a>00037   in &gt;&gt; null;
+<a name="l00038"></a>00038   in &gt;&gt; <a class="code" href="classDTM.html#34a2e979a67fa563638f6333dc1d1971">m_nodata</a>;
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040   <a class="code" href="classDTM.html#575ad4f8efbd21d4a1dfa505849367b2">initVertices</a>(in);
+<a name="l00041"></a>00041   <a class="code" href="classDTM.html#f101b4520b2d7fe817bfb405fb65777e">initIndices</a>();
+<a name="l00042"></a>00042   <a class="code" href="classDTM.html#d1b9e357ad3f71ab45fd66f7b9f52d41">initNormals</a>();
+<a name="l00043"></a>00043   <a class="code" href="classDTM.html#140d21fe65ba16dbfd58f1bcceb23d12">initTextures</a>();
+<a name="l00044"></a>00044   <a class="code" href="classDTM.html#82ff38990ef0cdc1ce477560c2423734">initVBO</a>();
+<a name="l00045"></a>00045   <a class="code" href="classDTM.html#9a1ece5e589ba93ba2e545067cfe6241">free</a>();
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047   file.close();
+<a name="l00048"></a>00048 }
+<a name="l00049"></a>00049 
+<a name="l00050"></a><a class="code" href="classDTM.html#c7a61f226e7586fb7b3a951228323460">00050</a> <a class="code" href="classDTM.html#c7a61f226e7586fb7b3a951228323460">DTM::~DTM</a>()
+<a name="l00051"></a>00051 {
+<a name="l00052"></a>00052   <span class="keyword">delete</span>[] <a class="code" href="classDTM.html#035261a7a6a2567e54a1a027c7801414">m_vertices</a>;
+<a name="l00053"></a>00053 }
+<a name="l00054"></a>00054 
+<a name="l00055"></a><a class="code" href="classDTM.html#5aded1ff6e5a1973ada422b15a3d799b">00055</a> <span class="keywordtype">void</span> <a class="code" href="classDTM.html#5aded1ff6e5a1973ada422b15a3d799b">DTM::draw</a>()<span class="keyword"> const</span>
+<a name="l00056"></a>00056 <span class="keyword"></span>{
+<a name="l00057"></a>00057   glEnable(GL_LIGHTING);
+<a name="l00058"></a>00058   glEnable(GL_LIGHT0);
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060   glBindBuffer(GL_ARRAY_BUFFER, <a class="code" href="classDTM.html#2aa8b4afbbdb4bc306031da8ba099c93">m_buffers</a>[<a class="code" href="classDTM.html#16bab3b9a56bae5891172479f9a365b2e48fd46160025f8d719b0b2804a9550d">NORMALS</a>]);
+<a name="l00061"></a>00061   glNormalPointer(GL_FLOAT, 0, 0);
+<a name="l00062"></a>00062   glEnableClientState(GL_NORMAL_ARRAY);
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064   glBindBuffer(GL_ARRAY_BUFFER, <a class="code" href="classDTM.html#2aa8b4afbbdb4bc306031da8ba099c93">m_buffers</a>[<a class="code" href="classDTM.html#16bab3b9a56bae5891172479f9a365b24a482fe769781d29c0456d233f1f48b4">TEXTURES</a>]);
+<a name="l00065"></a>00065   glTexCoordPointer(2, GL_FLOAT, 0, 0);
+<a name="l00066"></a>00066   glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068   glBindBuffer(GL_ARRAY_BUFFER, <a class="code" href="classDTM.html#2aa8b4afbbdb4bc306031da8ba099c93">m_buffers</a>[<a class="code" href="classDTM.html#16bab3b9a56bae5891172479f9a365b2e3e31cda008b6b0045cb7605d547fe3c">VERTICES</a>]);
+<a name="l00069"></a>00069   glVertexPointer(3, GL_FLOAT, 0, 0);
+<a name="l00070"></a>00070   glEnableClientState(GL_VERTEX_ARRAY);
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, <a class="code" href="classDTM.html#2aa8b4afbbdb4bc306031da8ba099c93">m_buffers</a>[<a class="code" href="classDTM.html#16bab3b9a56bae5891172479f9a365b234606be6c7b1c8fc1283a080d4d28033">INDICES</a>]);
+<a name="l00073"></a>00073 
+<a name="l00074"></a>00074   glDrawElements(GL_TRIANGLES, <a class="code" href="classDTM.html#219705d48b91da8a18515f16bb17eabd">m_nindices</a>, GL_UNSIGNED_INT, 0);
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076   glDisableClientState(GL_VERTEX_ARRAY);
+<a name="l00077"></a>00077   glDisableClientState(GL_NORMAL_ARRAY);
+<a name="l00078"></a>00078   glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080   glBindBuffer(GL_ARRAY_BUFFER, 0);
+<a name="l00081"></a>00081   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083   glDisable(GL_LIGHTING);
+<a name="l00084"></a>00084   glDisable(GL_LIGHT0);
+<a name="l00085"></a>00085 }
+<a name="l00086"></a>00086 
+<a name="l00087"></a><a class="code" href="classDTM.html#575ad4f8efbd21d4a1dfa505849367b2">00087</a> <span class="keywordtype">void</span> <a class="code" href="classDTM.html#575ad4f8efbd21d4a1dfa505849367b2">DTM::initVertices</a>(QTextStream&amp; in)
+<a name="l00088"></a>00088 {
+<a name="l00089"></a>00089   <a class="code" href="classDTM.html#7cd249d6f45058e557cd4f431d838518">m_minz</a> = FLT_MAX;
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091   <a class="code" href="classDTM.html#274e14aa26bee0d8827f162ba7e3d6e4">m_nvertices</a> = <a class="code" href="classDTM.html#b6345a63e6c776e144a2abfe40242911">m_nrows</a> * <a class="code" href="classDTM.html#d4fbc47064558e52d06558b8a39f3e5a">m_ncols</a>;
+<a name="l00092"></a>00092   <a class="code" href="classDTM.html#035261a7a6a2567e54a1a027c7801414">m_vertices</a> = <span class="keyword">new</span> <a class="code" href="classPoint3d.html">Point3d</a>[<a class="code" href="classDTM.html#274e14aa26bee0d8827f162ba7e3d6e4">m_nvertices</a>];
+<a name="l00093"></a>00093 
+<a name="l00094"></a>00094   <span class="comment">// lecture des données du terrain</span>
+<a name="l00095"></a>00095   <span class="keywordflow">for</span>(<a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a> i = 0; i &lt; <a class="code" href="classDTM.html#b6345a63e6c776e144a2abfe40242911">m_nrows</a>; ++i)
+<a name="l00096"></a>00096     <span class="keywordflow">for</span>(<a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a> j = 0; j &lt; m_ncols; ++j) {
+<a name="l00097"></a>00097       <span class="keyword">const</span> <a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a> k = i * m_ncols + j;
+<a name="l00098"></a>00098 
+<a name="l00099"></a>00099       <a class="code" href="classDTM.html#035261a7a6a2567e54a1a027c7801414">m_vertices</a>[k].<a class="code" href="classPoint3d.html#8453503876d58d1b4010b8697642788e">setX</a>(i);
+<a name="l00100"></a>00100       <a class="code" href="classDTM.html#035261a7a6a2567e54a1a027c7801414">m_vertices</a>[k].<a class="code" href="classPoint3d.html#46a761d165b2e430e3b28e49c6c53c49">setY</a>(j);
+<a name="l00101"></a>00101       <span class="keywordtype">float</span> z;
+<a name="l00102"></a>00102       in &gt;&gt; z;
+<a name="l00103"></a>00103       <a class="code" href="classDTM.html#035261a7a6a2567e54a1a027c7801414">m_vertices</a>[k].<a class="code" href="classPoint3d.html#14b0a45e9480ffc52bb77eaeb89b83dd">setZ</a>(z);
+<a name="l00104"></a>00104 
+<a name="l00105"></a>00105       <span class="comment">// calcul du z minimum</span>
+<a name="l00106"></a>00106       <span class="keywordflow">if</span>(z != <a class="code" href="classDTM.html#34a2e979a67fa563638f6333dc1d1971">m_nodata</a> &amp;&amp; z &lt; <a class="code" href="classDTM.html#7cd249d6f45058e557cd4f431d838518">m_minz</a>)
+<a name="l00107"></a>00107         <a class="code" href="classDTM.html#7cd249d6f45058e557cd4f431d838518">m_minz</a> = z;
+<a name="l00108"></a>00108     }
+<a name="l00109"></a>00109 
+<a name="l00110"></a>00110   <span class="comment">// remplacement des nodata par le z minimum</span>
+<a name="l00111"></a>00111   <span class="keywordflow">for</span>(<a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a> i = 0; i &lt; m_nrows; ++i)
+<a name="l00112"></a>00112     <span class="keywordflow">for</span>(<a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a> j = 0; j &lt; m_ncols; ++j) {
+<a name="l00113"></a>00113       <span class="keyword">const</span> <a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a> k = i * m_ncols + j;
+<a name="l00114"></a>00114       <span class="keywordflow">if</span>(<a class="code" href="classDTM.html#035261a7a6a2567e54a1a027c7801414">m_vertices</a>[k].z() == <a class="code" href="classDTM.html#34a2e979a67fa563638f6333dc1d1971">m_nodata</a>)
+<a name="l00115"></a>00115         <a class="code" href="classDTM.html#035261a7a6a2567e54a1a027c7801414">m_vertices</a>[k].<a class="code" href="classPoint3d.html#14b0a45e9480ffc52bb77eaeb89b83dd">setZ</a>(<a class="code" href="classDTM.html#7cd249d6f45058e557cd4f431d838518">m_minz</a>);
+<a name="l00116"></a>00116     }
+<a name="l00117"></a>00117 }
+<a name="l00118"></a>00118 
+<a name="l00119"></a><a class="code" href="classDTM.html#f101b4520b2d7fe817bfb405fb65777e">00119</a> <span class="keywordtype">void</span> <a class="code" href="classDTM.html#f101b4520b2d7fe817bfb405fb65777e">DTM::initIndices</a>()
+<a name="l00120"></a>00120 {
+<a name="l00121"></a>00121   <a class="code" href="classDTM.html#219705d48b91da8a18515f16bb17eabd">m_nindices</a> = 3 * 2 * (<a class="code" href="classDTM.html#b6345a63e6c776e144a2abfe40242911">m_nrows</a> - 1) * (<a class="code" href="classDTM.html#d4fbc47064558e52d06558b8a39f3e5a">m_ncols</a> - 1);
+<a name="l00122"></a>00122   <a class="code" href="classDTM.html#0d06e81987799ce87bba7d3e3be23578">m_indices</a> = <span class="keyword">new</span> <a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a>[<a class="code" href="classDTM.html#219705d48b91da8a18515f16bb17eabd">m_nindices</a>];
+<a name="l00123"></a>00123 
+<a name="l00124"></a>00124   <span class="keywordflow">for</span>(<a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a> i = 0; i &lt; <a class="code" href="classDTM.html#b6345a63e6c776e144a2abfe40242911">m_nrows</a> - 1; ++i)
+<a name="l00125"></a>00125     <span class="keywordflow">for</span>(<a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a> j = 0; j &lt; <a class="code" href="classDTM.html#d4fbc47064558e52d06558b8a39f3e5a">m_ncols</a> - 1; ++j) {
+<a name="l00126"></a>00126       <span class="keyword">const</span> <a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a> k = 3 * 2 * (i * (m_ncols - 1) + j);
+<a name="l00127"></a>00127 
+<a name="l00128"></a>00128       <span class="comment">// triangle 1</span>
+<a name="l00129"></a>00129       <a class="code" href="classDTM.html#0d06e81987799ce87bba7d3e3be23578">m_indices</a>[k] = i * m_ncols + j;
+<a name="l00130"></a>00130       <a class="code" href="classDTM.html#0d06e81987799ce87bba7d3e3be23578">m_indices</a>[k + 1] = (i + 1) * m_ncols + j;
+<a name="l00131"></a>00131       <a class="code" href="classDTM.html#0d06e81987799ce87bba7d3e3be23578">m_indices</a>[k + 2] = i * m_ncols + j + 1;
+<a name="l00132"></a>00132 
+<a name="l00133"></a>00133       <span class="comment">// triangle 2</span>
+<a name="l00134"></a>00134       <a class="code" href="classDTM.html#0d06e81987799ce87bba7d3e3be23578">m_indices</a>[k + 3] = (i + 1 ) * m_ncols + j + 1;
+<a name="l00135"></a>00135       <a class="code" href="classDTM.html#0d06e81987799ce87bba7d3e3be23578">m_indices</a>[k + 4] = (i + 1) * m_ncols + j;
+<a name="l00136"></a>00136       <a class="code" href="classDTM.html#0d06e81987799ce87bba7d3e3be23578">m_indices</a>[k + 5] = i * m_ncols + j + 1;
+<a name="l00137"></a>00137     }
+<a name="l00138"></a>00138 }
+<a name="l00139"></a>00139 
+<a name="l00140"></a><a class="code" href="classDTM.html#d1b9e357ad3f71ab45fd66f7b9f52d41">00140</a> <span class="keywordtype">void</span> <a class="code" href="classDTM.html#d1b9e357ad3f71ab45fd66f7b9f52d41">DTM::initNormals</a>()
+<a name="l00141"></a>00141 {
+<a name="l00142"></a>00142   <a class="code" href="classDTM.html#f93ce1f040cac8695fe9add4e255b4a6">m_normals</a> = <span class="keyword">new</span> <a class="code" href="classPoint3d.html">Point3d</a>[<a class="code" href="classDTM.html#274e14aa26bee0d8827f162ba7e3d6e4">m_nvertices</a>];
+<a name="l00143"></a>00143 
+<a name="l00144"></a>00144   <span class="keywordflow">for</span>(<a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a> i = 0; i &lt; <a class="code" href="classDTM.html#b6345a63e6c776e144a2abfe40242911">m_nrows</a> - 1; ++i)
+<a name="l00145"></a>00145     <span class="keywordflow">for</span>(<a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a> j = 0; j &lt; <a class="code" href="classDTM.html#d4fbc47064558e52d06558b8a39f3e5a">m_ncols</a> - 1; ++j) {
+<a name="l00146"></a>00146       <span class="keyword">const</span> <a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a> k = 3 * 2 * (i * (m_ncols - 1) + j);
+<a name="l00147"></a>00147 
+<a name="l00148"></a>00148       <a class="code" href="classPoint3d.html">Point3d</a> p1;
+<a name="l00149"></a>00149       <a class="code" href="classPoint3d.html">Point3d</a> p2;
+<a name="l00150"></a>00150       <a class="code" href="classPoint3d.html">Point3d</a> p3;
+<a name="l00151"></a>00151 
+<a name="l00152"></a>00152       <span class="comment">// triangle 1</span>
+<a name="l00153"></a>00153       p1 = <a class="code" href="classDTM.html#035261a7a6a2567e54a1a027c7801414">m_vertices</a>[(i + 1) * m_ncols + j] - <a class="code" href="classDTM.html#035261a7a6a2567e54a1a027c7801414">m_vertices</a>[i * m_ncols + j];
+<a name="l00154"></a>00154       p2 = <a class="code" href="classDTM.html#035261a7a6a2567e54a1a027c7801414">m_vertices</a>[i * m_ncols + j + 1] - <a class="code" href="classDTM.html#035261a7a6a2567e54a1a027c7801414">m_vertices</a>[i * m_ncols + j];
+<a name="l00155"></a>00155       p3 = p1.<a class="code" href="classPoint3d.html#77901e48befcbe7117833eb40699a681">cross</a>(p2);
+<a name="l00156"></a>00156 
+<a name="l00157"></a>00157       <a class="code" href="classDTM.html#f93ce1f040cac8695fe9add4e255b4a6">m_normals</a>[<a class="code" href="classDTM.html#0d06e81987799ce87bba7d3e3be23578">m_indices</a>[k]] += p3;
+<a name="l00158"></a>00158       <a class="code" href="classDTM.html#f93ce1f040cac8695fe9add4e255b4a6">m_normals</a>[m_indices[k + 1]] += p3;
+<a name="l00159"></a>00159       <a class="code" href="classDTM.html#f93ce1f040cac8695fe9add4e255b4a6">m_normals</a>[m_indices[k + 2]] += p3;
+<a name="l00160"></a>00160 
+<a name="l00161"></a>00161       <span class="comment">// triangle 2</span>
+<a name="l00162"></a>00162       p1 = m_vertices[i * m_ncols + j + 1] - m_vertices[(i + 1) * m_ncols + j + 1];
+<a name="l00163"></a>00163       p2 = m_vertices[(i + 1) * m_ncols + j] - m_vertices[(i + 1) * m_ncols + j + 1];
+<a name="l00164"></a>00164       p3 = p1.<a class="code" href="classPoint3d.html#77901e48befcbe7117833eb40699a681">cross</a>(p2);
+<a name="l00165"></a>00165 
+<a name="l00166"></a>00166       <a class="code" href="classDTM.html#f93ce1f040cac8695fe9add4e255b4a6">m_normals</a>[m_indices[k + 3]] += p3;
+<a name="l00167"></a>00167       <a class="code" href="classDTM.html#f93ce1f040cac8695fe9add4e255b4a6">m_normals</a>[m_indices[k + 4]] += p3;
+<a name="l00168"></a>00168       <a class="code" href="classDTM.html#f93ce1f040cac8695fe9add4e255b4a6">m_normals</a>[m_indices[k + 5]] += p3;
+<a name="l00169"></a>00169     }
+<a name="l00170"></a>00170 
+<a name="l00171"></a>00171   <span class="keywordflow">for</span>(<a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a> i = 0; i &lt; <a class="code" href="classDTM.html#274e14aa26bee0d8827f162ba7e3d6e4">m_nvertices</a>; ++i)
+<a name="l00172"></a>00172     <a class="code" href="classDTM.html#f93ce1f040cac8695fe9add4e255b4a6">m_normals</a>[i].normalize();
+<a name="l00173"></a>00173 }
+<a name="l00174"></a>00174 
+<a name="l00175"></a><a class="code" href="classDTM.html#140d21fe65ba16dbfd58f1bcceb23d12">00175</a> <span class="keywordtype">void</span> <a class="code" href="classDTM.html#140d21fe65ba16dbfd58f1bcceb23d12">DTM::initTextures</a>()
+<a name="l00176"></a>00176 {
+<a name="l00177"></a>00177   <a class="code" href="classDTM.html#dd11a07b755f461c466481e47fa4d9a2">m_textures</a> = <span class="keyword">new</span> <span class="keywordtype">float</span>[2 * <a class="code" href="classDTM.html#274e14aa26bee0d8827f162ba7e3d6e4">m_nvertices</a>];
+<a name="l00178"></a>00178 
+<a name="l00179"></a>00179   <span class="keywordflow">for</span>(<a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a> i = 0; i &lt; <a class="code" href="classDTM.html#b6345a63e6c776e144a2abfe40242911">m_nrows</a>; ++i)
+<a name="l00180"></a>00180     <span class="keywordflow">for</span>(<a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a> j = 0; j &lt; <a class="code" href="classDTM.html#d4fbc47064558e52d06558b8a39f3e5a">m_ncols</a>; ++j) {
+<a name="l00181"></a>00181       <span class="keyword">const</span> <a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a> k = 2 * (i * m_ncols + j);
+<a name="l00182"></a>00182 
+<a name="l00183"></a>00183       <span class="comment">// coordonnée x de la texture</span>
+<a name="l00184"></a>00184       <a class="code" href="classDTM.html#dd11a07b755f461c466481e47fa4d9a2">m_textures</a>[k] = <a class="code" href="classDTM.html#035261a7a6a2567e54a1a027c7801414">m_vertices</a>[(i * m_ncols + j)].y() / (m_ncols - 1);
+<a name="l00185"></a>00185 
+<a name="l00186"></a>00186       <span class="comment">// coordonnée y de la texture</span>
+<a name="l00187"></a>00187       <a class="code" href="classDTM.html#dd11a07b755f461c466481e47fa4d9a2">m_textures</a>[k + 1] = <a class="code" href="classDTM.html#035261a7a6a2567e54a1a027c7801414">m_vertices</a>[(m_nrows * m_ncols) - (i * m_ncols + j)].<a class="code" href="classPoint3d.html#90f5640292820c57d4643d798af6e4b5">x</a>() / (m_nrows - 1);
+<a name="l00188"></a>00188     }
+<a name="l00189"></a>00189 }
+<a name="l00190"></a>00190 
+<a name="l00191"></a><a class="code" href="classDTM.html#82ff38990ef0cdc1ce477560c2423734">00191</a> <span class="keywordtype">void</span> <a class="code" href="classDTM.html#82ff38990ef0cdc1ce477560c2423734">DTM::initVBO</a>()
+<a name="l00192"></a>00192 {
+<a name="l00193"></a>00193   glGenBuffers(4, <a class="code" href="classDTM.html#2aa8b4afbbdb4bc306031da8ba099c93">m_buffers</a>);
+<a name="l00194"></a>00194 
+<a name="l00195"></a>00195   glBindBuffer(GL_ARRAY_BUFFER, <a class="code" href="classDTM.html#2aa8b4afbbdb4bc306031da8ba099c93">m_buffers</a>[<a class="code" href="classDTM.html#16bab3b9a56bae5891172479f9a365b2e3e31cda008b6b0045cb7605d547fe3c">VERTICES</a>]);
+<a name="l00196"></a>00196   glBufferData(GL_ARRAY_BUFFER, <a class="code" href="classDTM.html#274e14aa26bee0d8827f162ba7e3d6e4">m_nvertices</a> * <span class="keyword">sizeof</span>(<a class="code" href="classPoint3d.html">Point3d</a>), <a class="code" href="classDTM.html#035261a7a6a2567e54a1a027c7801414">m_vertices</a>, GL_STATIC_DRAW);
+<a name="l00197"></a>00197 
+<a name="l00198"></a>00198   glBindBuffer(GL_ARRAY_BUFFER, <a class="code" href="classDTM.html#2aa8b4afbbdb4bc306031da8ba099c93">m_buffers</a>[<a class="code" href="classDTM.html#16bab3b9a56bae5891172479f9a365b2e48fd46160025f8d719b0b2804a9550d">NORMALS</a>]);
+<a name="l00199"></a>00199   glBufferData(GL_ARRAY_BUFFER, <a class="code" href="classDTM.html#274e14aa26bee0d8827f162ba7e3d6e4">m_nvertices</a> * <span class="keyword">sizeof</span>(<a class="code" href="classPoint3d.html">Point3d</a>), <a class="code" href="classDTM.html#f93ce1f040cac8695fe9add4e255b4a6">m_normals</a>, GL_STATIC_DRAW);
+<a name="l00200"></a>00200 
+<a name="l00201"></a>00201   glBindBuffer(GL_ARRAY_BUFFER, <a class="code" href="classDTM.html#2aa8b4afbbdb4bc306031da8ba099c93">m_buffers</a>[<a class="code" href="classDTM.html#16bab3b9a56bae5891172479f9a365b24a482fe769781d29c0456d233f1f48b4">TEXTURES</a>]);
+<a name="l00202"></a>00202   glBufferData(GL_ARRAY_BUFFER, 2 * <a class="code" href="classDTM.html#274e14aa26bee0d8827f162ba7e3d6e4">m_nvertices</a> * <span class="keyword">sizeof</span>(<span class="keywordtype">float</span>), <a class="code" href="classDTM.html#dd11a07b755f461c466481e47fa4d9a2">m_textures</a>, GL_STATIC_DRAW);
+<a name="l00203"></a>00203 
+<a name="l00204"></a>00204   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, <a class="code" href="classDTM.html#2aa8b4afbbdb4bc306031da8ba099c93">m_buffers</a>[<a class="code" href="classDTM.html#16bab3b9a56bae5891172479f9a365b234606be6c7b1c8fc1283a080d4d28033">INDICES</a>]);
+<a name="l00205"></a>00205   glBufferData(GL_ELEMENT_ARRAY_BUFFER, <a class="code" href="classDTM.html#219705d48b91da8a18515f16bb17eabd">m_nindices</a> * <span class="keyword">sizeof</span>(<a class="code" href="flood_8h.html#6e99cb5242f54b9a5fefd46d2a8e77f8">index_t</a>), <a class="code" href="classDTM.html#0d06e81987799ce87bba7d3e3be23578">m_indices</a>, GL_STATIC_DRAW);
+<a name="l00206"></a>00206 }
+<a name="l00207"></a>00207 
+<a name="l00208"></a><a class="code" href="classDTM.html#9a1ece5e589ba93ba2e545067cfe6241">00208</a> <span class="keywordtype">void</span> <a class="code" href="classDTM.html#9a1ece5e589ba93ba2e545067cfe6241">DTM::free</a>()
+<a name="l00209"></a>00209 {
+<a name="l00210"></a>00210   <span class="keyword">delete</span>[] <a class="code" href="classDTM.html#f93ce1f040cac8695fe9add4e255b4a6">m_normals</a>;
+<a name="l00211"></a>00211   <span class="keyword">delete</span>[] <a class="code" href="classDTM.html#0d06e81987799ce87bba7d3e3be23578">m_indices</a>;
+<a name="l00212"></a>00212   <span class="keyword">delete</span>[] <a class="code" href="classDTM.html#dd11a07b755f461c466481e47fa4d9a2">m_textures</a>;
+<a name="l00213"></a>00213 }
+</pre></div></div>
+<hr size="1"><address style="text-align: right;"><small>Généré le Tue Mar 31 20:47:22 2009 pour simulation par&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.6 </small></address>
+</body>
+</html>
