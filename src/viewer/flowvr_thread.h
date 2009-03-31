@@ -21,11 +21,6 @@ public:
    */
   FlowVRThread(const DTM *dtm, const Water *water);
 
-  /**
-   * Destrcuteur du module threadé FlowVR
-   */
-  virtual ~FlowVRThread();
-
 protected:
   /**
    * Lance le thread

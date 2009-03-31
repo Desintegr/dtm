@@ -14,10 +14,6 @@ FlowVRThread::FlowVRThread(const DTM *dtm, const Water *water):
   }
 }
 
-FlowVRThread::~FlowVRThread()
-{
-}
-
 void FlowVRThread::run()
 {
   // envoie d'abord les données du terrain au module d'inondation
